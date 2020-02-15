@@ -1,11 +1,16 @@
 import React from 'react';
+import {Button} from 'react-native-elements';
 import { StyleSheet, Text, View } from 'react-native';
+import Signup from './src/components/Signup/Signup';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    // <View style={styles.container}>
+    //   <Text>TeamSpot</Text>
+    //   <Button title = "LOGIN"/>
+    //   <Button title = "SIGN UP"/>
+    // </View>
+    <Signup />
   );
 }
 
