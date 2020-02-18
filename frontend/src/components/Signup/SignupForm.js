@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 
 export default class Signup extends Component{
+    login() {
+        Actions.login()
+    }
+
+
     render(){
         return(
             // <View style = {styles.container}>
@@ -21,7 +27,7 @@ export default class Signup extends Component{
                     placeholder = "Confirm Password"
                     returnKeyType = 'go'/>
                 
-                <TouchableOpacity style = {styles.buttonCountainer}>
+                <TouchableOpacity style = {styles.buttonCountainer} onPress = {this.login}>
                     <Text style = {styles.buttonText}>
                         SIGN UP
                     </Text>
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 35,
-        backgroundColor: 'rgba(255,255,255,0.9)',
+        backgroundColor: 'rgba(255,255,255,1)',
         color: '#000000',
         margin: 10,
         marginBottom: 1,

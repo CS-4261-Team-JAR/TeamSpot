@@ -24,13 +24,17 @@ export default class Signup extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3399FF'
+        backgroundColor: '#3399FF',
+        justifyContent: 'center'
         
     },
-    logoContainer: {
-        alignItems: 'center',
-        flexGrow: 1,
+    formContainer: {
         justifyContent: 'center'
+    },
+    logoContainer: {
+        alignItems: 'center'
+        // flexGrow: 1,
+        // justifyContent: 'center'
     },
     logo: {
         width: 100,

@@ -2,6 +2,10 @@ import React from 'react';
 import {Button} from 'react-native-elements';
 import { StyleSheet, Text, View } from 'react-native';
 import Signup from './src/components/Signup/Signup';
+import Login from './src/components/Login/Login';
+import ProfileEdit from './src/components/ProfileEdit/ProfileEdit';
+
+import Routes from './src/Routes';
 
 export default function App() {
   return (
@@ -10,7 +14,10 @@ export default function App() {
     //   <Button title = "LOGIN"/>
     //   <Button title = "SIGN UP"/>
     // </View>
-    <Signup />
+    // <Signup />
+    // <Login />
+    // <Routes />
+    <ProfileEdit/>
   );
 }
 
@@ -20,5 +27,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+
   },
 });
