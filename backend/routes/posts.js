@@ -15,7 +15,12 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 	const post = new Post({
 		title: req.body.title,
-		description: req.body.description
+    description: req.body.description,
+    tags: req.body.tags,
+    status : {
+      remaining: req.body.status.remaining,
+      total: req.body.status.total
+    } 
 	});
 
 	try {
@@ -24,15 +29,6 @@ router.post('/', async (req, res) => {
 	} catch (err) {
 		res.json({ message: err });
 	}
-
-
-
-	// .then(data => {
-	// 	res.json(data);
-	// })
-	// .catch(err => {
-	// 	res.json({ message: err});
-	// });
 });
 
 module.exports = router;
