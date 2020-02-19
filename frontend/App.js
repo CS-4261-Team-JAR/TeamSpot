@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Signup from './src/components/Signup/Signup';
 import Login from './src/components/Login/Login';
 import ProfileEdit from './src/components/ProfileEdit/ProfileEdit';
+import PostList from './src/components/PostList/PostList';
 
 import Routes from './src/Routes';
 
@@ -17,7 +18,8 @@ export default function App() {
     // <Signup />
     // <Login />
     // <Routes />
-    <ProfileEdit/>
+    // <ProfileEdit/>
+    <PostList/>
   );
 }
 
