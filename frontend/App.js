@@ -6,6 +6,7 @@ import Login from './src/components/Login/Login';
 import ProfileEdit from './src/components/ProfileEdit/ProfileEdit';
 
 import Routes from './src/Routes';
+import ProfileView from './src/components/ProfileView/ProfileView';
 
 export default function App() {
   return (
@@ -16,8 +17,9 @@ export default function App() {
     // </View>
     // <Signup />
     // <Login />
-    // <Routes />
-    <ProfileEdit/>
+    <Routes />
+    // <ProfileEdit/>
+    // <ProfileView/>
   );
 }
 

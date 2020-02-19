@@ -23,7 +23,7 @@ export default class ProfileEdit extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3399FF',
+        backgroundColor: '#93c8e7',
         justifyContent: 'center'
         
     },

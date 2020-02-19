@@ -11,9 +11,9 @@ import {Actions} from 'react-native-router-flux';
 // }
 
 export default class ProfileEditForm extends Component{
-    // signup() {
-    //     Actions.signup()
-    // }
+    profileView() {
+        Actions.profileView()
+    }
     // constructor(props) {
     //     super(props);
     //     this.state = {
@@ -82,7 +82,7 @@ export default class ProfileEditForm extends Component{
                     placeholder = "C++, Java, Python..."
                     returnKeyType = 'next'/>
 
-                <TouchableOpacity style = {styles.buttonCountainer}>
+                <TouchableOpacity style = {styles.buttonCountainer} onPress = {this.profileView}>
                     <Text style = {styles.buttonText}>
                         Save Changes
                     </Text>
