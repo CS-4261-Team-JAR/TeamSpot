@@ -18,12 +18,13 @@ dbuser: test
  dbpassword: a123456
 
 # REST API
-POST http://localhost:3000/posts
+POST https://blooming-harbor-28361.herokuapp.com/posts
 ``` json
 Sample Body:
 {
     "title": "Title1",
-    "description": "My description",
+	"description": "My description",
+	"author": "Jayden",
     "tags": [
         "Backend",
         "Frontend"
@@ -35,4 +36,7 @@ Sample Body:
 }
 ```
 
-GET http://localhost:3000/posts
+GET all posts: https://blooming-harbor-28361.herokuapp.com/posts
+
+Get a specific post: https://blooming-harbor-28361.herokuapp.com/posts/{postid}
+
