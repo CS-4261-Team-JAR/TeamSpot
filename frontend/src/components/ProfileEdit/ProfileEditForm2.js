@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text,KeyboardAvoidingView } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native';
 import { Input } from 'react-native-elements';
 
 export default class ProfileEditForm2 extends Component {

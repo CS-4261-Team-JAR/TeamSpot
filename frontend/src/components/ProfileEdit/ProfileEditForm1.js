@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { StyleSheet, View, Text } from 'react-native';
 import { Input } from 'react-native-elements';
 
 export default class ProfileEditForm1 extends Component {
@@ -61,12 +60,9 @@ const styles = StyleSheet.create({
         fontWeight: '700'
     },
     textInput: {
-        // width:"100%",
         textAlign: 'center',
         color: '#FFFFFF',
         fontWeight: '700'
-        // justifyContent: 'center'
-        // alignItems: 'center'
     },
     text: {
         color: '#FFFFFF',

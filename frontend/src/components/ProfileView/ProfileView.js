@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, SafeAreaView, ScrollView, Text } from 'react-native';
 import { Divider } from 'react-native-elements';
 
 export default class ProfileView extends Component {

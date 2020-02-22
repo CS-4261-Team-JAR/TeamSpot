@@ -10,7 +10,7 @@ export default class Signup extends Component {
     profileedit1() {
         Actions.profileedit1()
     }
-    
+
     render() {
         return (
             <View style={styles.container}>
@@ -66,11 +66,11 @@ export default class Signup extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={this.login}>
-					<Text
-						style={styles.signupText}>
-						Already have a new account? Login
+                    <Text
+                        style={styles.signupText}>
+                        Already have a new account? Login
                     </Text>
-				</TouchableOpacity>
+                </TouchableOpacity>
 
             </View>
         );
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     },
     smallInput: {
         height: 45,
-        width:"36%",
+        width: "36%",
         backgroundColor: 'rgba(255, 255,255,0.2)',
         borderRadius: 25,
         paddingHorizontal: 16,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 45,
-        width:"77%",
+        width: "77%",
         backgroundColor: 'rgba(255, 255,255,0.2)',
         borderRadius: 25,
         paddingHorizontal: 16,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     buttonCountainer: {
-        width:"77%",
+        width: "77%",
         backgroundColor: '#1c313a',
         borderRadius: 25,
         marginVertical: 10,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     signupText: {
-		color: 'rgba(255,255,255,0.6)',
-		fontSize: 16
-	}
+        color: 'rgba(255,255,255,0.6)',
+        fontSize: 16
+    }
 });

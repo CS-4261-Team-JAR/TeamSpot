@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button} from 'react-native-elements';
-import { StyleSheet, Text, View , StatusBar} from 'react-native';
+import { Button } from 'react-native-elements';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
 import Signup from './src/components/Signup/Signup';
 import Login from './src/components/Login/Login';
 import ProfileEdit1 from './src/components/ProfileEdit/ProfileEdit1';
