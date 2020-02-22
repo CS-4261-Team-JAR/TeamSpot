@@ -4,7 +4,7 @@ import {Router, Stack, Scene} from 'react-native-router-flux';
 
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
-import ProfileEdit from './components/ProfileEdit/ProfileEdit';
+import ProfileEdit from './components/ProfileEdit/ProfileEdit1';
 import ProfileView from './components/ProfileView/ProfileView';
 
 export default class Routes extends Component {
