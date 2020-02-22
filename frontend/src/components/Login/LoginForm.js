@@ -7,6 +7,10 @@ export default class Login extends Component {
 		Actions.signup()
 	}
 
+	postlist() {
+		Actions.postlist()
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -27,7 +31,9 @@ export default class Login extends Component {
 					placeholderTextColor="#ffffff"
 					returnKeyType='go' />
 
-				<TouchableOpacity style={styles.buttonCountainer}>
+				<TouchableOpacity 
+					onPress = {this.postlist}
+					style={styles.buttonCountainer}>
 					<Text style={styles.buttonText}>
 						LOGIN
                     </Text>

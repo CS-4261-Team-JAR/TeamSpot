@@ -6,19 +6,20 @@ import Login from './src/components/Login/Login';
 import ProfileEdit1 from './src/components/ProfileEdit/ProfileEdit1';
 import ProfileEdit2 from './src/components/ProfileEdit/ProfileEdit2';
 import PostList from './src/components/PostList/PostList';
-
-import Routes from './src/Routes';
+import PostBriefView from './src/components/PostList/PostBriefView';
 import ProfileView from './src/components/ProfileView/ProfileView';
+import Routes from './src/Routes';
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-        <StatusBar
-           backgroundColor="#1c313a"
-           barStyle="light-content"
-         />
-        <Login/>
-      </View>
+    // <View style={styles.container}>
+    //     <StatusBar
+    //        backgroundColor="#1c313a"
+    //        barStyle="light-content"
+    //      />
+    //     <Login/>
+    //   </View>
     // <View style={styles.container}>
     //   <Text>TeamSpot</Text>
     //   <Button title = "LOGIN"/>
@@ -26,9 +27,11 @@ export default function App() {
     // </View>
     // <Signup />
     // <Login />
-    // <Routes />
-    // <ProfileEdit/>
-    // <ProfileEdit/>
+    // <PostBriefView/>
+    // <PostList/>
+    <Routes />
+    // <ProfileEdit1/>
+    // <ProfileEdit2/>
   );
 }
 

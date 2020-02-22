@@ -2,15 +2,22 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import ProfileEditForm from './ProfileEditForm1';
+import { Actions } from 'react-native-router-flux';
 
 export default class ProfileEdit extends Component {
+    profileedit2() {
+        Actions.profileedit2()
+    }
+
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View style={styles.formContainer}>
                     <ProfileEditForm />
                 </View>
-                <TouchableOpacity style={styles.fowardIcon} >
+                <TouchableOpacity 
+                    style={styles.fowardIcon} 
+                    onPress={this.profileedit2}>
                     <Icon name="md-arrow-forward" size={30} color="#4C99CD" />
                 </TouchableOpacity>
             </KeyboardAvoidingView>

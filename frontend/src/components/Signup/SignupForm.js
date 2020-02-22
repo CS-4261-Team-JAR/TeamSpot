@@ -6,6 +6,10 @@ export default class Signup extends Component {
     login() {
         Actions.login()
     }
+
+    profileedit1() {
+        Actions.profileedit1()
+    }
     
     render() {
         return (
@@ -55,11 +59,18 @@ export default class Signup extends Component {
                     placeholderTextColor="#ffffff"
                     returnKeyType='go' />
 
-                <TouchableOpacity style={styles.buttonCountainer} onPress={this.login}>
+                <TouchableOpacity style={styles.buttonCountainer} onPress={this.profileedit1}>
                     <Text style={styles.buttonText}>
                         SIGN UP
                     </Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.login}>
+					<Text
+						style={styles.signupText}>
+						Already have a new account? Login
+                    </Text>
+				</TouchableOpacity>
 
             </View>
         );
@@ -112,4 +123,8 @@ const styles = StyleSheet.create({
         marginBottom: 65,
         justifyContent: "space-between",
     },
+    signupText: {
+		color: 'rgba(255,255,255,0.6)',
+		fontSize: 16
+	}
 });

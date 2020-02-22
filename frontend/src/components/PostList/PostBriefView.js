@@ -66,9 +66,11 @@ const textColor = '#2699FB'
 
 const styles = StyleSheet.create({
     container: {
+        justifyContent: 'center',
         padding: 20,
         borderBottomColor: "#BCE0FD",
         borderBottomWidth: 1,
+        marginTop: 20
     },
     topLine: {
         flexDirection: 'row',
