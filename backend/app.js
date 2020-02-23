@@ -27,4 +27,6 @@ mongoose.connect(process.env.DB_CONNECTION,
 );
 
 // listening to the server
-app.listen(port);
+app.listen(port, () => {
+  console.log('Listening on port: ' + port);
+});

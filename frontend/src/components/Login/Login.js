@@ -1,21 +1,22 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image, Text, KeyboardAvoidingView } from 'react-native';
 import LoginForm from './LoginForm';
 
-export default class Login extends Component{
-    render(){
-        return(
-            // <View style = {styles.container}>
-            <View style={styles.container}>
-                <View style = {styles.logoContainer}>
-                    <Image 
-                    styles = {styles.logo}
-                    source = {require('../../images/Image1.png')}></Image>
+export default class Login extends Component {
+    render() {
+        return (
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <View style={styles.logoContainer}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../images/logo.png')}
+                    />
                 </View>
-                <View style = {styles.formContainer}>
-                    <LoginForm/>
+                <Text style={styles.logoText}>Welcome to TeamSpot.</Text>
+                <View style={styles.formContainer}>
+                    <LoginForm />
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -23,20 +24,24 @@ export default class Login extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3399FF',
+        backgroundColor: '#4C99CD',
         justifyContent: 'center'
-        
+
     },
     formContainer: {
         justifyContent: 'center'
     },
     logoContainer: {
-        alignItems: 'center'
-        // flexGrow: 1,
-        // justifyContent: 'center'
+        alignItems: 'center',
+    },
+    logoText: {
+        textAlign: 'center',
+        marginVertical: 15,
+        fontSize: 18,
+        color: 'rgba(255, 255, 255, 0.7)'
     },
     logo: {
-        width: 100,
-        height: 100
+        width: 120,
+        height: 120,
     }
 });
