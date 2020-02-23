@@ -12,7 +12,6 @@ import PostCreate from './src/components/PostCreate/PostCreate';
 import PostBriefView from './src/components/PostList/PostBriefView';
 import ProfileView from './src/components/ProfileView/ProfileView';
 import Routes from './src/Routes';
-import ProfileView from './src/components/ProfileView/ProfileView';
 
 
 export default function App() {
