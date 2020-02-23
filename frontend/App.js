@@ -5,8 +5,11 @@ import Signup from './src/components/Signup/Signup';
 import Login from './src/components/Login/Login';
 import ProfileEdit from './src/components/ProfileEdit/ProfileEdit';
 import PostList from './src/components/PostList/PostList';
+import Post from './src/components/Post/Post';
+import PostCreate from './src/components/PostCreate/PostCreate';
 
 import Routes from './src/Routes';
+import ProfileView from './src/components/ProfileView/ProfileView';
 
 export default function App() {
   return (
@@ -19,7 +22,10 @@ export default function App() {
     // <Login />
     // <Routes />
     // <ProfileEdit/>
-    <PostList/>
+    // <ProfileView/>
+    // <PostList/>
+    // <Post/>
+    <PostCreate/>
   );
 }
 
