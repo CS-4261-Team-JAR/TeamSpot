@@ -1,25 +1,46 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Text} from 'react-native';
+import {StyleSheet, View, TextInput, Text, TouchableOpacity} from 'react-native';
 import PostBriefView from './PostBriefView';
+import { Actions } from 'react-native-router-flux';
 
 export default class PostList extends Component{
+    constructor(props) {
+        super(props)
+        this.state = {loading: true, data: null}
+    }
+
+    componentDidMount() {
+        const url = "https://blooming-harbor-28361.herokuapp.com/posts"
+        fetch(url)
+            .then((response) => response.json())
+            .then(json => this.setState({loading: false, data: json}))
+    }
+
+    renderList = data => {
+        return (
+            <View style = {styles.formContainer}>
+                {data.map(item => (
+                    <PostBriefView data={item}/>
+                ))}
+            </View>
+        )
+    }
+
     render(){
+        const {loading, data} = this.state
+        
         return(
-            // <View style = {styles.container}>
             <View style={styles.container}>
                 <TextInput style={styles.searchBar} placeholder = "Search"></TextInput>
-                <View style = {styles.formContainer}>
-                    <PostBriefView/>
-                    <PostBriefView/>
-                    <PostBriefView/>
-                </View>
-
+                {loading ? <Text>"Loading"</Text> : this.renderList(data)}
                 <View style={styles.plusContainer}>
                     <PlusButton/>
                 </View>
 
             </View>
         );
+
+        
     }
 }
 
@@ -27,6 +48,7 @@ class PlusButton extends Component{
     render() {
         const size = 50
         return (
+            <TouchableOpacity onPress={Actions.postcreate}>
             <View style={{
                 width: size,
                 height: size,
@@ -41,6 +63,7 @@ class PlusButton extends Component{
                     fontSize: 30,
                 }}>+</Text>
             </View>
+            </TouchableOpacity>
         )
     }
 }

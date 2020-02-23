@@ -3,33 +3,35 @@ import PropTypes from 'prop-types';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-export default class PostBreifView extends Component{
-    /*static propTypes = {
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        currentNumber: PropTypes.number.isRequired,
-        desiredNumber: PropTypes.number.isRequired,
-    }*/
+export default class PostBriefView extends Component{
+    static propTypes = {
+        data: PropTypes.object.isRequired,
+    }
+    
 
     render(){
-        //const { title, description, currentNumber, desiredNumber } = this.props;
-        const title = "Post Title"
-        const description = "This is the project description. It can be multiple lines long."
-        const currentNumber = 2
-        const desiredNumber = 5
+        const {data} = this.props
+        const title = data.title//"Post Title"
+        const description = data.description//"This is the project description. It can be multiple lines long."
+        const desiredNumber = data.status.total//5
+        const currentNumber = data.status.remaining//2
         var circleColor = this.getCircleColor(currentNumber, desiredNumber)
         return(
             // <View style = {styles.container}>
-            <View style={styles.container}>
-                <View style={styles.topLine}>
-                    <Text style={styles.titleText}>{title}</Text>
-                    <View style={styles.numberPart}>
-                        <Circle color={circleColor} size={10}></Circle>
-                        <Text style={styles.numberText}>{currentNumber}/{desiredNumber}</Text>
+            <TouchableOpacity onPress={function(){
+                Actions.postview({data: data})
+            }}>
+                <View style={styles.container}>
+                    <View style={styles.topLine}>
+                        <Text style={styles.titleText}>{title}</Text>
+                        <View style={styles.numberPart}>
+                            <Circle color={circleColor} size={10}></Circle>
+                            <Text style={styles.numberText}>{currentNumber}/{desiredNumber}</Text>
+                        </View>
                     </View>
+                    <Text style={styles.descriptionText}>{description}</Text>
                 </View>
-                <Text style={styles.descriptionText}>{description}</Text>
-            </View>
+            </TouchableOpacity>
         );
     }
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, TextInput, Button, Text, Image} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export default class PostCreate extends Component{
     /*static propTypes = {
@@ -45,7 +46,7 @@ export default class PostCreate extends Component{
                         </View>
                     </View>
                     <View style={styles.buttonRow}>
-                        <Button title="Cancel" color="gray"/>
+                        <Button title="Cancel" color="gray" onPress={Actions.pop()}/>
                         <Button title="Create"/>
                     </View>
                 </View>

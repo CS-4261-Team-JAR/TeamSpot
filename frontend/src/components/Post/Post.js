@@ -12,13 +12,14 @@ export default class Post extends Component{
     }*/
 
     render(){
+        const {data} = this.props
         //const { title, description, currentNumber, desiredNumber } = this.props;
-        const title = "Post Title"
-        const description = "This is the project description. It can be multiple lines long. It will probably be much longer than the one in the breif description on the post list page."
-        const currentNumber = 2
-        const desiredNumber = 5
-        const lastEdit = "Jan 31, 2020"
-        const leader = 'John Doe'
+        const title = data.title//"Post Title"
+        const description = data.description//"This is the project description. It can be multiple lines long. It will probably be much longer than the one in the breif description on the post list page."
+        const currentNumber = data.remaining//2
+        const desiredNumber = data.total//5
+        const lastEdit = data.date.slice(0, 10)//"Jan 31, 2020"
+        const leader = data.author//'John Doe'
         const leaderProfileLocation = '../../images/defaultProfile.png'
         var leaderProfile
         if (leaderProfileLocation.startsWith('http')) {

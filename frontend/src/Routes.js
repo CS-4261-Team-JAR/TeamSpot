@@ -8,6 +8,8 @@ import ProfileEdit1 from './components/ProfileEdit/ProfileEdit1';
 import ProfileEdit2 from './components/ProfileEdit/ProfileEdit2';
 import ProfileView from './components/ProfileView/ProfileView';
 import PostList from './components/PostList/PostList';
+import Post from './components/Post/Post';
+import PostCreate from './components/PostCreate/PostCreate';
 
 
 export default class Routes extends Component {
@@ -17,10 +19,12 @@ export default class Routes extends Component {
                 <Stack key="root" hideNavBar = {true}>
                     <Scene key="login" component={Login} title="Login" />
                     <Scene key="signup" component={Signup} title="Register" />
-                    <Scene key="postlist" component={PostList} title="PostList"/>
                     <Scene key="profileview" component={ProfileView} title="profileView" />
                     <Scene key="profileedit1" component={ProfileEdit1} title="profileEdit" />
                     <Scene key="profileedit2" component={ProfileEdit2} title="profileEdit" />
+                    <Scene key="postlist" component={PostList} title="PostList"/>
+                    <Scene key="postview" component={Post} title="PostView"/>
+                    <Scene key="postcreate" component={PostCreate} title="PostCreate"/>
                     
                     
                     {/* <Scene key="profileEdit" component={ProfileEdit} title="profileEdit" /> */}
