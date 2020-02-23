@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#4C99CD',
         justifyContent: 'center'
-
     },
     formContainer: {
         justifyContent: 'center'

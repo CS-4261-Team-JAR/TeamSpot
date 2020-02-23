@@ -15,10 +15,11 @@ export default class PostBriefView extends Component{
         const description = data.description//"This is the project description. It can be multiple lines long."
         const desiredNumber = data.status.total//5
         const currentNumber = data.status.remaining//2
+        const tags = data.tags//2
         var circleColor = this.getCircleColor(currentNumber, desiredNumber)
         return(
             // <View style = {styles.container}>
-            <TouchableOpacity onPress={function(){
+            <TouchableOpacity key={data.key} onPress={function(){
                 Actions.postview({data: data})
             }}>
                 <View style={styles.container}>
@@ -30,6 +31,7 @@ export default class PostBriefView extends Component{
                         </View>
                     </View>
                     <Text style={styles.descriptionText}>{description}</Text>
+                    <Text style={styles.tags}>Tags: {tags.join(', ')}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -92,7 +94,11 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
     },
     descriptionText: {
-        color: textColor,
+        // color: textColor,
         marginBottom: 5
+    },
+    tags: {
+        color: textColor,
+        marginTop: 5
     },
 });

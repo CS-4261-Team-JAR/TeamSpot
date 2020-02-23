@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {StyleSheet, View, TextInput, Button, Text, Image} from 'react-native';
+import {StyleSheet, View, TextInput, Text, Image, KeyboardAvoidingView} from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { Header, Button } from 'react-native-elements';
 
 export default class PostCreate extends Component{
     constructor(props) {
@@ -10,7 +10,7 @@ export default class PostCreate extends Component{
             title: "", 
             description: "", 
             author: "Amiel",
-            tags: [],
+            tags: "",
             currentNumber: "",
             desiredNumber: "",
         }
@@ -30,7 +30,7 @@ export default class PostCreate extends Component{
             title: this.state.title,
             description: this.state.description,
             author: this.state.author,
-            tags: this.state.tags,
+            tags: [this.state.tags],
             status: {
                 remaining: this.state.currentNumber,
                 total: this.state.desiredNumber,
@@ -62,8 +62,13 @@ export default class PostCreate extends Component{
             leaderProfile = <Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>
         }
         return(
-            <View>
-                <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <Header
+                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    centerComponent={{ text: "Create Post", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                    backgroundColor="#2980b9"
+                />
+                <View style={styles.forms}>
                     <Text style={styles.inputLabel}>Title</Text>
                     <TextInput style={styles.titleInput} 
                         onChangeText={(text) => this.state.title = text}/>
@@ -71,6 +76,10 @@ export default class PostCreate extends Component{
                     <Text style={styles.inputLabel}>Description</Text>
                     <TextInput style={styles.descriptionInput}
                         onChangeText={(text) => this.state.description = text}/>
+
+                    <Text style={styles.inputLabel}>Tags</Text>
+                    <TextInput style={styles.titleInput} 
+                    onChangeText={(text) => this.state.tags = text}/>
 
                     <View style={styles.sizeInput}>
                         <View style={styles.leftInput}>
@@ -85,29 +94,24 @@ export default class PostCreate extends Component{
                         </View>
                     </View>
                     <View style={styles.buttonRow}>
-                        <Button title="Cancel" color="gray" onPress={Actions.pop}/>
-                        <Button title="Create" onPress={this.submit}/>
+                        <Button buttonStyle={styles.button} title="Cancel" type="outline" onPress={Actions.pop}/>
+                        <Button buttonStyle={styles.button} title="Create" onPress={this.submit}/>
                     </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
-
-    /*getImage(imageLocation) {
-        if (imageLocation.startsWith('http')) {
-            return (<Image source={{uri: imageLocation}} style={styles.profileImage}/>)
-        } else {
-            return (<Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>)
-        }
-    }*/
 }
 
 const textColor = '#2699FB'
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1
+    },
+    forms: {
         padding: 20,
-        marginTop: 40,
+        paddingTop: 10,
     },
     inputLabel: {
         marginTop: 10,
@@ -138,9 +142,13 @@ const styles = StyleSheet.create({
 
     },
     buttonRow: {
-        marginTop: 20,
+        marginTop: 65,
         flexDirection: 'row',
-        justifyContent: "space-around",
-        alignItems: 'stretch',
+        alignItems: 'center',
     },
+    button: {
+        borderRadius: 10,
+        marginVertical: 10,
+        width: '90%'
+    }
 });
