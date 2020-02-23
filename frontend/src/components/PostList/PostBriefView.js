@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         padding: 20,
         borderBottomColor: "#BCE0FD",
         borderBottomWidth: 1,
-        marginTop: 20
+        marginTop: 5
     },
     topLine: {
         flexDirection: 'row',
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
     },
     descriptionText: {
-        color: textColor
+        color: textColor,
+        marginBottom: 5
     },
 });

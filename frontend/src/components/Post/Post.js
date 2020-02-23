@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image} from 'react-native';
+import { Header } from 'react-native-elements';
 import Discussion from './Discussion';
 
 export default class Post extends Component{
@@ -16,9 +17,9 @@ export default class Post extends Component{
         //const { title, description, currentNumber, desiredNumber } = this.props;
         const title = data.title//"Post Title"
         const description = data.description//"This is the project description. It can be multiple lines long. It will probably be much longer than the one in the breif description on the post list page."
-        const currentNumber = data.remaining//2
-        const desiredNumber = data.total//5
-        const lastEdit = data.date.slice(0, 10)//"Jan 31, 2020"
+        const currentNumber = data.status.remaining//2
+        const desiredNumber = data.status.total//5
+        const lastEdit = new Date(data.date)//"Jan 31, 2020"
         const leader = data.author//'John Doe'
         const leaderProfileLocation = '../../images/defaultProfile.png'
         var leaderProfile
@@ -29,13 +30,20 @@ export default class Post extends Component{
         }
         return(
             <View>
+                <Header
+                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                    backgroundColor="#2980b9"
+                // centerContainerStyle={{: 'yellow'}}
+                // rightComponent={{ icon: 'home', color: '#fff' }}
+                />
                 <View style={styles.container}>
-                    <Text style={styles.numberText}>Members: {currentNumber}/{desiredNumber}</Text>
                     <Text style={styles.titleText}>{title}</Text>
-                    <Text style={styles.descriptionText}>{description}\n</Text>
+                    <Text style={styles.numberText}>Members: {currentNumber}/{desiredNumber}</Text>
+                    <Text style={styles.descriptionText}>{description}</Text>
 
                     <View style={styles.bottomLine}>
-                        <Text style={styles.descriptionText}>Last Edit: {lastEdit}</Text>
+                        <Text style={styles.descriptionText}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
                         <View style={styles.leaderPart}>
                             <Text style={styles.leaderText}>{leader}</Text>
                             {leaderProfile}
@@ -62,7 +70,6 @@ const textColor = '#2699FB'
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        marginTop: 50,
         borderBottomColor: "#BCE0FD",
         borderBottomWidth: 1,
     },
@@ -75,9 +82,11 @@ const styles = StyleSheet.create({
     },
     numberText: {
         color: textColor,
-        fontWeight: 'bold',
+        fontStyle: 'italic'
+        // fontWeight: 'bold',
     },
     descriptionText: {
+        marginTop: 10,
         color: textColor,
         lineHeight: 24,
     },
