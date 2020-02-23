@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import PostBriefView from './PostBriefView';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 
 export default class PostList extends Component {
     constructor(props) {
@@ -43,7 +44,8 @@ export default class PostList extends Component {
                     {loading ? <Text>"Loading"</Text> : this.renderList(data)}
                 </View>
                 <TouchableOpacity
-                    style={styles.addIcon} >
+                    style={styles.addIcon} 
+                    onPress={Actions.postcreate}>
                     <Icon name="md-add" size={30} color="#fff" />
                 </TouchableOpacity>
             </View>

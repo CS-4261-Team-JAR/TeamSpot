@@ -4,12 +4,47 @@ import {StyleSheet, View, TextInput, Button, Text, Image} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 export default class PostCreate extends Component{
+    constructor(props) {
+        super(props)
+        this.state = { 
+            title: "", 
+            description: "", 
+            author: "Amiel",
+            tags: [],
+            currentNumber: "",
+            desiredNumber: "",
+        }
+
+        this.submit = this.submit.bind(this)
+    }
     /*static propTypes = {
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         currentNumber: PropTypes.number.isRequired,
         desiredNumber: PropTypes.number.isRequired,
     }*/
+
+    submit() {
+        const url = "https://blooming-harbor-28361.herokuapp.com/posts"
+        const body = {
+            title: this.state.title,
+            description: this.state.description,
+            author: this.state.author,
+            tags: this.state.tags,
+            status: {
+                remaining: this.state.currentNumber,
+                total: this.state.desiredNumber,
+            }
+        }
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify(body),
+        }).then((response) => Actions.postlist())
+    }
 
     render(){
         //const { title, description, currentNumber, desiredNumber } = this.props;
@@ -30,24 +65,28 @@ export default class PostCreate extends Component{
             <View>
                 <View style={styles.container}>
                     <Text style={styles.inputLabel}>Title</Text>
-                    <TextInput style={styles.titleInput}></TextInput>
+                    <TextInput style={styles.titleInput} 
+                        onChangeText={(text) => this.state.title = text}/>
 
                     <Text style={styles.inputLabel}>Description</Text>
-                    <TextInput style={styles.descriptionInput}></TextInput>
+                    <TextInput style={styles.descriptionInput}
+                        onChangeText={(text) => this.state.description = text}/>
 
                     <View style={styles.sizeInput}>
                         <View style={styles.leftInput}>
                             <Text style={styles.inputLabel}>Current Members:</Text>
-                            <TextInput style={styles.titleInput}></TextInput>
+                            <TextInput style={styles.titleInput}
+                                onChangeText={(text) => this.state.currentNumber = text}/>
                         </View>
                         <View style={styles.rightInput}>
                             <Text style={styles.inputLabel}>Desired Members:</Text>
-                            <TextInput style={styles.titleInput}></TextInput>
+                            <TextInput style={styles.titleInput}
+                                onChangeText={(text) => this.state.desiredNumber = text}/>
                         </View>
                     </View>
                     <View style={styles.buttonRow}>
-                        <Button title="Cancel" color="gray" onPress={Actions.pop()}/>
-                        <Button title="Create"/>
+                        <Button title="Cancel" color="gray" onPress={Actions.pop}/>
+                        <Button title="Create" onPress={this.submit}/>
                     </View>
                 </View>
             </View>

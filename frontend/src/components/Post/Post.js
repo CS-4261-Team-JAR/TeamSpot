@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image} from 'react-native';
 import { Header } from 'react-native-elements';
 import Discussion from './Discussion';
+import { Actions } from 'react-native-router-flux';
 
 export default class Post extends Component{
     /*static propTypes = {
@@ -31,7 +32,7 @@ export default class Post extends Component{
         return(
             <View>
                 <Header
-                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
                     centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 // centerContainerStyle={{: 'yellow'}}
