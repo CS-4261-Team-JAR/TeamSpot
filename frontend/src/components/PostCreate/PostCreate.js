@@ -26,11 +26,15 @@ export default class PostCreate extends Component{
 
     submit() {
         const url = "https://blooming-harbor-28361.herokuapp.com/posts"
+        var tags = this.state.tags.split(',')
+        tags.forEach(function(part, index, theArray) {
+            theArray[index] = part.trim();
+          });
         const body = {
             title: this.state.title,
             description: this.state.description,
             author: this.state.author,
-            tags: [this.state.tags],
+            tags: tags,
             status: {
                 remaining: this.state.currentNumber,
                 total: this.state.desiredNumber,
@@ -64,7 +68,7 @@ export default class PostCreate extends Component{
         return(
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <Header
-                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop }}
                     centerComponent={{ text: "Create Post", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 />
