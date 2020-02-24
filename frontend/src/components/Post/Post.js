@@ -50,7 +50,7 @@ export default class Post extends Component{
                     <Text style={styles.descriptionText}>{description}</Text>
 
                     <View style={styles.bottomLine}>
-                        <Text style={styles.descriptionText}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
+                        <Text style={styles.lastEdit}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
                         <View style={styles.leaderPart}>
                             {/* <Text style={styles.leaderText}>{leader}</Text>  */}
                             <TouchableOpacity onPress={this.profileview}>
@@ -122,4 +122,9 @@ const styles = StyleSheet.create({
         color: textColor,
         marginTop: 5
     },
+    lastEdit: {
+        marginTop: 0,
+        color: textColor,
+        lineHeight: 24,
+    }
 });

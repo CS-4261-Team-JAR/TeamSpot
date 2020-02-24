@@ -32,6 +32,8 @@ export default class ProfileView extends Component {
                             <Text style={styles.description}>Public Speaking, Presentation, Communication, Teamwork</Text>
                             <Text style={styles.bodyTitle}>Classes Taken </Text>
                             <Text style={styles.description}>CS 1332, CS 2340, CS 4400, CS 4641</Text>
+                            <Text style={styles.bodyTitle}>Linkedln</Text>
+                            <Text style={styles.hyperlink}>https://www.linkedin.com/in/john.doe</Text>
                         </View>
                     </View>
                 </ScrollView>
@@ -115,5 +117,12 @@ const styles = StyleSheet.create({
     divider: {
         backgroundColor: 'grey',
         marginTop: 0,
+    },
+    hyperlink: {
+        fontSize: 14,
+        color: "blue",
+        marginTop: 10,
+        textAlign: 'left',
+        lineHeight: 18,
     }
 });
