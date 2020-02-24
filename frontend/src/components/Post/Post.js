@@ -22,6 +22,7 @@ export default class Post extends Component{
         const desiredNumber = data.status.total//5
         const lastEdit = new Date(data.date)//"Jan 31, 2020"
         const leader = data.author//'John Doe'
+        const tags = data.tags//2
         const leaderProfileLocation = '../../images/defaultProfile.png'
         var leaderProfile
         if (leaderProfileLocation.startsWith('http')) {
@@ -41,6 +42,7 @@ export default class Post extends Component{
                 <View style={styles.container}>
                     <Text style={styles.titleText}>{title}</Text>
                     <Text style={styles.numberText}>Members: {currentNumber}/{desiredNumber}</Text>
+                    <Text style={styles.tags}>Tags: {tags.join(', ')}</Text>
                     <Text style={styles.descriptionText}>{description}</Text>
 
                     <View style={styles.bottomLine}>
@@ -107,5 +109,9 @@ const styles = StyleSheet.create({
     profileImage: {
         height: 30,
         width: 30,
-    }
+    },
+    tags: {
+        color: textColor,
+        marginTop: 5
+    },
 });
