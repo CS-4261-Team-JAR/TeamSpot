@@ -13,6 +13,10 @@ export default class Post extends Component{
         desiredNumber: PropTypes.number.isRequired,
     }*/
 
+    profileview() {
+		Actions.profileview()
+	}
+
     render(){
         const {data} = this.props
         //const { title, description, currentNumber, desiredNumber } = this.props;
@@ -46,7 +50,11 @@ export default class Post extends Component{
                     <View style={styles.bottomLine}>
                         <Text style={styles.descriptionText}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
                         <View style={styles.leaderPart}>
-                            <Text style={styles.leaderText}>{leader}</Text>
+                            {/* <Text style={styles.leaderText}>{leader}</Text>  */}
+                            <TouchableOpacity onPress={this.profileview}>
+                            <Text style={styles.leaderText}>{leader}</Text> 
+                            </TouchableOpacity>
+                            
                             {leaderProfile}
                         </View>
                     </View>
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         color: textColor,
-        fontFamily: 'serif',
+        // fontFamily: 'serif',
         //fontWeight: 'bold',
         marginBottom: 10,
         fontSize: 28,

@@ -32,6 +32,7 @@ export default function App() {
     // <Login />
     // <PostBriefView/>
     // <PostList/>
+    // <ProfileView/>
     <Routes />
     // <ProfileEdit1/>
     // <ProfileEdit2/>

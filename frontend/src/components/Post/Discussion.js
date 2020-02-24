@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         color: textColor,
-        fontFamily: 'serif',
+        // fontFamily: 'serif',
         //fontWeight: 'bold',
         marginBottom: 10,
         fontSize: 22,
