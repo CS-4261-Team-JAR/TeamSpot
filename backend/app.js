@@ -1,32 +1,39 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const port = process.env.PORT || 3000;
-require('dotenv/config')
+
+// Import routes
+const authRoute = require('./routes/auth');
+const postsRoute = require('./routes/posts');
+
+// Import environment variable
+dotenv.config();
+
+// Connect to DB
+mongoose.connect(process.env.DB_CONNECTION, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	},
+	() => console.log('Connected to DB!')
+);
 
 // Middlewares
 app.use(bodyParser.json());
 app.use(cors());
+// Route Middlewares
 
-// Import routes
-const postsRoute = require('./routes/posts');
-
-app.use('/posts', postsRoute);
+app.use('/api/user', authRoute);
+app.use('/api/classes', postsRoute);
+// app.use('/api/posts', postsRoute);
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Home Page');
+	res.send('Home Page');
 });
-
-// Connect to DB
-mongoose.connect(process.env.DB_CONNECTION,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log('Connected to DB!')
-);
 
 // listening to the server
-app.listen(port, () => {
-  console.log('Listening on port: ' + port);
-});
+app.listen(port, () => console.log('Listening on port: ' + port));
