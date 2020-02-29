@@ -7,6 +7,7 @@ const {
 	loginValidation
 } = require('../validation');
 
+// Register
 router.post('/register', async (req, res) => {
 	const {
 		error
@@ -37,6 +38,7 @@ router.post('/register', async (req, res) => {
 	}
 });
 
+// Login
 router.post('/login', async (req, res) => {
 	const {
 		error

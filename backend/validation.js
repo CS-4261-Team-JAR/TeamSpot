@@ -73,9 +73,35 @@ const registerCourseValidation = (data) => {
 	return schema.validate(data);
 };
 
+// Profile Validation
+const profileValidation = (data) => {
+	const schema = Joi.object({
+		major: Joi.string()
+			.required(),
+		standing: Joi.string()
+			.required(),
+		intro: Joi.string()
+			.required(),
+		skills: {
+			technical: Joi.array().items(Joi.string()).required(),
+			soft: Joi.array().items(Joi.string()).required()
+		},
+		classTaken: Joi.array().items(Joi.string()),
+		linkedin: Joi.string()
+			.uri()
+			.optional(),
+		github: Joi.string()
+			.uri()
+			.optional()
+	});
+
+	return schema.validate(data);
+};
+
 module.exports = {
 	registerValidation,
 	loginValidation,
 	courseValidation,
-	registerCourseValidation
+	registerCourseValidation,
+	profileValidation
 };

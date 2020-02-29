@@ -7,14 +7,16 @@ const {
 	registerCourseValidation
 } = require('../validation');
 
+// Get my course
 router.get('/', verify, async (req, res) => {
 	const user = await User.findOne({
 		_id: req.user._id
 	}).populate('courses', '_id semester year subject course section');
 
 	res.send(user.courses);
-})
+});
 
+// Find course
 router.get('/:year/:semester/:subject/:course/:section', verify, async (req, res) => {
 	const {
 		error
@@ -54,6 +56,7 @@ router.get('/:year/:semester/:subject/:course/:section', verify, async (req, res
 	};
 });
 
+// Register course
 router.post('/register', verify, async (req, res) => {
 	const {
 		error

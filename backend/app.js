@@ -9,7 +9,8 @@ const port = process.env.PORT || 3000;
 // Import routes
 const authRoute = require('./routes/auth');
 const postsRoute = require('./routes/posts');
-const coursesRoute = require('./routes/Courses');
+const coursesRoute = require('./routes/courses');
+const profileRoute = require('./routes/profile');
 
 // Import environment variable
 dotenv.config();
@@ -28,6 +29,7 @@ app.use(cors());
 // Route Middlewares
 
 app.use('/api/user', authRoute);
+app.use('/api/user/profile', profileRoute);
 app.use('/api/course', coursesRoute);
 // app.use('/api/posts', postsRoute);
 
