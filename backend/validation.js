@@ -62,7 +62,7 @@ const courseValidation = (data) => {
 };
 
 // Register course Validation
-const registerCourseValidation = (data) => {
+const courseIdValidation = (data) => {
 	const schema = Joi.object({
 		course: Joi.string()
 			.min(24)
@@ -99,10 +99,72 @@ const profileValidation = (data) => {
 	return schema.validate(data);
 };
 
+// Post Validation
+const postValidation = (data) => {
+	const schema = Joi.object({
+		course: Joi.string()
+			.required(),
+		title: Joi.string()
+			.min(10)
+			.max(56)
+			.required(),
+		description: Joi.string()
+			.min(10)
+			.max(512)
+			.required(),
+		tags: Joi.array().items(Joi.string()),
+		members: Joi.array().items(Joi.string()).required(),
+		total: Joi.number()
+			.required(),
+	});
+
+	return schema.validate(data);
+};
+
+// Update post Validation
+const postUpdateValidation = (data) => {
+	const schema = Joi.object({
+		id: Joi.string()
+			.required(),
+		title: Joi.string()
+			.min(10)
+			.max(56)
+			.required(),
+		description: Joi.string()
+			.min(10)
+			.max(512)
+			.required(),
+		tags: Joi.array().items(Joi.string()),
+		members: Joi.array().items(Joi.string()).required(),
+		total: Joi.number()
+			.required(),
+	});
+
+	return schema.validate(data);
+};
+
+// Discussion Validation
+const discussionValidation = (data) => {
+	const schema = Joi.object({
+		postId: Joi.string()
+			.min(24)
+			.max(24)
+			.required(),
+		message: Joi.string()
+			.min(1)
+			.required(),
+	});
+
+	return schema.validate(data);
+};
+
 module.exports = {
 	registerValidation,
 	loginValidation,
 	courseValidation,
-	registerCourseValidation,
-	profileValidation
+	courseIdValidation,
+	profileValidation,
+	postValidation,
+	postUpdateValidation,
+	discussionValidation
 };

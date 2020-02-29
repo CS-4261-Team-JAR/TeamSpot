@@ -31,7 +31,7 @@ app.use(cors());
 app.use('/api/user', authRoute);
 app.use('/api/user/profile', profileRoute);
 app.use('/api/course', coursesRoute);
-// app.use('/api/posts', postsRoute);
+app.use('/api/post', postsRoute);
 
 // Routes
 app.get('/', (req, res) => {

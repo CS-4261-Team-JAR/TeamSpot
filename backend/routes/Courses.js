@@ -4,7 +4,7 @@ const Course = require('../models/Course');
 const User = require('../models/User');
 const {
 	courseValidation,
-	registerCourseValidation
+	courseIdValidation
 } = require('../validation');
 
 // Get my course
@@ -60,7 +60,7 @@ router.get('/:year/:semester/:subject/:course/:section', verify, async (req, res
 router.post('/register', verify, async (req, res) => {
 	const {
 		error
-	} = registerCourseValidation(req.body);
+	} = courseIdValidation(req.body);
 	if (error) return res.status(400).send(error.details[0].message);
 
 	const user = await User.findOne({
