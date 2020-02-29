@@ -86,6 +86,7 @@ const profileValidation = (data) => {
 			technical: Joi.array().items(Joi.string()).required(),
 			soft: Joi.array().items(Joi.string()).required()
 		},
+		tags: Joi.array().items(Joi.string()),
 		classTaken: Joi.array().items(Joi.string()),
 		linkedin: Joi.string()
 			.uri()

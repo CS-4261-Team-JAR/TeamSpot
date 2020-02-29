@@ -21,6 +21,7 @@ const profileSchema = new mongoose.Schema({
 		technical: [String],
 		soft: [String]
 	},
+	tags: [String],
 	classTaken: [String],
 	linkedin: String,
 	github: String,
