@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 // Import routes
 const authRoute = require('./routes/auth');
 const postsRoute = require('./routes/posts');
+const coursesRoute = require('./routes/Courses');
 
 // Import environment variable
 dotenv.config();
@@ -27,12 +28,12 @@ app.use(cors());
 // Route Middlewares
 
 app.use('/api/user', authRoute);
-app.use('/api/classes', postsRoute);
+app.use('/api/course', coursesRoute);
 // app.use('/api/posts', postsRoute);
 
 // Routes
 app.get('/', (req, res) => {
-	res.send('Home Page');
+	res.send('TeamSpot API Home Page');
 });
 
 // listening to the server

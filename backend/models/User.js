@@ -19,7 +19,11 @@ const userSchema = new mongoose.Schema({
 		min: 6,
 		max: 1024
 	},
-	date: {
+	courses: [{
+		type: mongoose.Types.ObjectId,
+		ref: 'Course'
+	}],
+	createdDate: {
 		type: Date,
 		default: Date.now
 	}

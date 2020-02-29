@@ -18,6 +18,7 @@ const registerValidation = (data) => {
 	return schema.validate(data);
 };
 
+// Login Validation
 const loginValidation = (data) => {
 	const schema = Joi.object({
 		email: Joi.string()
@@ -32,7 +33,49 @@ const loginValidation = (data) => {
 	return schema.validate(data);
 };
 
+// Course Validation
+const courseValidation = (data) => {
+	const schema = Joi.object({
+		year: Joi.number()
+			.min(2010)
+			.max(9999)
+			.required(),
+		semester: Joi.string()
+			.min(4)
+			.max(6)
+			.required(),
+		subject: Joi.string()
+			.min(2)
+			.max(4)
+			.required(),
+		course: Joi.number()
+			.min(1000)
+			.max(9999)
+			.required(),
+		section: Joi.string()
+			.min(1)
+			.max(2)
+			.required()
+	});
+
+	return schema.validate(data);
+};
+
+// Register course Validation
+const registerCourseValidation = (data) => {
+	const schema = Joi.object({
+		course: Joi.string()
+			.min(24)
+			.max(24)
+			.required()
+	});
+
+	return schema.validate(data);
+};
+
 module.exports = {
 	registerValidation,
-	loginValidation
+	loginValidation,
+	courseValidation,
+	registerCourseValidation
 };
