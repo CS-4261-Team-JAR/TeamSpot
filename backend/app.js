@@ -26,8 +26,8 @@ mongoose.connect(process.env.DB_CONNECTION, {
 // Middlewares
 app.use(bodyParser.json());
 app.use(cors());
-// Route Middlewares
 
+// Route Middlewares
 app.use('/api/user', authRoute);
 app.use('/api/user/profile', profileRoute);
 app.use('/api/course', coursesRoute);
