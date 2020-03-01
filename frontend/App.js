@@ -8,6 +8,7 @@ import ProfileEdit2 from './src/components/ProfileEdit/ProfileEdit2';
 import PostList from './src/components/PostList/PostList';
 import Post from './src/components/Post/Post';
 import PostCreate from './src/components/PostCreate/PostCreate';
+import ViewCourses from './src/components/Course/ViewCourses';
 
 import PostBriefView from './src/components/PostList/PostBriefView';
 import ProfileView from './src/components/ProfileView/ProfileView';
@@ -33,6 +34,7 @@ export default function App() {
     // <PostBriefView/>
     // <PostList/>
     // <ProfileView/>
+    // <ViewCourses/>
     <Routes />
     // <ProfileEdit1/>
     // <ProfileEdit2/>

@@ -66,13 +66,13 @@ export default class PostCreate extends Component{
             leaderProfile = <Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>
         }
         return(
-            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+            <View style={styles.container} behavior="padding" enabled>
                 <Header
                     leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop }}
                     centerComponent={{ text: "Create Post", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 />
-                <View style={styles.forms}>
+                <KeyboardAvoidingView style={styles.forms} behavior="padding" enabled>
                     <Text style={styles.inputLabel}>Title</Text>
                     <TextInput style={styles.titleInput} 
                         onChangeText={(text) => this.state.title = text}/>
@@ -101,8 +101,8 @@ export default class PostCreate extends Component{
                         <Button buttonStyle={styles.button} title="Cancel" type="outline" onPress={Actions.pop}/>
                         <Button buttonStyle={styles.button} title="Create" onPress={this.submit}/>
                     </View>
-                </View>
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+            </View>
         );
     }
 }

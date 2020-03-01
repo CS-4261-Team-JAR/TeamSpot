@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import PostBriefView from './PostBriefView';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: 'flex-start',
         height: '88%'
-
     },
     addIcon: {
         borderWidth: 1,
