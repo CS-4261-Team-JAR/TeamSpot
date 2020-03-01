@@ -12,7 +12,7 @@ export default class PostBriefView extends Component{
     render(){
         const {data} = this.props
         const title = data.title//"Post Title"
-        const description = data.description//"This is the project description. It can be multiple lines long."
+        const description = data.description.slice(0, 142) + ' ...'
         const desiredNumber = data.status.total//5
         const currentNumber = data.status.remaining//2
         const tags = data.tags//2

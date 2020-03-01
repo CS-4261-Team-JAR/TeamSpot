@@ -41,7 +41,7 @@ export default class PostList extends Component {
                 // rightComponent={{ icon: 'home', color: '#fff' }}
                 />
                 <View style={styles.container}>
-                    {loading ? <Text>"Loading"</Text> : this.renderList(data)}
+                    {loading ? <Text style={styles.loadingText}>Loading</Text> : this.renderList(data)}
                 </View>
                 <TouchableOpacity
                     style={styles.addIcon} 
@@ -72,5 +72,9 @@ const styles = StyleSheet.create({
         height: 60,
         backgroundColor: '#4C99CD',
         borderRadius: 100,
+    },
+    loadingText: {
+        marginTop: 50,
+        textAlign: 'center',
     }
 });
