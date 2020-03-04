@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Text, Image, KeyboardAvoidingView} from 'react-native';
+import {StyleSheet, View, TextInput, Text, Image} from 'react-native';
+import {KeyboardAvoidingView, Alert} from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Actions } from 'react-native-router-flux';
 import { Header, Button } from 'react-native-elements';
 
@@ -24,6 +26,29 @@ export default class PostCreate extends Component{
         desiredNumber: PropTypes.number.isRequired,
     }*/
 
+    checkSubmission(body) {
+        if (!body.title) {
+            return "Title required"
+        }
+        if (!body.description) {
+            return "Description required"
+        }
+        if (body.status.remaining == null || body.status.remaining == '') {
+            return "Current number of members required"
+        }
+        if (body.status.total == null || body.status.total == '') {
+            return "Desired group size required"
+        }
+        if (body.status.total < body.status.remaining) {
+            return "More members than desired group size"
+        }
+        if (body.status.remaining < 1 || body.status.total) {
+            return "At least one member required"
+        }
+
+        return successText
+    }
+
     submit() {
         const url = "https://blooming-harbor-28361.herokuapp.com/posts"
         var tags = this.state.tags.split(',')
@@ -40,6 +65,24 @@ export default class PostCreate extends Component{
                 total: this.state.desiredNumber,
             }
         }
+
+        const result = this.checkSubmission(body)
+        //alert(result)
+        Alert.alert(
+            //title
+            'Submission Issue',
+            //body
+            result,
+            [
+              {text: 'Ok', onPress: () => console.log('Ok Pressed')},
+            ],
+            { cancelable: true }
+            //clicking out side of alert will not cancel
+          );
+        if (result != successText) {
+            return
+        }
+
         fetch(url, {
             method: 'POST',
             headers: {
@@ -49,6 +92,11 @@ export default class PostCreate extends Component{
             body: JSON.stringify(body),
         }).then((response) => Actions.postlist())
     }
+
+    _scrollToInput (reactNode) {
+        // Add a 'scroll' ref to your ScrollView
+        this.scroll.props.scrollToFocusedInput(reactNode)
+      }
 
     render(){
         //const { title, description, currentNumber, desiredNumber } = this.props;
@@ -72,27 +120,36 @@ export default class PostCreate extends Component{
                     centerComponent={{ text: "Create Post", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 />
-                <KeyboardAvoidingView style={styles.forms} behavior="padding" enabled>
+                <KeyboardAwareScrollView
+                    style={styles.forms}
+                    resetScrollToCoords={{ x: 0, y: 0 }}
+                    enableAutomaticScroll = {true}
+                    enableOnAndroid = {true}
+                    extraScrollHeight = {30}
+                    innerRef={ref => {
+                        this.scroll = ref
+                    }}
+                >
                     <Text style={styles.inputLabel}>Title</Text>
                     <TextInput style={styles.titleInput} 
                         onChangeText={(text) => this.state.title = text}/>
 
                     <Text style={styles.inputLabel}>Description</Text>
-                    <TextInput style={styles.descriptionInput}
+                    <TextInput style={styles.descriptionInput}  multiline={true}
                         onChangeText={(text) => this.state.description = text}/>
 
-                    <Text style={styles.inputLabel}>Tags</Text>
+                    <Text style={styles.inputLabel}>Tags (comma-separated)</Text>
                     <TextInput style={styles.titleInput} 
                     onChangeText={(text) => this.state.tags = text}/>
 
                     <View style={styles.sizeInput}>
                         <View style={styles.leftInput}>
-                            <Text style={styles.inputLabel}>Current Members:</Text>
+                            <Text style={styles.inputLabel}>Current Members</Text>
                             <TextInput style={styles.titleInput}
                                 onChangeText={(text) => this.state.currentNumber = text}/>
                         </View>
                         <View style={styles.rightInput}>
-                            <Text style={styles.inputLabel}>Desired Members:</Text>
+                            <Text style={styles.inputLabel}>Desired Group Size</Text>
                             <TextInput style={styles.titleInput}
                                 onChangeText={(text) => this.state.desiredNumber = text}/>
                         </View>
@@ -101,11 +158,13 @@ export default class PostCreate extends Component{
                         <Button buttonStyle={styles.button} title="Cancel" type="outline" onPress={Actions.pop}/>
                         <Button buttonStyle={styles.button} title="Create" onPress={this.submit}/>
                     </View>
-                </KeyboardAvoidingView>
+                </KeyboardAwareScrollView>
             </View>
         );
     }
 }
+
+const successText = "Submission successful"
 
 const textColor = '#2699FB'
 
@@ -153,6 +212,6 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 10,
         marginVertical: 10,
-        width: '90%'
+        width: '85%'
     }
 });

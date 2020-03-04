@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image} from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, Button } from 'react-native-elements';
 import Discussion from './Discussion';
 import { Actions } from 'react-native-router-flux';
 
@@ -15,7 +15,11 @@ export default class Post extends Component{
 
     profileview() {
 		Actions.profileview()
-	}
+    }
+    
+    requestJoin() {
+        
+    }
 
     render(){
         const {data} = this.props
@@ -60,6 +64,7 @@ export default class Post extends Component{
                             {leaderProfile}
                         </View>
                     </View>
+                    <Button buttonStyle={styles.button} title="Request to Join" onPress={this.requestJoin}/>
                 </View>
 
                 <Discussion/>
@@ -126,5 +131,11 @@ const styles = StyleSheet.create({
         marginTop: 0,
         color: textColor,
         lineHeight: 24,
+    },
+    button: {
+        marginTop: 20,
+        borderRadius: 10,
+        marginVertical: 10,
+        width: '100%'
     }
 });
