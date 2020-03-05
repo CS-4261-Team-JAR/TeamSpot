@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import {RefreshControl} from 'react-native';
 import PostBriefView from './PostBriefView';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
@@ -12,6 +13,10 @@ export default class PostList extends Component {
     }
 
     componentDidMount() {
+        this.refresh()
+    }
+
+    refresh() {
         const url = "https://blooming-harbor-28361.herokuapp.com/posts"
         fetch(url)
             .then((response) => response.json())
@@ -22,10 +27,15 @@ export default class PostList extends Component {
         return (
             <View style={styles.formContainer}>
                 {data.map(item => (
-                    <PostBriefView data={item} />
+                    <PostBriefView data={item} key={item.title + item.description}/>
                 ))}
             </View>
         )
+    }
+
+    _onRefresh = () => {
+        this.setState({loading: true, });
+        this.refresh()
     }
 
     render() {
@@ -40,9 +50,15 @@ export default class PostList extends Component {
                 // centerContainerStyle={{: 'yellow'}}
                 // rightComponent={{ icon: 'home', color: '#fff' }}
                 />
-                <View style={styles.container}>
+                <ScrollView style={styles.container} 
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.loading}
+                        onRefresh={this._onRefresh}
+                    />
+                }>
                     {loading ? <Text style={styles.loadingText}>Loading</Text> : this.renderList(data)}
-                </View>
+                </ScrollView>
                 <TouchableOpacity
                     style={styles.addIcon} 
                     onPress={Actions.postcreate}>
@@ -57,7 +73,7 @@ export default class PostList extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        justifyContent: 'flex-start',
+        //justifyContent: 'flex-start',
         height: '88%'
     },
     addIcon: {
