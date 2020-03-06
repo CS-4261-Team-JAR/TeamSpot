@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import {RefreshControl} from 'react-native';
+import PropTypes from 'prop-types';
+import Backend from '../../Backend.js'
 import PostBriefView from './PostBriefView';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 
 export default class PostList extends Component {
+    /*static propTypes = {
+        token: PropTypes.string.isRequired,
+    }*/
+
     constructor(props) {
         super(props)
         this.state = { loading: true, data: null }
@@ -20,6 +26,7 @@ export default class PostList extends Component {
         const url = "https://blooming-harbor-28361.herokuapp.com/posts"
         fetch(url)
             .then((response) => response.json())
+        //Backend.getPosts()
             .then(json => this.setState({ loading: false, data: json }))
     }
 

@@ -42,7 +42,7 @@ export default class PostCreate extends Component{
         if (body.status.total < body.status.remaining) {
             return "More members than desired group size"
         }
-        if (body.status.remaining < 1 || body.status.total) {
+        if (body.status.remaining < 1 || body.status.total < 1) {
             return "At least one member required"
         }
 
