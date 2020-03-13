@@ -16,7 +16,7 @@ export default class ProfileEdit2 extends Component {
                 </View>
                 <TouchableOpacity 
                     style={styles.fowardIcon} 
-                    onPress={this.postlist}>
+                    onPress={Actions.login()}>
                     <Icon name="md-checkmark" size={30} color="#4C99CD" />
                 </TouchableOpacity>
             </KeyboardAvoidingView>
