@@ -51,31 +51,31 @@ export default class Login extends Component {
 			return
 		}
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                },
-			body: JSON.stringify(body),
-		}).then((response) => Actions.postlist())
-		// fetch(url, {
+        // fetch(url, {
         //     method: 'POST',
         //     headers: {
         //         Accept: 'application/json',
         //         'Content-Type': 'application/json',
         //         },
 		// 	body: JSON.stringify(body),
-		// }).then((response) => {
-		// 	response.json().then(body => {
-		// 		// console.log(body)
-		// 		// if (response.status == 200) {
-		// 		// 	return body
-		// 		// } else {
-		// 		// 	throw body
-		// 		// }
-		// 	})
-		// })
+		// }).then((response) => Actions.postlist())
+		fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                },
+			body: JSON.stringify(body),
+		}).then((response) => {
+			return response.json()
+		}).then(body => {
+			console.log(body)
+			if (response.status == 200) {
+				return body
+			} else {
+				throw body
+			}
+		})
     }
 
 	render() {
