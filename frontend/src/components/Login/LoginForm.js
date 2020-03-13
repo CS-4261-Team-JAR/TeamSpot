@@ -67,14 +67,18 @@ export default class Login extends Component {
                 },
 			body: JSON.stringify(body),
 		}).then((response) => {
-			return response.json()
-		}).then(body => {
-			console.log(body)
-			if (response.status == 200) {
-				return body
-			} else {
-				throw body
+			console.log(response.status);
+			if (response.status != 400) {
+				(response) => Actions.postlist()
 			}
+			return response.text()
+		}).then(text => {
+			console.log(text)
+			// if (response.status == 200) {
+			// 	return body
+			// } else {
+			// 	throw body
+			// }
 		})
     }
 
