@@ -68,9 +68,6 @@ export default class Login extends Component {
 			body: JSON.stringify(body),
 		}).then((response) => {
 			console.log(response.status);
-			if (response.status != 400) {
-				(response) => Actions.postlist()
-			}
 			return response.text()
 		}).then(text => {
 			console.log(text)

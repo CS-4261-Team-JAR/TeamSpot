@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
 
 	const user = new User({
 		name: req.body.name,
-		email: req.body.email,
+		email: req.body.email.toLowerCase(),
 		password: hashPassword
 	});
 
@@ -47,7 +47,7 @@ router.post('/login', async (req, res) => {
 	if (error) return res.status(400).send(error.details[0].message);
 
 	const user = await User.findOne({
-		email: req.body.email
+		email: req.body.email.toLowerCase()
 	});
 	if (!user) return res.status(400).send('Email or password is incorret');
 
