@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import {RefreshControl} from 'react-native';
 import PropTypes from 'prop-types';
-import Backend from '../../Backend.js'
+import {getPosts, getAllPosts} from '../../Backend.js'
 import PostBriefView from './PostBriefView';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
@@ -11,6 +11,7 @@ import { Actions } from 'react-native-router-flux';
 export default class PostList extends Component {
     /*static propTypes = {
         token: PropTypes.string.isRequired,
+        courseid: PropTypes.string.isRequired,
     }*/
 
     constructor(props) {
@@ -23,10 +24,25 @@ export default class PostList extends Component {
     }
 
     refresh() {
-        const url = "https://blooming-harbor-28361.herokuapp.com/posts"
+        /*const url = "https://blooming-harbor-28361.herokuapp.com/posts"
         fetch(url)
-            .then((response) => response.json())
-        //Backend.getPosts()
+        .then((response) => response.json())*/
+
+        var token
+        if (!this.props.token) {
+            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTU5YTEzYjlmZTBjZTRmODgwNjZmYTEiLCJpYXQiOjE1ODI5MzIyOTl9.-gMZBOmiD6l9orb2QoeoPqS6zhU8Cs-yvc2xTh-f3fI"
+        } else {
+            token = this.props.token
+        }
+        var courseid
+        if (!this.props.courseid) {
+            courseid = "5e59a15a9fe0ce4f88066fa2"
+        } else {
+            courseid = this.props.courseid
+        }
+
+        getPosts()
+        //getAllPosts(token, courseid)
             .then(json => this.setState({ loading: false, data: json }))
     }
 

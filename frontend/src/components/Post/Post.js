@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image} from 'react-native';
+import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Alert} from 'react-native';
 import { Header, Button } from 'react-native-elements';
 import Discussion from './Discussion';
 import { Actions } from 'react-native-router-flux';
+
 
 export default class Post extends Component{
     /*static propTypes = {
@@ -19,6 +20,21 @@ export default class Post extends Component{
     
     requestJoin() {
         
+    }
+
+    componentDidMount() {
+        Alert.alert(
+            //title
+            'Accept?',
+            //body
+            'George P. Burdell wants to join',
+            [
+              {text: 'No', onPress: () => console.log('Ok Pressed')},
+              {text: 'Yes', onPress: () => console.log('Ok Pressed')},
+            ],
+            { cancelable: true }
+            //clicking out side of alert will not cancel
+          );
     }
 
     render(){

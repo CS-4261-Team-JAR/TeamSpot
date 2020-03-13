@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Text, Image} from 'react-native';
 import {KeyboardAvoidingView, Alert} from 'react-native'
+import {createPost} from '../../Backend.js'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Actions } from 'react-native-router-flux';
 import { Header, Button } from 'react-native-elements';
@@ -55,42 +56,63 @@ export default class PostCreate extends Component{
         tags.forEach(function(part, index, theArray) {
             theArray[index] = part.trim();
           });
+        var members = []
+        for (let step = 0; step < this.state.currentNumber; step++) {
+            members.push("member" + step)
+        }
         const body = {
             title: this.state.title,
             description: this.state.description,
             author: this.state.author,
             tags: tags,
-            status: {
+            members: members,
+            total: this.state.desiredNumber,
+            /*status: {
                 remaining: this.state.currentNumber,
                 total: this.state.desiredNumber,
-            }
+            }*/
         }
 
-        const result = this.checkSubmission(body)
+        var token
+        if (!this.props.token) {
+            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTU5YTEzYjlmZTBjZTRmODgwNjZmYTEiLCJpYXQiOjE1ODI5MzIyOTl9.-gMZBOmiD6l9orb2QoeoPqS6zhU8Cs-yvc2xTh-f3fI"
+        } else {
+            token = this.props.token
+        }
+        var courseid
+        if (!this.props.courseid) {
+            courseid = "5e59a15a9fe0ce4f88066fa2"
+        } else {
+            courseid = this.props.courseid
+        }
+
+        const result = successText//this.checkSubmission(body)
         //alert(result)
-        Alert.alert(
-            //title
-            'Submission Issue',
-            //body
-            result,
-            [
-              {text: 'Ok', onPress: () => console.log('Ok Pressed')},
-            ],
-            { cancelable: true }
-            //clicking out side of alert will not cancel
-          );
         if (result != successText) {
+            Alert.alert(
+                //title
+                'Submission Issue',
+                //body
+                result,
+                [
+                  {text: 'Ok', onPress: () => console.log('Ok Pressed')},
+                ],
+                { cancelable: true }
+                //clicking out side of alert will not cancel
+              );
             return
         }
 
-        fetch(url, {
+        /*fetch(url, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 },
             body: JSON.stringify(body),
-        }).then((response) => Actions.postlist())
+        })*/
+        createPost(token, courseid, body)
+        .then((response) => Actions.postlist())
     }
 
     _scrollToInput (reactNode) {
