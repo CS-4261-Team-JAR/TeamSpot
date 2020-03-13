@@ -4,9 +4,9 @@ import { Actions } from 'react-native-router-flux';
 import { Header, Button } from 'react-native-elements';
 
 export default class Login extends Component {
-	// signup() {
-	// 	Actions.signup()
-	// }
+	signup() {
+		Actions.signup()
+	}
 
 	// postlist() {
 	// 	Actions.postlist()
@@ -51,14 +51,6 @@ export default class Login extends Component {
 			return
 		}
 
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         Accept: 'application/json',
-        //         'Content-Type': 'application/json',
-        //         },
-		// 	body: JSON.stringify(body),
-		// }).then((response) => Actions.postlist())
 		fetch(url, {
             method: 'POST',
             headers: {
@@ -68,14 +60,12 @@ export default class Login extends Component {
 			body: JSON.stringify(body),
 		}).then((response) => {
 			console.log(response.status);
+			if (response.status == 200){
+				Actions.postlist()
+			}
 			return response.text()
 		}).then(text => {
 			console.log(text)
-			// if (response.status == 200) {
-			// 	return body
-			// } else {
-			// 	throw body
-			// }
 		})
     }
 
