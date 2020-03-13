@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Image, Text, KeyboardAvoidingView, Alert } from 'react-native';
 import LoginForm from './LoginForm';
+import { Actions } from 'react-native-router-flux';
 
 export default class Login extends Component {
+
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
