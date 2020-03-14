@@ -24,15 +24,21 @@ export function getPosts() {
 }
 
 export function createPost(token, courseid, post) {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-Type", "application/json");
+
     post.course = courseid
-    alert(JSON.stringify(post))
-    return fetch(url + "/post", {
+    var raw = JSON.stringify(post)
+
+    var requestOptions = {
         method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: token,
-        },
-        body: JSON.stringify(post)
-    })
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(url + "/post", requestOptions)
+        .then((response) => response.text())
 }

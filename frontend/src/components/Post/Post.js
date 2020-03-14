@@ -22,29 +22,14 @@ export default class Post extends Component{
         
     }
 
-    componentDidMount() {
-        Alert.alert(
-            //title
-            'Accept?',
-            //body
-            'George P. Burdell wants to join',
-            [
-              {text: 'No', onPress: () => console.log('Ok Pressed')},
-              {text: 'Yes', onPress: () => console.log('Ok Pressed')},
-            ],
-            { cancelable: true }
-            //clicking out side of alert will not cancel
-          );
-    }
-
     render(){
         const {data} = this.props
         //const { title, description, currentNumber, desiredNumber } = this.props;
         const title = data.title//"Post Title"
         const description = data.description//"This is the project description. It can be multiple lines long. It will probably be much longer than the one in the breif description on the post list page."
-        const currentNumber = data.status.remaining//2
-        const desiredNumber = data.status.total//5
-        const lastEdit = new Date(data.date)//"Jan 31, 2020"
+        const currentNumber = data.status ? data.status.remaining : data.members.length//2
+        const desiredNumber = data.status ? data.status.total : data.total//5
+        const lastEdit = new Date(data.lastModified ? data.lastModified : data.date)//"Jan 31, 2020"
         const leader = data.author//'John Doe'
         const tags = data.tags//2
         const leaderProfileLocation = '../../images/defaultProfile.png'
@@ -54,6 +39,7 @@ export default class Post extends Component{
         } else {
             leaderProfile = <Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>
         }
+        alert(JSON.stringify(data))
         return(
             <View>
                 <Header

@@ -63,7 +63,7 @@ export default class PostCreate extends Component{
         const body = {
             title: this.state.title,
             description: this.state.description,
-            author: this.state.author,
+            /*author: this.state.author,*/
             tags: tags,
             members: members,
             total: this.state.desiredNumber,
@@ -86,7 +86,7 @@ export default class PostCreate extends Component{
             courseid = this.props.courseid
         }
 
-        const result = successText//this.checkSubmission(body)
+        const result = this.checkSubmission(body)
         //alert(result)
         if (result != successText) {
             Alert.alert(
@@ -112,7 +112,13 @@ export default class PostCreate extends Component{
             body: JSON.stringify(body),
         })*/
         createPost(token, courseid, body)
-        .then((response) => Actions.postlist())
+        .then((response) => {
+            if (response.startsWith('{"post":')) {
+                Actions.postlist()
+            } else {
+                alert(response)
+            }
+        })
     }
 
     _scrollToInput (reactNode) {

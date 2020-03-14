@@ -11,10 +11,10 @@ export default class PostBriefView extends Component{
 
     render(){
         const {data} = this.props
-        const title = data.title//"Post Title"
+        const title = data.title
         const description = data.description.slice(0, 142) + ' ...'
-        const desiredNumber = data.status.total//5
-        const currentNumber = data.status.remaining//2
+        const desiredNumber = data.status ? data.status.total : data.total//5
+        const currentNumber = data.status ? data.status.remaining : data.members.length//2
         const tags = data.tags//2
         var circleColor = this.getCircleColor(currentNumber, desiredNumber)
         return(
