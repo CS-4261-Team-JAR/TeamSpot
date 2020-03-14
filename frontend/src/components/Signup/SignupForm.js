@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Alert} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 export default class Signup extends Component {
@@ -11,6 +11,44 @@ export default class Signup extends Component {
         Actions.profileedit1()
     }
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            fname: "",
+            lname: "",
+            email: "",
+            password: "",
+            cpassword: "",
+        }
+        this.submit = this.submit.bind(this)
+    }
+
+    submit() {
+        const url = "https://secure-depths-39233.herokuapp.com/api/user/register"
+        const body = {
+            name: this.state.fname + " " + this.state.lname,
+            email: this.state.email,
+            password: this.state.password
+        }
+        console.log(body.name)  
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                },
+			body: JSON.stringify(body),
+        }).then((response) => {
+            if (response.status == 200) {
+                Actions.profileedit1()
+            }
+            return response.text()
+        }).then(text => {
+            console.log(text)
+        })
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -18,6 +56,7 @@ export default class Signup extends Component {
                     <TextInput
                         style={styles.smallInput}
                         underlineColorAndroid='rgba(0,0,0,0)'
+                        onChangeText = {(text) => this.state.fname = text}
                         placeholder="First Name"
                         placeholderTextColor="#ffffff"
                         selectionColor="#fff"
@@ -27,6 +66,7 @@ export default class Signup extends Component {
                     <TextInput
                         style={styles.smallInput}
                         underlineColorAndroid='rgba(0,0,0,0)'
+                        onChangeText = {(text) => this.state.lname = text}
                         placeholder="Last Name"
                         placeholderTextColor="#ffffff"
                         selectionColor="#fff"
@@ -37,6 +77,7 @@ export default class Signup extends Component {
                 <TextInput
                     style={styles.input}
                     underlineColorAndroid='rgba(0,0,0,0)'
+                    onChangeText = {(text) => this.state.email = text}
                     placeholder="Email"
                     placeholderTextColor="#ffffff"
                     selectionColor="#fff"
@@ -46,6 +87,7 @@ export default class Signup extends Component {
                 <TextInput
                     style={styles.input}
                     underlineColorAndroid='rgba(0,0,0,0)'
+                    onChangeText = {(text) => this.state.password = text}
                     placeholder="Password"
                     secureTextEntry={true}
                     placeholderTextColor="#ffffff"
@@ -54,12 +96,13 @@ export default class Signup extends Component {
                 <TextInput
                     style={styles.input}
                     underlineColorAndroid='rgba(0,0,0,0)'
+                    onChangeText = {(text) => this.state.cpassword = text}
                     placeholder="Confirm Password"
                     secureTextEntry={true}
                     placeholderTextColor="#ffffff"
                     returnKeyType='go' />
 
-                <TouchableOpacity style={styles.buttonCountainer} onPress={this.profileedit1}>
+                <TouchableOpacity style={styles.buttonCountainer} onPress={this.submit}>
                     <Text style={styles.buttonText}>
                         SIGN UP
                     </Text>
