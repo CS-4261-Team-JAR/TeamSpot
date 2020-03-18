@@ -7,7 +7,6 @@ export default class Login extends Component {
 	signup() {
 		Actions.signup()
 	}
-
 	// postlist() {
 	// 	Actions.postlist()
 	// }
@@ -42,9 +41,9 @@ export default class Login extends Component {
 		Alert.alert(
 			'Submission Issue',
 			result,
-			[
-				{text: 'OK', onPress: () => console.log('Ok Pressed')},
-			],
+			// [
+			// 	{text: 'OK', onPress: () => console.log('Ok Pressed')},
+			// ],
 			{cancelable: true}
 		);
 		if (result != successText) {
@@ -65,7 +64,9 @@ export default class Login extends Component {
 			}
 			return response.text()
 		}).then(text => {
-			console.log(text)
+			global.userID = text
+			// global.userID = text
+			console.log("LoginFrom:", text)
 		})
     }
 

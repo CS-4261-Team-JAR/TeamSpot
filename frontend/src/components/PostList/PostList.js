@@ -7,6 +7,8 @@ import PostBriefView from './PostBriefView';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+// import LoginForm from '../Login/LoginForm.js';
+import LoginForm from '../Login/LoginForm';
 
 export default class PostList extends Component {
     /*static propTypes = {
@@ -28,6 +30,7 @@ export default class PostList extends Component {
         fetch(url)
         .then((response) => response.json())*/
 
+        // var userID = global.userID
         var token
         if (!this.props.token) {
             token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTU5YTEzYjlmZTBjZTRmODgwNjZmYTEiLCJpYXQiOjE1ODI5MzIyOTl9.-gMZBOmiD6l9orb2QoeoPqS6zhU8Cs-yvc2xTh-f3fI"
@@ -63,6 +66,9 @@ export default class PostList extends Component {
 
     render() {
         const { loading, data } = this.state
+
+        console.log("PostList:", global.userID)
+        // console.log("PostList:", LoginForm.state.email)
 
         return (
             <View>
