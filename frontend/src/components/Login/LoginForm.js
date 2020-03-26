@@ -22,10 +22,10 @@ export default class Login extends Component {
 
     checkSubmission(body) {
         if (!body.email) {
-            return "email required"
+            return "Email required"
         }
         if (!body.password) {
-            return "password required"
+            return "Password required"
         }
         return successText
     }
@@ -38,15 +38,15 @@ export default class Login extends Component {
         }
 
         const result = this.checkSubmission(body)
-		Alert.alert(
-			'Submission Issue',
-			result,
-			// [
-			// 	{text: 'OK', onPress: () => console.log('Ok Pressed')},
-			// ],
-			{cancelable: true}
-		);
 		if (result != successText) {
+			Alert.alert(
+				'Login Issue',
+				result,
+				[
+					{text: 'OK'},
+				],
+				{cancelable: true}
+			);
 			return
 		}
 
@@ -60,14 +60,17 @@ export default class Login extends Component {
 		}).then((response) => {
 			console.log(response.status);
 			if (response.status == 200){
-				Actions.postlist()
+				global.userID = response.text()
+				Actions.postlist()//{token: response.text()})
+			} else {
+				alert("Incorrect username or password.")
 			}
-			return response.text()
-		}).then(text => {
+			//return response.text()
+		})/*.then(text => {
 			global.userID = text
 			// global.userID = text
 			console.log("LoginFrom:", text)
-		})
+		})*/
     }
 
 	render() {
@@ -81,6 +84,7 @@ export default class Login extends Component {
 					placeholderTextColor="#ffffff"
 					selectionColor="#fff"
 					keyboardType="email-address"
+					autoCapitalize = 'none'
 					returnKeyType='next' />
 
 				<TextInput
@@ -90,6 +94,7 @@ export default class Login extends Component {
 					placeholder="Password"
 					secureTextEntry={true}
 					placeholderTextColor="#ffffff"
+					autoCapitalize = 'none'
 					returnKeyType='go' />
 
 				<TouchableOpacity 

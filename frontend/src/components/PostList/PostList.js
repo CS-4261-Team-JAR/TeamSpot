@@ -19,6 +19,8 @@ export default class PostList extends Component {
     constructor(props) {
         super(props)
         this.state = { loading: true, data: null }
+
+        //alert(JSON.stringify(this.token))
     }
 
     componentDidMount() {
@@ -31,12 +33,12 @@ export default class PostList extends Component {
         .then((response) => response.json())*/
 
         // var userID = global.userID
-        var token
-        if (!this.props.token) {
+        let token = global.userID
+        /*if (!this.props.token) {
             token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTU5YTEzYjlmZTBjZTRmODgwNjZmYTEiLCJpYXQiOjE1ODI5MzIyOTl9.-gMZBOmiD6l9orb2QoeoPqS6zhU8Cs-yvc2xTh-f3fI"
         } else {
             token = this.props.token
-        }
+        }*/
         var courseid
         if (!this.props.courseid) {
             courseid = "5e59a15a9fe0ce4f88066fa2"
