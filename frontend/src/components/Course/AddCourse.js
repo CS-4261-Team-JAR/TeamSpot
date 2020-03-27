@@ -7,10 +7,36 @@ import { ListItem } from 'react-native-elements';
 export default class AddCourse extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            year: "",
+            course: ""
+        }
+        this.submit = this.submit.bind(this)
         YellowBox.ignoreWarnings([
          'Warning: isMounted(...) is deprecated', 'Module RCTImageLoader'
        ]);
-      }
+    }
+
+    submit() {
+        const url = "https://secure-depths-39233.herokuapp.com/api/course/register"
+        const body = {
+            year: this.state.year,
+            course: this.state.course
+        }
+        fetch(
+            url,
+            {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    },
+                body: JSON.stringify(body)
+            }
+        ).then((response)=>response.json())
+
+        // console.log("year:",year)
+    }
 
     render() {
         return (
@@ -30,7 +56,8 @@ export default class AddCourse extends Component {
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"2020"}>
+                                <MenuOption onSelect={() => this.state.year = "2020"} 
+                                    value={"2020"}>
                                 <Text style={styles.menuContent}>2020</Text>
                                 </MenuOption>
 
@@ -48,7 +75,8 @@ export default class AddCourse extends Component {
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"Spring"}>
+                                <MenuOption onSelect={() => this.state.semester = "Spring"}
+                                    value={"Spring"}>
                                 <Text style={styles.menuContent}>Spring</Text>
                                 </MenuOption>
 
@@ -70,7 +98,8 @@ export default class AddCourse extends Component {
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"CS4261-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4261-A"}
+                                    value={"CS4261-A"}>
                                 <Text style={styles.menuContent}>CS4261-A</Text>
                                 </MenuOption>
 
@@ -106,6 +135,7 @@ export default class AddCourse extends Component {
 
                 <View style={styles.bottomContainer}>
                 <TouchableOpacity 
+                    onPress={this.submit}
 					style={styles.buttonCountainer}>
 					<Text style={styles.buttonText}>
 						REGISTER
