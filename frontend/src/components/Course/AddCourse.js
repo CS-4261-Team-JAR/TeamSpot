@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text, KeyboardAvoidingView ,TouchableOpacity, ScrollView, Platform, YellowBox, Alert} from 'react-native';
-import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
-import { Actions } from 'react-native-router-flux';
-import { TextInput } from 'react-native-gesture-handler';
 import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger} from "react-native-popup-menu";
 
 export default class AddCourse extends Component {
@@ -18,69 +15,86 @@ export default class AddCourse extends Component {
         return (
             <View style={styles.container} behavior="padding" enabled>
 
-                <View style={styles.header}>
-                    <Text></Text>
-                    <Text></Text>
-                    <Text></Text>
-                    <Text style={styles.headerText}>- ADD -</Text>
-                </View>
+                <Header
+                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    centerComponent={{ text: "Add Course", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                    backgroundColor="#2980b9"
+                />
                 
                 <View style={styles.MenuContainer}>
                     <MenuProvider style={{ flexDirection: "column", padding: 30}}>
-                        <Menu style={{backgroundColor: '#a0522d'}} onSelect={value => alert(`You Clicked : ${value}`)}>
+                    <Menu style={{backgroundColor: '#ffeb99'}} onSelect={value => alert(`You Clicked : ${value}`)}>
                             <MenuTrigger  >
-                                <Text style={styles.headerText}>SEMESTER</Text>
+                                <Text style={styles.headerText}>YEAR</Text>
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"Spring2020"}>
-                                <Text style={styles.menuContent}>Spring2020</Text>
+                                <MenuOption value={"2020"}>
+                                <Text style={styles.menuContent}>2020</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Summer2020"}>
-                                <Text style={styles.menuContent}>Summer2020</Text>
-                                </MenuOption>
-
-                                <MenuOption value={"Fall2020"}>
-                                <Text style={styles.menuContent}>Fall2020</Text>
-                                </MenuOption>
-
-                                <MenuOption value={"Spring2021"}>
-                                <Text style={styles.menuContent}>Spring2021</Text>
+                                <MenuOption value={"2019"}>
+                                <Text style={styles.menuContent}>2019</Text>
                                 </MenuOption>
                             </MenuOptions>
                         </Menu>
 
                         <Text></Text>
 
-                        <Menu style={{backgroundColor: '#6d8dc0'}} onSelect={value => alert(`You Clicked : ${value}`)}>
+                        <Menu style={{backgroundColor: '#a4c5c6'}} onSelect={value => alert(`You Clicked : ${value}`)}>
+                            <MenuTrigger  >
+                                <Text style={styles.headerText}>SEMESTER</Text>
+                            </MenuTrigger  >
+
+                            <MenuOptions>
+                                <MenuOption value={"Spring"}>
+                                <Text style={styles.menuContent}>Spring</Text>
+                                </MenuOption>
+
+                                <MenuOption value={"Summer2020"}>
+                                <Text style={styles.menuContent}>Summer</Text>
+                                </MenuOption>
+
+                                <MenuOption value={"Fall2020"}>
+                                <Text style={styles.menuContent}>Fall</Text>
+                                </MenuOption>
+                            </MenuOptions>
+                        </Menu>
+
+                        <Text></Text>
+
+                        <Menu style={{backgroundColor: '#d4ebd0'}} onSelect={value => alert(`You Clicked : ${value}`)}>
                             <MenuTrigger  >
                                 <Text style={styles.headerText}>COURSE</Text>
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"Spring2020"}>
-                                <Text style={styles.menuContent}>CS4261</Text>
+                                <MenuOption value={"CS4261-A"}>
+                                <Text style={styles.menuContent}>CS4261-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Summer2020"}>
-                                <Text style={styles.menuContent}>CS3630</Text>
+                                <MenuOption value={"CS4261-A"}>
+                                <Text style={styles.menuContent}>CS4261-B</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Fall2020"}>
-                                <Text style={styles.menuContent}>CS4649</Text>
+                                <MenuOption value={"CS3630"}>
+                                <Text style={styles.menuContent}>CS3630-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Spring2021"}>
-                                <Text style={styles.menuContent}>CS4641</Text>
+                                <MenuOption value={"CS4649"}>
+                                <Text style={styles.menuContent}>CS4649-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Spring2020"}>
-                                <Text style={styles.menuContent}>CS4731</Text>
+                                <MenuOption value={"CS4641"}>
+                                <Text style={styles.menuContent}>CS4641-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Summer2020"}>
-                                <Text style={styles.menuContent}>CS8803</Text>
+                                <MenuOption value={"CS4731"}>
+                                <Text style={styles.menuContent}>CS4731-A</Text>
+                                </MenuOption>
+
+                                <MenuOption value={"CS8803"}>
+                                <Text style={styles.menuContent}>CS8803-MAS</Text>
                                 </MenuOption>
 
                             </MenuOptions>
@@ -89,15 +103,14 @@ export default class AddCourse extends Component {
 
                 </View>
 
-                <View style={styles.footer}>
-                    <TextInput style={styles.TextInput} placeholder = '<User Name>' placeholderTextColor = 'white'>
-
-                    </TextInput>
+                <View style={styles.bottomContainer}>
+                <TouchableOpacity 
+					style={styles.buttonCountainer}>
+					<Text style={styles.buttonText}>
+						REGISTER
+                    </Text>
+				</TouchableOpacity>
                 </View>
-
-                {/* <TouchableOpacity style={styles.addIcon}>
-                    <Icon name="md-add" size={30} color="#fff" />
-                </TouchableOpacity> */}
             </View>
         );
     }
@@ -106,9 +119,20 @@ export default class AddCourse extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: '#4C99CD',
-        // justifyContent: 'center'
     },
+    buttonCountainer: {
+		width:"85%",
+		backgroundColor: '#1c313a',
+		borderRadius: 25,
+		marginVertical: 20,
+		paddingVertical: 13
+	},
+	buttonText: {
+		fontSize: 16,
+		fontWeight: '500',
+		color: '#ffffff',
+		textAlign: 'center'
+	},
     addIcon: {
         borderWidth: 1,
         borderColor: 'rgba(0,0,0,0)',
@@ -134,19 +158,11 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 20,
         margin: 10,
-        fontWeight: "bold"
+        fontWeight: "bold",
       },
     scrollContainer: {
         flex: 1,
         marginBottom: 100,
-        // justifyContent: 'center'
-    },
-    footer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: 0
     },
     TextInput: {
         alignSelf: 'stretch',
@@ -157,14 +173,14 @@ const styles = StyleSheet.create({
         borderTopColor: '#ededed'
     },
     menuContent: {
-        backgroundColor: '#ddd',
-        color: "#ff5050",
-        fontWeight: "bold",
         padding: 1,
-        fontSize: 20
+        fontSize: 20,
     },
     MenuContainer: {
         flex: 1,
-        padding: 1
-    }
+        padding: 1,
+    },
+    bottomContainer: {
+        alignItems: 'center'
+    },
 });
