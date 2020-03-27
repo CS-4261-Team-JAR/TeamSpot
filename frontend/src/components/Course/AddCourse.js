@@ -78,23 +78,23 @@ export default class AddCourse extends Component {
                                 <Text style={styles.menuContent}>CS4261-B</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS3630"}>
+                                <MenuOption value={"CS3630-A"}>
                                 <Text style={styles.menuContent}>CS3630-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4649"}>
+                                <MenuOption value={"CS4649-A"}>
                                 <Text style={styles.menuContent}>CS4649-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4641"}>
+                                <MenuOption value={"CS4641-A"}>
                                 <Text style={styles.menuContent}>CS4641-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4731"}>
+                                <MenuOption value={"CS4731-A"}>
                                 <Text style={styles.menuContent}>CS4731-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS8803"}>
+                                <MenuOption value={"CS8803-A"}>
                                 <Text style={styles.menuContent}>CS8803-MAS</Text>
                                 </MenuOption>
 
