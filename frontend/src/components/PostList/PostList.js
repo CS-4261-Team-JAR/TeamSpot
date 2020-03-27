@@ -69,7 +69,7 @@ export default class PostList extends Component {
     render() {
         const { loading, data } = this.state
 
-        console.log("PostList:", global.userID)
+        // console.log("PostList:", global.userID)
         // console.log("PostList:", LoginForm.state.email)
 
         return (
