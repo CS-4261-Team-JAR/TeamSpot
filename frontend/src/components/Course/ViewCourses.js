@@ -17,9 +17,9 @@ export default class ViewCourses extends Component {
             
             <View>
                 <Header
-                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    leftComponent={{ icon: "arrow-back", color: "#fff"}}
                     centerComponent={{ text: "COURSES", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
-                    rightComponent={{ icon: "add", color: "#fff" }}
+                    rightComponent={{ icon: "add", color: "#fff", onPress: Actions.addcourse}}
                     backgroundColor="#2980b9"
                 />
 
