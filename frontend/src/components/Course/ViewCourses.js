@@ -66,7 +66,7 @@ export default class ViewCourses extends Component {
                         onPress={Actions.postlist}
                         key={i}
                         leftIcon={{ name: 'flight-takeoff' }}
-                        title={l.subject.concat(' ', l.course)}
+                        title={l.subject.concat(' ', l.course, '-', l.section)}
                         subtitle={l.semester.concat(' ', l.year)}
                         bottomDivider
                         chevron
