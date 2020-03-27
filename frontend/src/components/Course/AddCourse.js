@@ -9,6 +9,7 @@ export default class AddCourse extends Component {
         super(props);
         this.state = {
             year: "",
+            semester: "",
             course: ""
         }
         this.submit = this.submit.bind(this)
@@ -18,11 +19,17 @@ export default class AddCourse extends Component {
     }
 
     submit() {
+        // console.log("year:",this.state.year)
         const url = "https://secure-depths-39233.herokuapp.com/api/course/register"
         const body = {
-            year: this.state.year,
+            // year: this.state.year,
+            semester: this.state.semester + " " + this.state.year,
             course: this.state.course
         }
+        const token = global.userID
+        // console.log('token:',token)
+        // console.log('semester:', body.semester)
+        // console.log('course:',body.course)
         fetch(
             url,
             {
@@ -61,7 +68,8 @@ export default class AddCourse extends Component {
                                 <Text style={styles.menuContent}>2020</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"2019"}>
+                                <MenuOption onSelect={() => this.state.year = "2019"} 
+                                    value={"2019"}>
                                 <Text style={styles.menuContent}>2019</Text>
                                 </MenuOption>
                             </MenuOptions>
@@ -80,11 +88,13 @@ export default class AddCourse extends Component {
                                 <Text style={styles.menuContent}>Spring</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Summer2020"}>
+                                <MenuOption onSelect={() => this.state.semester = "Summer"}
+                                    value={"Summer"}>
                                 <Text style={styles.menuContent}>Summer</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Fall2020"}>
+                                <MenuOption onSelect={() => this.state.semester = "Fall"}
+                                    value={"Fall"}>
                                 <Text style={styles.menuContent}>Fall</Text>
                                 </MenuOption>
                             </MenuOptions>
@@ -103,27 +113,33 @@ export default class AddCourse extends Component {
                                 <Text style={styles.menuContent}>CS4261-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4261-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4261-B"}
+                                    value={"CS4261-B"}>
                                 <Text style={styles.menuContent}>CS4261-B</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS3630-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS3630-A"}
+                                    value={"CS3630-A"}>
                                 <Text style={styles.menuContent}>CS3630-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4649-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4649-A"}
+                                    value={"CS4649-A"}>
                                 <Text style={styles.menuContent}>CS4649-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4641-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4641-A"}
+                                    value={"CS4641-A"}>
                                 <Text style={styles.menuContent}>CS4641-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4731-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4731-A"}
+                                    value={"CS4731-A"}>
                                 <Text style={styles.menuContent}>CS4731-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS8803-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS8803-MAS"}
+                                    value={"CS8803-MAS"}>
                                 <Text style={styles.menuContent}>CS8803-MAS</Text>
                                 </MenuOption>
 
