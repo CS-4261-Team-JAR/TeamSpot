@@ -39,7 +39,7 @@ export default class Post extends Component{
         } else {
             leaderProfile = <Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>
         }
-        alert(JSON.stringify(data))
+        //alert(JSON.stringify(data))
         return(
             <View>
                 <Header
