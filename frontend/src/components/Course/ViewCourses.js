@@ -4,50 +4,90 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { TextInput } from 'react-native-gesture-handler';
+import { ListItem } from 'react-native-elements';
 // Code source: https://www.youtube.com/watch?v=xb8uTN3qiUI
 
 export default class ViewCourses extends Component {
     addcourses() {
 		Actions.addcourse()
-	}
+    }
 
     render() {
         return (
-            <View style={styles.container} behavior="padding" enabled>
-
+            
+            <View>
                 <View style={styles.header}>
                     <Text></Text>
                     <Text></Text>
                     <Text></Text>
                     <Text style={styles.headerText}>- COURSE -</Text>
                 </View>
-
-                <ScrollView style={styles.scrollContainer}>
-
-
-                </ScrollView>
-
-                <View style={styles.footer}>
-                    <TextInput style={styles.TextInput} placeholder = '<User Name>' placeholderTextColor = 'white'>
-
-                    </TextInput>
-                </View>
-
-                <TouchableOpacity style={styles.addIcon} onPress={this.addcourses}>
-                    <Icon name="md-add" size={30} color="#fff" />
-                </TouchableOpacity>
+                {
+                list.map((l, i) => (
+                <ListItem
+                    onPress={Actions.postlist}
+                    key={i}
+                    leftAvatar={{ source: { uri: l.avatar_url } }}
+                    title={l.name}
+                    subtitle={l.subtitle}
+                    bottomDivider
+                    chevron
+                />
+                ))
+                }
             </View>
-            // <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-            //     <Text style={styles.logoText}>View Courses</Text>
+        )
+        // return (
+        //     <View style={styles.container} behavior="padding" enabled>
 
-            //     <TouchableOpacity style={styles.addIcon}>
-            //         <Icon name="md-add" size={30} color="#fff" />
-            //     </TouchableOpacity>
+                // <View style={styles.header}>
+                //     <Text></Text>
+                //     <Text></Text>
+                //     <Text></Text>
+                //     <Text style={styles.headerText}>- COURSE -</Text>
+                // </View>
+
+        //         <ScrollView style={styles.scrollContainer}>
+
+
+        //         </ScrollView>
+
+        //         <View style={styles.footer}>
+        //             <TextInput style={styles.TextInput} placeholder = '<User Name>' placeholderTextColor = 'white'>
+
+        //             </TextInput>
+        //         </View>
+
+        //         <TouchableOpacity style={styles.addIcon} onPress={this.addcourses}>
+        //             <Icon name="md-add" size={30} color="#fff" />
+        //         </TouchableOpacity>
+        //     </View>
+        //     // <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        //     //     <Text style={styles.logoText}>View Courses</Text>
+
+        //     //     <TouchableOpacity style={styles.addIcon}>
+        //     //         <Icon name="md-add" size={30} color="#fff" />
+        //     //     </TouchableOpacity>
                
-            // </KeyboardAvoidingView>
-        );
+        //     // </KeyboardAvoidingView>
+        // );
     }
 }
+
+const list = [
+    {
+        name: 'CS4261',
+        subtitle: 'Spring 2020',
+        title: 'Appointments',
+        icon: 'av-timer'
+      },
+      {
+        name: 'CS4731',
+        subtitle: 'Spring 2020',
+        title: 'Trips',
+        icon: 'flight-takeoff'
+      },
+  ];
 
 const styles = StyleSheet.create({
     container: {
