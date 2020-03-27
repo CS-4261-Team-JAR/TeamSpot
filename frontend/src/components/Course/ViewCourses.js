@@ -16,61 +16,26 @@ export default class ViewCourses extends Component {
         return (
             
             <View>
-                <View style={styles.header}>
-                    <Text></Text>
-                    <Text></Text>
-                    <Text></Text>
-                    <Text style={styles.headerText}>- COURSE -</Text>
-                </View>
+                <Header
+                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    centerComponent={{ text: "COURSES", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                    backgroundColor="#2980b9"
+                />
                 {
                 list.map((l, i) => (
-                <ListItem
-                    onPress={Actions.postlist}
-                    key={i}
-                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                    title={l.name}
-                    subtitle={l.subtitle}
-                    bottomDivider
-                    chevron
-                />
+                    <ListItem
+                        onPress={Actions.postlist}
+                        key={i}
+                        leftAvatar={{ source: { uri: l.avatar_url } }}
+                        title={l.name}
+                        subtitle={l.subtitle}
+                        bottomDivider
+                        chevron
+                    />
                 ))
                 }
             </View>
         )
-        // return (
-        //     <View style={styles.container} behavior="padding" enabled>
-
-                // <View style={styles.header}>
-                //     <Text></Text>
-                //     <Text></Text>
-                //     <Text></Text>
-                //     <Text style={styles.headerText}>- COURSE -</Text>
-                // </View>
-
-        //         <ScrollView style={styles.scrollContainer}>
-
-
-        //         </ScrollView>
-
-        //         <View style={styles.footer}>
-        //             <TextInput style={styles.TextInput} placeholder = '<User Name>' placeholderTextColor = 'white'>
-
-        //             </TextInput>
-        //         </View>
-
-        //         <TouchableOpacity style={styles.addIcon} onPress={this.addcourses}>
-        //             <Icon name="md-add" size={30} color="#fff" />
-        //         </TouchableOpacity>
-        //     </View>
-        //     // <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        //     //     <Text style={styles.logoText}>View Courses</Text>
-
-        //     //     <TouchableOpacity style={styles.addIcon}>
-        //     //         <Icon name="md-add" size={30} color="#fff" />
-        //     //     </TouchableOpacity>
-               
-        //     // </KeyboardAvoidingView>
-        // );
     }
 }
 
