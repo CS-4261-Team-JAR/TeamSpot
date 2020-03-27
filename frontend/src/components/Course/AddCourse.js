@@ -19,30 +19,38 @@ export default class AddCourse extends Component {
     }
 
     submit() {
-        // console.log("year:",this.state.year)
-        const url = "https://secure-depths-39233.herokuapp.com/api/course/register"
-        const body = {
-            // year: this.state.year,
-            semester: this.state.semester + " " + this.state.year,
-            course: this.state.course
-        }
+        var url = "https://secure-depths-39233.herokuapp.com/api/course/"
         const token = global.userID
-        // console.log('token:',token)
-        // console.log('semester:', body.semester)
-        // console.log('course:',body.course)
-        fetch(
-            url,
-            {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    },
-                body: JSON.stringify(body)
-            }
-        ).then((response)=>response.json())
+        console.log(token)
+        url = url.concat(this.state.year, "/", this.state.semester, "/", this.state.course.substring(0, 2), 
+            "/", this.state.course.substring(2, 6), "/", this.state.course.substring(7))
 
-        // console.log("year:",year)
+        fetch(url, { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': token, 
+            }), 
+        })
+        .then((response) => response.json())
+        .then(data => {
+            console.log(data.course)
+            var courseId = data.course
+            return fetch('https://secure-depths-39233.herokuapp.com/api/course/register', { 
+                method: 'POST', 
+                headers: new Headers({
+                    'Authorization': token, 
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({course: courseId})
+            })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+        })
+        .catch(function(error) {
+            console.log('Request failed', error)
+        })
     }
 
     render() {
