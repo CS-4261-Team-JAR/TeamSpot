@@ -58,19 +58,23 @@ export default class Login extends Component {
                 },
 			body: JSON.stringify(body),
 		}).then((response) => {
-			console.log(response.status);
-			if (response.status == 200){
-				global.userID = response.text()
-				Actions.viewcourses()//{token: response.text()})
+			if (response.status == '200'){
+				return response.json()
 			} else {
 				alert("Incorrect username or password.")
 			}
-			//return response.text()
-		})/*.then(text => {
-			global.userID = text
-			// global.userID = text
-			console.log("LoginFrom:", text)
-		})*/
+		})
+		.then((json) => {
+			console.log(json)
+			global.userID = json.token
+			Actions.viewcourses()
+			// if (json.status == 200){
+			// 	global.userID = json.token
+			// 	console.log(json.token)
+			// 	Actions.viewcourses()//{token: response.text()})
+			// } else {
+			// }
+		})
     }
 
 	render() {
