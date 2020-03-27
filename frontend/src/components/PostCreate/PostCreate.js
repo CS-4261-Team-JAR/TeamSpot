@@ -34,16 +34,16 @@ export default class PostCreate extends Component{
         if (!body.description) {
             return "Description required"
         }
-        if (body.status.remaining == null || body.status.remaining == '') {
+        if (body.members == null || body.members.length == 0) {
             return "Current number of members required"
         }
-        if (body.status.total == null || body.status.total == '') {
+        if (body.total == null || body.total == '') {
             return "Desired group size required"
         }
-        if (body.status.total < body.status.remaining) {
+        if (body.total < body.members.length) {
             return "More members than desired group size"
         }
-        if (body.status.remaining < 1 || body.status.total < 1) {
+        if (body.members.length < 1 || body.total < 1) {
             return "At least one member required"
         }
 
