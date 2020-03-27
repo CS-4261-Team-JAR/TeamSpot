@@ -19,36 +19,7 @@ export default class ViewCourses extends Component {
     componentDidMount() {
         this.refresh()
     }
-    renderList = data => {
-        return (
-            <View style = {styles.formContainer}>
-                {
-                list.map((l, i) => (
-                    <ListItem
-                        onPress={Actions.postlist}
-                        key={i}
-                        leftAvatar={{ source: { uri: l.avatar_url } }}
-                        title={l.name}
-                        subtitle={l.subtitle}
-                        bottomDivider
-                        chevron
-                    />
-                ))
-                }
-                {/* {data.map(item => (
-                    <ListItem
-                    onPress={Actions.postlist}
-                    key={i}
-                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                    title={l.name}
-                    subtitle={l.subtitle}
-                    bottomDivider
-                    chevron
-                />
-                ))} */}
-            </View>
-        )
-    }
+    
     refresh() {
         const url = "https://secure-depths-39233.herokuapp.com/api/course"
         const token = global.userID
@@ -68,7 +39,10 @@ export default class ViewCourses extends Component {
         }).then((response) => response.json())
         .then(resp => {
             // list = resp
-            console.log("test:",resp)
+            data = resp
+            // this.data = resp
+            console.log("test:",data)
+            return data
         }).then(json => this.setState({loading: false, data: json}));
         // let token = global.userID        
         // getCourses()
@@ -103,8 +77,41 @@ export default class ViewCourses extends Component {
         this.refresh()
     }
 
+    renderList = data => {
+        console.log("data:",data)
+        return (
+            <View style = {styles.formContainer}>
+                {/* {
+                data.map((l, i) => (
+                    // console.log()
+                    <ListItem
+                        onPress={Actions.postlist}
+                        key={i}
+                        leftAvatar={{ source: { uri: l.avatar_url } }}
+                        title={l.course}
+                        subtitle={l.semester}
+                        bottomDivider
+                        chevron
+                    />
+                ))
+                } */}
+                {list.map((l, i) => (
+                    <ListItem
+                    onPress={Actions.postlist}
+                    key={i}
+                    leftAvatar={{ source: { uri: l.avatar_url } }}
+                    title={l.name}
+                    subtitle={l.subtitle}
+                    bottomDivider
+                    chevron
+                />
+                ))}
+            </View>
+        )
+    }
+
     render() {
-        const{loading, data} = this.state
+        // const{loading, data} = this.state
         console.log("ViewCourse:", global.userID)
         return (  
             // this.submit          
@@ -122,21 +129,22 @@ export default class ViewCourses extends Component {
                         onRefresh={this._onRefresh}
                     />
                 }>
-                {loading ? <Text style={styles.loadingText}>Loading</Text> : this.renderList(data)}
+                {/* {loading ? <Text style={styles.loadingText}>Loading</Text> : this.renderList(data)} */}
                 </ScrollView>
-                {/* {
-                list.map((l, i) => (
+
+                {
+                data.map((l, i) => (
                     <ListItem
                         onPress={Actions.postlist}
                         key={i}
                         leftAvatar={{ source: { uri: l.avatar_url } }}
-                        title={l.name}
-                        subtitle={l.subtitle}
+                        title={l.course}
+                        subtitle={l.semester}
                         bottomDivider
                         chevron
                     />
                 ))
-                } */}
+                }
                 {/* <TouchableOpacity style={styles.addIcon}>
                  <Icon name="md-add" size={30} color="#fff" />
                 </TouchableOpacity> */}
@@ -156,22 +164,22 @@ const body = {
     section: ""
 }
 
-const list = [];
+// const list = [];
 
-// const list = [
-//     {
-//         name: 'CS4261',
-//         subtitle: 'Spring 2020',
-//         title: 'Appointments',
-//         icon: 'av-timer'
-//       },
-//       {
-//         name: 'CS4731',
-//         subtitle: 'Spring 2020',
-//         title: 'Trips',
-//         icon: 'flight-takeoff'
-//       },
-//   ];
+const list = [
+    {
+        name: 'CS4261',
+        subtitle: 'Spring 2020',
+        title: 'Appointments',
+        icon: 'av-timer'
+      },
+      {
+        name: 'CS4731',
+        subtitle: 'Spring 2020',
+        title: 'Trips',
+        icon: 'flight-takeoff'
+      },
+  ];
 
 const styles = StyleSheet.create({
     container: {
