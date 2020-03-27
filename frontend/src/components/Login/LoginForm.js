@@ -61,7 +61,7 @@ export default class Login extends Component {
 			console.log(response.status);
 			if (response.status == 200){
 				global.userID = response.text()
-				Actions.postlist()//{token: response.text()})
+				Actions.viewcourses()//{token: response.text()})
 			} else {
 				alert("Incorrect username or password.")
 			}
