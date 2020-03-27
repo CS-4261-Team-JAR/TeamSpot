@@ -57,13 +57,7 @@ export default class Login extends Component {
                 'Content-Type': 'application/json',
                 },
 			body: JSON.stringify(body),
-		}).then((response) => {
-			if (response.status == '200'){
-				return response.json()
-			} else {
-				alert("Incorrect username or password.")
-			}
-		})
+		}).then((response) => response.json())
 		.then((json) => {
 			console.log(json)
 			global.userID = json.token
@@ -75,6 +69,9 @@ export default class Login extends Component {
 			// } else {
 			// }
 		})
+		.catch((error) => {
+			alert("Incorrect username or password.")
+		  });
     }
 
 	render() {
