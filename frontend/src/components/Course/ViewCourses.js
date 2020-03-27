@@ -19,7 +19,9 @@ export default class ViewCourses extends Component {
                 <View style={styles.header}>
                     <Text></Text>
                     <Text></Text>
-                    <Text></Text>
+                    <TouchableOpacity style={styles.addIcon} onPress={this.addcourses}>
+                     <Icon name="md-add" size={30} color="#fff" />
+                    </TouchableOpacity>
                     <Text style={styles.headerText}>- COURSE -</Text>
                 </View>
                 {
@@ -35,6 +37,9 @@ export default class ViewCourses extends Component {
                 />
                 ))
                 }
+                {/* <TouchableOpacity style={styles.addIcon}>
+                 <Icon name="md-add" size={30} color="#fff" />
+                </TouchableOpacity> */}
             </View>
         )
         // return (
@@ -44,6 +49,7 @@ export default class ViewCourses extends Component {
                 //     <Text></Text>
                 //     <Text></Text>
                 //     <Text></Text>
+                
                 //     <Text style={styles.headerText}>- COURSE -</Text>
                 // </View>
 
