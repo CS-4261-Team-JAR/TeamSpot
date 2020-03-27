@@ -105,11 +105,11 @@ const postValidation = (data) => {
 		course: Joi.string()
 			.required(),
 		title: Joi.string()
-			.min(10)
+			.min(3)
 			.max(56)
 			.required(),
 		description: Joi.string()
-			.min(10)
+			.min(3)
 			.max(512)
 			.required(),
 		tags: Joi.array().items(Joi.string()),
