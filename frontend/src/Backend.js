@@ -60,6 +60,26 @@ export function createPost(courseid, post) {
         .then((response) => response.text())
 }
 
+export function editPost(postid, post) {
+    let token = global.token
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-Type", "application/json");
+
+    post.id = postid
+    var raw = JSON.stringify(post)
+
+    var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(url + "/post/?id=" + postid, requestOptions)
+        .then((response) => response.text())
+}
+
 export function addToDiscussion(postid, message) {
     let token = global.token
     var myHeaders = new Headers();

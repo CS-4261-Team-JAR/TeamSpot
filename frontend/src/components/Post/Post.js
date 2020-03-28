@@ -17,9 +17,15 @@ export default class Post extends Component{
         desiredNumber: PropTypes.number.isRequired,
     }*/
 
+    static propTypes = {
+        postid: PropTypes.string.isRequired,
+    }
+
     constructor(props) {
         super(props)
         this.state = { loading: true, data: null }
+
+        this.edit = this.edit.bind(this)
     }
 
     componentDidMount() {
@@ -51,6 +57,14 @@ export default class Post extends Component{
         this.scroll.props.scrollToFocusedInput(reactNode)
       }
 
+    edit() {
+        Actions.postedit({data: this.state.data})
+    }
+
+    doNothing() {
+        
+    }
+
     render(){
         if (this.state.loading) {
             return(
@@ -68,6 +82,7 @@ export default class Post extends Component{
         } else {
 
             const data = this.state.data[0]
+            const myPost = global.userID == data.author._id
 
             //const { title, description, currentNumber, desiredNumber } = this.props;
             const title = data.title//"Post Title"
@@ -88,8 +103,9 @@ export default class Post extends Component{
             return(
                 <View>
                     <Header
-                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
+                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.postlist}}
                         centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                        rightComponent={myPost ? { icon: "edit", color: "#fff", onPress: this.edit} : {}}
                         backgroundColor="#2980b9"
                     // centerContainerStyle={{: 'yellow'}}
                     // rightComponent={{ icon: 'home', color: '#fff' }}

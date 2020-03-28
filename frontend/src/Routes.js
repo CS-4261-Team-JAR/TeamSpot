@@ -9,6 +9,7 @@ import ProfileEdit2 from './components/ProfileEdit/ProfileEdit2';
 import ProfileView from './components/ProfileView/ProfileView';
 import PostList from './components/PostList/PostList';
 import Post from './components/Post/Post';
+import PostEdit from './components/PostEdit/PostEdit';
 import PostCreate from './components/PostCreate/PostCreate';
 import ViewCourses from './components/Course/ViewCourses';
 import AddCourse from './components/Course/AddCourse';
@@ -28,6 +29,7 @@ export default class Routes extends Component {
                     <Scene key="postlist" component={PostList} title="PostList"/>
                     <Scene key="postview" component={Post} title="PostView"/>
                     <Scene key="postcreate" component={PostCreate} title="PostCreate"/> 
+                    <Scene key="postedit" component={PostEdit} title="PostEdit"/> 
                     <Scene key="viewcourses" component={ViewCourses} title="ViewCourses"/>
                     <Scene key="addcourse" component={AddCourse} title="AddCourse"/>
                     
