@@ -34,6 +34,7 @@ export default class ViewCourses extends Component {
             }), 
         }).then((response) => response.json())
         .then(data => {
+            list = []
             data.forEach(item => list.push(item) );
             return data
         }).then(json => this.setState({loading: false, data: json}));
@@ -78,7 +79,7 @@ export default class ViewCourses extends Component {
     }
 }
 
-const list = [];
+var list = [];
 
 const styles = StyleSheet.create({
     container: {
