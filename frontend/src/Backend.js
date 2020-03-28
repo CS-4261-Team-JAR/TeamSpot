@@ -2,7 +2,8 @@
 
 const url = "https://secure-depths-39233.herokuapp.com/api"
 
-export function getAllPosts(token, courseid) {
+export function getAllPosts(courseid) {
+    let token = global.userID
     return fetch(url + "/post/?course=" + courseid, {
         method: 'GET',
         headers: {
@@ -23,8 +24,24 @@ export function getPosts() {
         .then((response) => response.json())
 }
 
-export function createPost(token, courseid, post) {
+export function getPost(postid) {
+    let token = global.userID
+    return fetch(url + "/post/?id=" + postid, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: token,
+        },
+    }).then((response) => {
+        //alert(JSON.stringify(response))
+        //alert(postid)
+        return response.json()
+    }) 
+}
 
+export function createPost(courseid, post) {
+    let token = global.userID
     var myHeaders = new Headers();
     myHeaders.append("Authorization", token);
     myHeaders.append("Content-Type", "application/json");
@@ -41,4 +58,26 @@ export function createPost(token, courseid, post) {
 
     return fetch(url + "/post", requestOptions)
         .then((response) => response.text())
+}
+
+export function addToDiscussion(postid, message) {
+    let token = global.userID
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        postId: postid,
+        message: message,
+    })
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(url + "/post/discussion", requestOptions)
+        .then((response) => response.json())
 }

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Alert} from 'react-native';
 import { Header, Button } from 'react-native-elements';
+import {getPost} from '../../Backend.js'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Discussion from './Discussion';
 import { Actions } from 'react-native-router-flux';
 
@@ -14,6 +16,22 @@ export default class Post extends Component{
         desiredNumber: PropTypes.number.isRequired,
     }*/
 
+    constructor(props) {
+        super(props)
+        this.state = { loading: true, data: null }
+    }
+
+    componentDidMount() {
+        this.refresh()
+    }
+
+    refresh() {
+        getPost(this.props.postid)
+            .then(json => {
+                this.setState({ loading: false, data: json })
+            })
+    }
+
     profileview() {
 		Actions.profileview()
     }
@@ -22,56 +40,88 @@ export default class Post extends Component{
         
     }
 
+    _scrollToInput (reactNode) {
+        // Add a 'scroll' ref to your ScrollView
+        this.scroll.props.scrollToFocusedInput(reactNode)
+      }
+
     render(){
-        const {data} = this.props
-        //const { title, description, currentNumber, desiredNumber } = this.props;
-        const title = data.title//"Post Title"
-        const description = data.description//"This is the project description. It can be multiple lines long. It will probably be much longer than the one in the breif description on the post list page."
-        const currentNumber = data.status ? data.status.remaining : data.members.length//2
-        const desiredNumber = data.status ? data.status.total : data.total//5
-        const lastEdit = new Date(data.lastModified ? data.lastModified : data.date)//"Jan 31, 2020"
-        const leader = data.author//'John Doe'
-        const tags = data.tags//2
-        const leaderProfileLocation = '../../images/defaultProfile.png'
-        var leaderProfile
-        if (leaderProfileLocation.startsWith('http')) {
-            leaderProfile = <Image source={{uri: leaderProfileLocation}} style={styles.profileImage}/>
-        } else {
-            leaderProfile = <Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>
-        }
-        //alert(JSON.stringify(data))
-        return(
-            <View>
-                <Header
-                    leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
-                    centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
-                    backgroundColor="#2980b9"
-                // centerContainerStyle={{: 'yellow'}}
-                // rightComponent={{ icon: 'home', color: '#fff' }}
-                />
-                <View style={styles.container}>
-                    <Text style={styles.titleText}>{title}</Text>
-                    <Text style={styles.numberText}>Members: {currentNumber}/{desiredNumber}</Text>
-                    <Text style={styles.tags}>Tags: {tags.join(', ')}</Text>
-                    <Text style={styles.descriptionText}>{description}</Text>
-
-                    <View style={styles.bottomLine}>
-                        <Text style={styles.lastEdit}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
-                        <View style={styles.leaderPart}>
-                            {/* <Text style={styles.leaderText}>{leader}</Text>  */}
-                            <TouchableOpacity onPress={this.profileview}>
-                            <Text style={styles.leaderText}>{leader}</Text> 
-                            </TouchableOpacity>
-                            
-                            {leaderProfile}
-                        </View>
-                    </View>
-                    <Button buttonStyle={styles.button} title="Request to Join" onPress={this.requestJoin}/>
+        if (this.state.loading) {
+            return(
+                <View>
+                    <Header
+                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
+                        centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                        backgroundColor="#2980b9"
+                    // centerContainerStyle={{: 'yellow'}}
+                    // rightComponent={{ icon: 'home', color: '#fff' }}
+                    />
+                    <Text style={styles.loadingText}>Loading</Text>
                 </View>
+            );
+        } else {
 
-                <Discussion/>
-            </View>
-        );
+            const data = this.state.data[0]
+
+            //const { title, description, currentNumber, desiredNumber } = this.props;
+            const title = data.title//"Post Title"
+            const description = data.description//"This is the project description. It can be multiple lines long. It will probably be much longer than the one in the breif description on the post list page."
+            const currentNumber = data.status ? data.status.remaining : data.members.length//2
+            const desiredNumber = data.status ? data.status.total : data.total//5
+            const lastEdit = new Date(data.lastModified ? data.lastModified : data.date)//"Jan 31, 2020"
+            const leader = data.author.name//'John Doe'
+            const tags = data.tags//2
+            const leaderProfileLocation = '../../images/defaultProfile.png'
+            var leaderProfile
+            if (leaderProfileLocation.startsWith('http')) {
+                leaderProfile = <Image source={{uri: leaderProfileLocation}} style={styles.profileImage}/>
+            } else {
+                leaderProfile = <Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>
+            }
+            //alert(JSON.stringify(data))
+            return(
+                <View>
+                    <Header
+                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
+                        centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                        backgroundColor="#2980b9"
+                    // centerContainerStyle={{: 'yellow'}}
+                    // rightComponent={{ icon: 'home', color: '#fff' }}
+                    />
+                    <KeyboardAwareScrollView
+                        resetScrollToCoords={{ x: 0, y: 0 }}
+                        enableAutomaticScroll = {true}
+                        enableOnAndroid = {true}
+                        extraScrollHeight = {400}
+                        innerRef={ref => {
+                            this.scroll = ref
+                        }}
+                    >
+                    <View style={styles.container}>
+                        <Text style={styles.titleText}>{title}</Text>
+                        <Text style={styles.numberText}>Members: {currentNumber}/{desiredNumber}</Text>
+                        <Text style={styles.tags}>Tags: {tags.join(', ')}</Text>
+                        <Text style={styles.descriptionText}>{description}</Text>
+
+                        <View style={styles.bottomLine}>
+                            <Text style={styles.lastEdit}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
+                            <View style={styles.leaderPart}>
+                                {/* <Text style={styles.leaderText}>{leader}</Text>  */}
+                                <TouchableOpacity onPress={this.profileview}>
+                                <Text style={styles.leaderText}>{leader}</Text> 
+                                </TouchableOpacity>
+                                
+                                {leaderProfile}
+                            </View>
+                        </View>
+                        <Button buttonStyle={styles.button} title="Request to Join" onPress={this.requestJoin}/>
+                    </View>
+
+                    <Discussion data={data}/>
+                    </KeyboardAwareScrollView>
+                </View>
+            );
+        }
     }
 
     /*getImage(imageLocation) {
@@ -90,6 +140,10 @@ const styles = StyleSheet.create({
         padding: 20,
         borderBottomColor: "#BCE0FD",
         borderBottomWidth: 1,
+    },
+    loadingText: {
+        marginTop: 50,
+        textAlign: 'center',
     },
     titleText: {
         color: textColor,

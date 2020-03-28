@@ -46,8 +46,8 @@ export default class PostList extends Component {
             courseid = this.props.courseid
         }
 
-        getPosts()
-        //getAllPosts(token, courseid)
+        //getPosts()
+        getAllPosts(courseid)
             .then(json => this.setState({ loading: false, data: json }))
     }
 
@@ -55,7 +55,7 @@ export default class PostList extends Component {
         return (
             <View style={styles.formContainer}>
                 {data.map(item => (
-                    <PostBriefView data={item} key={item.title + item.description}/>
+                    <PostBriefView data={item} key={item.title + item.description + item.tags.length}/>
                 ))}
             </View>
         )

@@ -73,7 +73,6 @@ export default class PostCreate extends Component{
             }*/
         }
 
-        let token = global.userID
         /*if (!this.props.token) {
             token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTU5YTEzYjlmZTBjZTRmODgwNjZmYTEiLCJpYXQiOjE1ODI5MzIyOTl9.-gMZBOmiD6l9orb2QoeoPqS6zhU8Cs-yvc2xTh-f3fI"
         } else {
@@ -111,7 +110,7 @@ export default class PostCreate extends Component{
                 },
             body: JSON.stringify(body),
         })*/
-        createPost(token, courseid, body)
+        createPost(courseid, body)
         .then((response) => {
             if (response.startsWith('{"post":')) {
                 Actions.postlist()

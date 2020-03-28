@@ -20,7 +20,7 @@ export default class PostBriefView extends Component{
         return(
             // <View style = {styles.container}>
             <TouchableOpacity key={data.key} onPress={function(){
-                Actions.postview({data: data})
+                Actions.postview({postid: data._id})
             }}>
                 <View style={styles.container}>
                     <View style={styles.topLine}>
