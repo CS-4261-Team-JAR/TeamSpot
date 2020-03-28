@@ -54,8 +54,8 @@ export default class PostList extends Component {
     renderList = data => {
         return (
             <View style={styles.formContainer}>
-                {data.map(item => (
-                    <PostBriefView data={item} key={item.title + item.description}/>
+                {data.map((item, i) => (
+                    <PostBriefView data={item} key={i}/>
                 ))}
             </View>
         )

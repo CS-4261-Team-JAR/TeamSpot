@@ -45,7 +45,6 @@ export default class ViewCourses extends Component {
     }
 
     render() {
-        console.log("ViewCourse:", global.userID)
         return (  
             <View>
                 <Header
