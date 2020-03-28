@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, TextInput, TouchableOpacity, Text, Image, Alert} from 'react-native';
+import {StyleSheet, View, ScrollView, TouchableOpacity, Text, Image, Alert} from 'react-native';
+import {RefreshControl} from 'react-native';
 import { Header, Button } from 'react-native-elements';
 import {getPost} from '../../Backend.js'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -30,6 +31,11 @@ export default class Post extends Component{
             .then(json => {
                 this.setState({ loading: false, data: json })
             })
+    }
+
+    _onRefresh = () => {
+        this.setState({loading: true, });
+        this.refresh()
     }
 
     profileview() {
@@ -88,6 +94,14 @@ export default class Post extends Component{
                     // centerContainerStyle={{: 'yellow'}}
                     // rightComponent={{ icon: 'home', color: '#fff' }}
                     />
+
+                <ScrollView style={styles.scrollview}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.loading}
+                        onRefresh={this._onRefresh}
+                    />
+                }>
                     <KeyboardAwareScrollView
                         resetScrollToCoords={{ x: 0, y: 0 }}
                         enableAutomaticScroll = {true}
@@ -119,6 +133,7 @@ export default class Post extends Component{
 
                     <Discussion data={data}/>
                     </KeyboardAwareScrollView>
+                    </ScrollView>
                 </View>
             );
         }
@@ -140,6 +155,9 @@ const styles = StyleSheet.create({
         padding: 20,
         borderBottomColor: "#BCE0FD",
         borderBottomWidth: 1,
+    },
+    scrollview: {
+        height: '88%'
     },
     loadingText: {
         marginTop: 50,

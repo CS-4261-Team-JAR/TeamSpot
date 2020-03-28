@@ -18,7 +18,7 @@ export default class ViewCourses extends Component {
     
     refresh() {
         const url = "https://secure-depths-39233.herokuapp.com/api/course"
-        const token = global.userID
+        const token = global.token
         const body = {
             _id: "",
             semester: "",

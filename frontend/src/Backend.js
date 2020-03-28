@@ -3,7 +3,7 @@
 const url = "https://secure-depths-39233.herokuapp.com/api"
 
 export function getAllPosts(courseid) {
-    let token = global.userID
+    let token = global.token
     return fetch(url + "/post/?course=" + courseid, {
         method: 'GET',
         headers: {
@@ -25,7 +25,7 @@ export function getPosts() {
 }
 
 export function getPost(postid) {
-    let token = global.userID
+    let token = global.token
     return fetch(url + "/post/?id=" + postid, {
         method: 'GET',
         headers: {
@@ -41,7 +41,7 @@ export function getPost(postid) {
 }
 
 export function createPost(courseid, post) {
-    let token = global.userID
+    let token = global.token
     var myHeaders = new Headers();
     myHeaders.append("Authorization", token);
     myHeaders.append("Content-Type", "application/json");
@@ -61,7 +61,7 @@ export function createPost(courseid, post) {
 }
 
 export function addToDiscussion(postid, message) {
-    let token = global.userID
+    let token = global.token
     var myHeaders = new Headers();
     myHeaders.append("Authorization", token);
     myHeaders.append("Content-Type", "application/json");

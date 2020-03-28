@@ -60,7 +60,8 @@ export default class Login extends Component {
 		}).then((response) => response.json())
 		.then((json) => {
 			// console.log(json)
-			global.userID = json.token
+			global.token = json.token
+			global.userID = json.id
 			// console.log(global.userID)
 			Actions.viewcourses()
 			// if (json.status == 200){

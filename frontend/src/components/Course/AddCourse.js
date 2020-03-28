@@ -21,7 +21,7 @@ export default class AddCourse extends Component {
 
     submit() {
         var url = "https://secure-depths-39233.herokuapp.com/api/course/"
-        const token = global.userID
+        const token = global.token
         console.log(token)
         url = url.concat(this.state.year, "/", this.state.semester, "/", this.state.course.substring(0, 2), 
             "/", this.state.course.substring(2, 6), "/", this.state.course.substring(7))

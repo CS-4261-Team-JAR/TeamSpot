@@ -19,17 +19,28 @@ export default class Discussion extends Component{
         this.sendMessage = this.sendMessage.bind(this)
     }
 
+    getName(user) {
+        if (user.name) {
+            nameMap[user._id] = user.name
+            return user.name
+        } else if (nameMap[user]) {
+            return nameMap[user]
+        } else {
+            return user
+        }
+    }
+
     renderDiscussion = discussion => {
         return (
             <View>
-                {discussion.map(item => {
-                    if (item.user == global.userID) {
+                {discussion.map((item, i) => {
+                    if (item.user == global.userID || item.user._id == global.userID) {
                         return (
-                            <OutgoingMessage source='default' message={item.message} key={item.user + item.message}/>
+                            <OutgoingMessage source='default' message={item.message} key={i}/>
                         )
                     } else {
                         return (
-                            <IncomingMessage source='default' message={item.message} key={item.user + item.message}/>
+                            <IncomingMessage source='default' user={this.getName(item.user)} message={item.message} key={i}/>
                         )
                     }
                 })}
@@ -61,8 +72,11 @@ export default class Discussion extends Component{
                     <TextInput style={styles.discussionInput} 
                         placeholder="Say Something"
                         placeholderTextColor="#BCE0FD"
-                        onChangeText={(text) => this.state.message = text}>
-                        {this.state.message}
+                        value={this.state.message}
+                        onChangeText={(text) => this.setState({
+                            discussion: this.state.discussion,
+                            message: text,
+                        })}>
                     </TextInput>
                     <TouchableOpacity
                         style={styles.addIcon} 
@@ -75,14 +89,17 @@ export default class Discussion extends Component{
     }
 }
 
+var nameMap = {}
+
 class IncomingMessage extends Component {
     static propTypes = {
         source: PropTypes.string.isRequired,
+        user: PropTypes.string.isRequired,
         message: PropTypes.string.isRequired,
     }
 
     render(){
-        const { source, message } = this.props;
+        const { source, user, message } = this.props;
         //const leaderProfileLocation = '../../images/defaultProfile.png'
         var profile
         if (source.startsWith('http')) {
@@ -90,10 +107,14 @@ class IncomingMessage extends Component {
         } else {
             profile = <Image source={require('../../images/defaultProfile.png')} style={styles.profileImage}/>
         }
+
         return(
             <View style={styles.incomingMessage}>
-                {profile}
-                <Text style={styles.incomingMessageText}>{message}</Text>
+                <Text style={styles.incomingMessageName}>{user}</Text>
+                <View style={styles.incomingMessageRow}>
+                    {profile}
+                    <Text style={styles.incomingMessageText}>{message}</Text>
+                </View>
             </View>
         )
     }
@@ -115,8 +136,11 @@ class OutgoingMessage extends Component {
         }
         return(
             <View style={styles.outgoingMessage}>
-                <Text style={styles.outgoingMessageText}>{message}</Text>
-                {profile}
+                <Text style={styles.outgoingMessageName}>Me</Text>
+                <View style={styles.outgoingMessageRow}>
+                    <Text style={styles.outgoingMessageText}>{message}</Text>
+                    {profile}
+                </View>
             </View>
         )
     }
@@ -172,6 +196,11 @@ const styles = StyleSheet.create({
     },
     incomingMessage: {
         marginTop: 20,
+    },
+    incomingMessageName: {
+        color: textColor,
+    },
+    incomingMessageRow: {
         flexDirection: 'row',
     },
     incomingMessageText: {
@@ -183,8 +212,14 @@ const styles = StyleSheet.create({
     },
     outgoingMessage: {
         marginTop: 20,
+    },
+    outgoingMessageName: {
+        color: textColor,
+        textAlign: 'right',
+    },
+    outgoingMessageRow: {
         flexDirection: 'row',
-        alignContent: 'flex-end',
+        justifyContent: 'flex-end',
     },
     outgoingMessageText: {
         color: 'white',
