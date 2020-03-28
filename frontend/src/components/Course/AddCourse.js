@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Text, KeyboardAvoidingView ,TouchableOpacity, 
 import { Header } from 'react-native-elements';
 import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger} from "react-native-popup-menu";
 import { ListItem } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 
 export default class AddCourse extends Component {
     constructor(props) {
@@ -51,6 +52,7 @@ export default class AddCourse extends Component {
         .catch(function(error) {
             console.log('Request failed', error)
         })
+        Actions.viewcourses()
     }
 
     render() {
