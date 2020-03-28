@@ -1,69 +1,88 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, KeyboardAvoidingView ,TouchableOpacity, ScrollView} from 'react-native';
-import Icon from "react-native-vector-icons/Ionicons";
+import { StyleSheet, View, ScrollView} from 'react-native';
+import {RefreshControl} from 'react-native';
 import { Header } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-import { TextInput } from 'react-native-gesture-handler';
 import { ListItem } from 'react-native-elements';
-// Code source: https://www.youtube.com/watch?v=xb8uTN3qiUI
 
 export default class ViewCourses extends Component {
+    constructor(props) {
+        super(props)
+    }
     addcourses() {
 		Actions.addcourse()
     }
+    componentDidMount() {
+        this.refresh()
+    }
+    
+    refresh() {
+        const url = "https://secure-depths-39233.herokuapp.com/api/course"
+        const token = global.userID
+        const body = {
+            _id: "",
+            semester: "",
+            year: 0,
+            subject: "",
+            course: 0,
+            section: ""
+        }
+
+        fetch(url, { method: 'get', headers: new Headers({
+            'Authorization': token, 
+            'Content-Type': 'application/x-www-form-urlencoded'
+            }), 
+        }).then((response) => response.json())
+        .then(data => {
+            list = []
+            data.forEach(item => list.push(item) );
+            return data
+        }).then(json => this.setState({loading: false, data: json}));
+    }
+
+    _onRefresh = () => {
+        this.refresh()
+    }
 
     render() {
-        return (
-            
+        return (  
             <View>
                 <Header
-                    leftComponent={{ icon: "arrow-back", color: "#fff"}}
+                    leftComponent={{ icon: "menu", color: "#fff"}}
                     centerComponent={{ text: "COURSES", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     rightComponent={{ icon: "add", color: "#fff", onPress: Actions.addcourse}}
                     backgroundColor="#2980b9"
                 />
-
+                <ScrollView style={styles.container} 
+                refreshControl={
+                    <RefreshControl
+                        onRefresh={this._onRefresh}
+                    />
+                }>
+                </ScrollView>
                 {
                 list.map((l, i) => (
                     <ListItem
                         onPress={Actions.postlist}
                         key={i}
-                        leftAvatar={{ source: { uri: l.avatar_url } }}
-                        title={l.name}
-                        subtitle={l.subtitle}
+                        leftIcon={{ name: 'flight-takeoff' }}
+                        title={l.subject.concat(' ', l.course, '-', l.section)}
+                        subtitle={l.semester.concat(' ', l.year)}
                         bottomDivider
                         chevron
                     />
                 ))
                 }
-                {/* <TouchableOpacity style={styles.addIcon}>
-                 <Icon name="md-add" size={30} color="#fff" />
-                </TouchableOpacity> */}
             </View>
         )
     }
 }
 
-const list = [
-    {
-        name: 'CS4261',
-        subtitle: 'Spring 2020',
-        title: 'Appointments',
-        icon: 'av-timer'
-      },
-      {
-        name: 'CS4731',
-        subtitle: 'Spring 2020',
-        title: 'Trips',
-        icon: 'flight-takeoff'
-      },
-  ];
+var list = [];
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: '#4C99CD',
-        // justifyContent: 'center'
     },
     addIcon: {
         borderWidth: 1,
@@ -111,5 +130,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#252525',
         borderTopWidth: 2,
         borderTopColor: '#ededed'
+    },
+    loadingText: {
+        marginTop: 50,
+        textAlign: 'center',
     }
 });

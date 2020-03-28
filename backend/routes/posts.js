@@ -12,7 +12,7 @@ router.get('/', verify, async (req, res) => {
 	if (req.query.course) {
 		const posts = await Post.find({
 			course: req.query.course
-		}, '-discussion -__v').populate('author', 'name -_id');
+		}, '-discussion -__v').populate('author', 'name');
 
 		return res.send(posts);
 	}

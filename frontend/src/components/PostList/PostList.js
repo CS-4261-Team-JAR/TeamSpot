@@ -54,8 +54,8 @@ export default class PostList extends Component {
     renderList = data => {
         return (
             <View style={styles.formContainer}>
-                {data.map(item => (
-                    <PostBriefView data={item} key={item.title + item.description + item.tags.length}/>
+                {data.map((item, i) => (
+                    <PostBriefView data={item} key={i}/>
                 ))}
             </View>
         )
@@ -69,7 +69,7 @@ export default class PostList extends Component {
     render() {
         const { loading, data } = this.state
 
-        console.log("PostList:", global.userID)
+        // console.log("PostList:", global.userID)
         // console.log("PostList:", LoginForm.state.email)
 
         return (

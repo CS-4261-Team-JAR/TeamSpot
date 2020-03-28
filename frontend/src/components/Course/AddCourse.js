@@ -3,14 +3,57 @@ import { StyleSheet, View, Image, Text, KeyboardAvoidingView ,TouchableOpacity, 
 import { Header } from 'react-native-elements';
 import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger} from "react-native-popup-menu";
 import { ListItem } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 
 export default class AddCourse extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            year: "",
+            semester: "",
+            course: ""
+        }
+        this.submit = this.submit.bind(this)
         YellowBox.ignoreWarnings([
          'Warning: isMounted(...) is deprecated', 'Module RCTImageLoader'
        ]);
-      }
+    }
+
+    submit() {
+        var url = "https://secure-depths-39233.herokuapp.com/api/course/"
+        const token = global.userID
+        console.log(token)
+        url = url.concat(this.state.year, "/", this.state.semester, "/", this.state.course.substring(0, 2), 
+            "/", this.state.course.substring(2, 6), "/", this.state.course.substring(7))
+
+        fetch(url, { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': token, 
+            }), 
+        })
+        .then((response) => response.json())
+        .then(data => {
+            console.log(data.course)
+            var courseId = data.course
+            return fetch('https://secure-depths-39233.herokuapp.com/api/course/register', { 
+                method: 'POST', 
+                headers: new Headers({
+                    'Authorization': token, 
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({course: courseId})
+            })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+        })
+        .catch(function(error) {
+            console.log('Request failed', error)
+        })
+        Actions.viewcourses()
+    }
 
     render() {
         return (
@@ -30,11 +73,13 @@ export default class AddCourse extends Component {
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"2020"}>
+                                <MenuOption onSelect={() => this.state.year = "2020"} 
+                                    value={"2020"}>
                                 <Text style={styles.menuContent}>2020</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"2019"}>
+                                <MenuOption onSelect={() => this.state.year = "2019"} 
+                                    value={"2019"}>
                                 <Text style={styles.menuContent}>2019</Text>
                                 </MenuOption>
                             </MenuOptions>
@@ -48,15 +93,18 @@ export default class AddCourse extends Component {
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"Spring"}>
+                                <MenuOption onSelect={() => this.state.semester = "Spring"}
+                                    value={"Spring"}>
                                 <Text style={styles.menuContent}>Spring</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Summer2020"}>
+                                <MenuOption onSelect={() => this.state.semester = "Summer"}
+                                    value={"Summer"}>
                                 <Text style={styles.menuContent}>Summer</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"Fall2020"}>
+                                <MenuOption onSelect={() => this.state.semester = "Fall"}
+                                    value={"Fall"}>
                                 <Text style={styles.menuContent}>Fall</Text>
                                 </MenuOption>
                             </MenuOptions>
@@ -70,31 +118,38 @@ export default class AddCourse extends Component {
                             </MenuTrigger  >
 
                             <MenuOptions>
-                                <MenuOption value={"CS4261-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4261-A"}
+                                    value={"CS4261-A"}>
                                 <Text style={styles.menuContent}>CS4261-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4261-A"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4261-B"}
+                                    value={"CS4261-B"}>
                                 <Text style={styles.menuContent}>CS4261-B</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS3630"}>
+                                <MenuOption onSelect={() => this.state.course = "CS3630-A"}
+                                    value={"CS3630-A"}>
                                 <Text style={styles.menuContent}>CS3630-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4649"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4649-A"}
+                                    value={"CS4649-A"}>
                                 <Text style={styles.menuContent}>CS4649-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4641"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4641-A"}
+                                    value={"CS4641-A"}>
                                 <Text style={styles.menuContent}>CS4641-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS4731"}>
+                                <MenuOption onSelect={() => this.state.course = "CS4731-A"}
+                                    value={"CS4731-A"}>
                                 <Text style={styles.menuContent}>CS4731-A</Text>
                                 </MenuOption>
 
-                                <MenuOption value={"CS8803"}>
+                                <MenuOption onSelect={() => this.state.course = "CS8803-MAS"}
+                                    value={"CS8803-MAS"}>
                                 <Text style={styles.menuContent}>CS8803-MAS</Text>
                                 </MenuOption>
 
@@ -106,6 +161,7 @@ export default class AddCourse extends Component {
 
                 <View style={styles.bottomContainer}>
                 <TouchableOpacity 
+                    onPress={this.submit}
 					style={styles.buttonCountainer}>
 					<Text style={styles.buttonText}>
 						REGISTER
