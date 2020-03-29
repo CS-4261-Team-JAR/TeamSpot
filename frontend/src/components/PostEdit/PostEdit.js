@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Text, Image} from 'react-native';
 import {KeyboardAvoidingView, Alert} from 'react-native'
+import MemberList from '../PostCreate/MemberList';
 import PropTypes from 'prop-types';
 import {editPost, deletePost} from '../../Backend.js'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -25,7 +26,7 @@ export default class PostEdit extends Component{
             description: data.description, 
             author: "Amiel",
             tags: tags,
-            currentNumber: data.members.length,
+            currentMembers: data.members,
             desiredNumber: data.total,
         }
 
@@ -94,16 +95,12 @@ export default class PostEdit extends Component{
         tags.forEach(function(part, index, theArray) {
             theArray[index] = part.trim();
           });
-        var members = []
-        for (let step = 0; step < this.state.currentNumber; step++) {
-            members.push("member" + step)
-        }
         const body = {
             title: this.state.title,
             description: this.state.description,
             /*author: this.state.author,*/
             tags: tags,
-            members: members,
+            members: this.state.currentMembers,
             total: this.state.desiredNumber,
             /*status: {
                 remaining: this.state.currentNumber,
@@ -192,20 +189,15 @@ export default class PostEdit extends Component{
                         value={this.state.tags}
                         onChangeText={(text) => this.setState({tags: text})}/>
 
-                    <View style={styles.sizeInput}>
-                        <View style={styles.leftInput}>
-                            <Text style={styles.inputLabel}>Current Members</Text>
-                            <TextInput style={styles.titleInput}
-                                value={"" + this.state.currentNumber}
-                                onChangeText={(text) => this.setState({currentNumber: text})}/>
-                        </View>
-                        <View style={styles.rightInput}>
-                            <Text style={styles.inputLabel}>Desired Group Size</Text>
-                            <TextInput style={styles.titleInput}
-                                value={"" + this.state.desiredNumber}
-                                onChangeText={(text) => this.setState({desiredNumber: text})}/>
-                        </View>
-                    </View>
+                    <Text style={styles.inputLabel}>Desired Group Size</Text>
+                    <TextInput style={styles.titleInput}
+                        onChangeText={(text) => this.state.desiredNumber = text}/>
+
+                    <Text style={styles.inputLabel}>Current Members</Text>
+                    <MemberList onUpdate={(members) => {
+                        this.state.currentMembers = members
+                    }}/>
+                    
                     <View style={styles.buttonRow}>
                         <Button buttonStyle={styles.button} title="Cancel" type="outline" onPress={Actions.pop}/>
                         <Button buttonStyle={styles.button} title="Save" onPress={this.submit}/>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Text, Image} from 'react-native';
-import {KeyboardAvoidingView, Alert} from 'react-native'
+import {ScrollView, Alert} from 'react-native'
+import MemberList from './MemberList';
 import {createPost} from '../../Backend.js'
 import PropTypes from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -16,7 +17,7 @@ export default class PostCreate extends Component{
             description: "", 
             author: "Amiel",
             tags: "",
-            currentNumber: "",
+            currentMembers: [global.userID],
             desiredNumber: "",
         }
 
@@ -58,16 +59,16 @@ export default class PostCreate extends Component{
         tags.forEach(function(part, index, theArray) {
             theArray[index] = part.trim();
           });
-        var members = []
+        /*var members = []
         for (let step = 0; step < this.state.currentNumber; step++) {
             members.push("member" + step)
-        }
+        }*/
         const body = {
             title: this.state.title,
             description: this.state.description,
             /*author: this.state.author,*/
             tags: tags,
-            members: members,
+            members: this.state.currentMembers,
             total: this.state.desiredNumber,
             /*status: {
                 remaining: this.state.currentNumber,
@@ -147,6 +148,7 @@ export default class PostCreate extends Component{
                     centerComponent={{ text: "Create Post", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 />
+                <ScrollView style={styles.scrollview}>
                 <KeyboardAwareScrollView
                     style={styles.forms}
                     resetScrollToCoords={{ x: 0, y: 0 }}
@@ -169,23 +171,31 @@ export default class PostCreate extends Component{
                     <TextInput style={styles.titleInput} 
                     onChangeText={(text) => this.state.tags = text}/>
 
-                    <View style={styles.sizeInput}>
+                    <Text style={styles.inputLabel}>Desired Group Size</Text>
+                    <TextInput style={styles.titleInput}
+                        onChangeText={(text) => this.state.desiredNumber = text}/>
+
+                    <Text style={styles.inputLabel}>Current Members</Text>
+                    <MemberList onUpdate={(members) => {
+                        this.state.currentMembers = members
+                    }}/>
+
+                    {/*<View style={styles.sizeInput}>
                         <View style={styles.leftInput}>
                             <Text style={styles.inputLabel}>Current Members</Text>
                             <TextInput style={styles.titleInput}
                                 onChangeText={(text) => this.state.currentNumber = text}/>
                         </View>
                         <View style={styles.rightInput}>
-                            <Text style={styles.inputLabel}>Desired Group Size</Text>
-                            <TextInput style={styles.titleInput}
-                                onChangeText={(text) => this.state.desiredNumber = text}/>
+                            
                         </View>
-                    </View>
+                </View>*/}
                     <View style={styles.buttonRow}>
                         <Button buttonStyle={styles.button} title="Cancel" type="outline" onPress={Actions.pop}/>
                         <Button buttonStyle={styles.button} title="Create" onPress={this.submit}/>
                     </View>
                 </KeyboardAwareScrollView>
+                </ScrollView>
             </View>
         );
     }

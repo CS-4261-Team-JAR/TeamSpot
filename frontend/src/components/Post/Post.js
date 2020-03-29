@@ -107,7 +107,7 @@ export default class Post extends Component{
                 <View>
                     <Header
                         leftComponent={{ icon: "arrow-back", color: "#fff", onPress: () => Actions.postlist()}}
-                        centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                        centerComponent={{ text: "Post", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                         rightComponent={myPost ? { icon: "edit", color: "#fff", onPress: this.edit} : {}}
                         backgroundColor="#2980b9"
                     // centerContainerStyle={{: 'yellow'}}
@@ -140,8 +140,10 @@ export default class Post extends Component{
                             <Text style={styles.lastEdit}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
                             <View style={styles.leaderPart}>
                                 {/* <Text style={styles.leaderText}>{leader}</Text>  */}
-                                <TouchableOpacity onPress={this.profileview}>
-                                <Text style={styles.leaderText}>{leader}</Text> 
+                                <TouchableOpacity onPress={() => this.profileview({
+                                    id: data.author._id
+                                })}>
+                                    <Text style={styles.leaderText}>{leader}</Text> 
                                 </TouchableOpacity>
                                 
                                 {leaderProfile}
@@ -173,11 +175,11 @@ export default class Post extends Component{
 const requests = [
     {
         _id: 'asdfasdfasdgasdf',
-        name: 'Bob',
+        name: 'Jayden',
     },
     {
         _id: 'asdfasdfasdfasasdgasdf',
-        name: 'George',
+        name: 'George P. Burdell',
     },
 ]
 

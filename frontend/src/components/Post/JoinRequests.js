@@ -121,12 +121,12 @@ class Request extends Component {
                 <TouchableOpacity
                     style={styles.icon} 
                     onPress={this.consider_decline}>
-                    <Icon name="ios-close" size={30} color="red" />
+                    <Icon name="md-close" size={30} color="red" />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.icon} 
                     onPress={this.consider_accept}>
-                    <Icon name="ios-checkmark" size={30} color="green" />
+                    <Icon name="md-checkmark" size={30} color="green" />
                 </TouchableOpacity>
             </View>
         )
