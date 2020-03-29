@@ -15,6 +15,16 @@ router.get('/', verify, async (req, res) => {
 	res.send(profileExist);
 });
 
+// Get Profile
+router.get('/:id', verify, async (req, res) => {
+	const profileExist = await Profile.findOne({
+		user: req.params.id
+	}, '-_id -__v').populate('user', 'name');
+	if (!profileExist) return res.status(400).send('Profile not found');
+
+	res.send(profileExist);
+});
+
 // Create profile
 router.post('/', verify, async (req, res) => {
 	const {
