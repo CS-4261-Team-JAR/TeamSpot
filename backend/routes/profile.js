@@ -7,13 +7,18 @@ const {
 
 // Get Profile
 router.get('/', verify, async (req, res) => {
-	const {
-		error
-	} = profileValidation(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
-
 	const profileExist = await Profile.findOne({
 		user: req.user._id
+	}, '-_id -__v').populate('user', 'name');
+	if (!profileExist) return res.status(400).send('Profile not found');
+
+	res.send(profileExist);
+});
+
+// Get Profile
+router.get('/:id', verify, async (req, res) => {
+	const profileExist = await Profile.findOne({
+		user: req.params.id
 	}, '-_id -__v').populate('user', 'name');
 	if (!profileExist) return res.status(400).send('Profile not found');
 
