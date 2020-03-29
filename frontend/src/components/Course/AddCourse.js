@@ -60,7 +60,7 @@ export default class AddCourse extends Component {
             <View style={styles.container} behavior="padding" enabled>
 
                 <Header
-                    leftComponent={{ icon: "arrow-back", color: "#fff" }}
+                    leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop }}
                     centerComponent={{ text: "Add Course", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 />

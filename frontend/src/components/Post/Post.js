@@ -6,6 +6,7 @@ import { Header, Button } from 'react-native-elements';
 import {getPost} from '../../Backend.js'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Discussion from './Discussion';
+import JoinRequests from './JoinRequests';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -146,7 +147,10 @@ export default class Post extends Component{
                                 {leaderProfile}
                             </View>
                         </View>
-                        <Button buttonStyle={styles.button} title="Request to Join" onPress={this.requestJoin}/>
+                        {myPost ? 
+                            <JoinRequests data={requests}/>
+                            : 
+                            <Button buttonStyle={styles.button} title="Request to Join" onPress={this.requestJoin}/>}
                     </View>
 
                     <Discussion data={data}/>
@@ -165,6 +169,17 @@ export default class Post extends Component{
         }
     }*/
 }
+
+const requests = [
+    {
+        _id: 'asdfasdfasdgasdf',
+        name: 'Bob',
+    },
+    {
+        _id: 'asdfasdfasdfasasdgasdf',
+        name: 'George',
+    },
+]
 
 const textColor = '#2699FB'
 
