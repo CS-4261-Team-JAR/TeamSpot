@@ -11,10 +11,10 @@ import { Actions } from 'react-native-router-flux';
 import LoginForm from '../Login/LoginForm';
 
 export default class PostList extends Component {
-    /*static propTypes = {
-        token: PropTypes.string.isRequired,
+    static propTypes = {
         courseid: PropTypes.string.isRequired,
-    }*/
+        coursetitle: PropTypes.string.isRequired,
+    }
 
     constructor(props) {
         super(props)
@@ -75,8 +75,8 @@ export default class PostList extends Component {
         return (
             <View>
                 <Header
-                    leftComponent={{ icon: "menu", color: "#fff" }}
-                    centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                    leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
+                    centerComponent={{ text: this.props.coursetitle, style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 // centerContainerStyle={{: 'yellow'}}
                 // rightComponent={{ icon: 'home', color: '#fff' }}
@@ -92,7 +92,10 @@ export default class PostList extends Component {
                 </ScrollView>
                 <TouchableOpacity
                     style={styles.addIcon} 
-                    onPress={Actions.postcreate}>
+                    onPress={() => Actions.postcreate({
+                        courseid: this.props.courseid,
+                        coursetitle: this.props.coursetitle,
+                    })}>
                     <Icon name="md-add" size={30} color="#fff" />
                 </TouchableOpacity>
             </View>

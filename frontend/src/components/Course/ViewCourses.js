@@ -63,7 +63,10 @@ export default class ViewCourses extends Component {
                 {
                 list.map((l, i) => (
                     <ListItem
-                        onPress={Actions.postlist}
+                        onPress={() => Actions.postlist({
+                            courseid: l._id,
+                            coursetitle: l.subject.concat(' ', l.course, '-', l.section),
+                        })}
                         key={i}
                         leftIcon={{ name: 'flight-takeoff' }}
                         title={l.subject.concat(' ', l.course, '-', l.section)}

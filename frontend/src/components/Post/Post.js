@@ -58,7 +58,11 @@ export default class Post extends Component{
       }
 
     edit() {
-        Actions.postedit({data: this.state.data})
+        Actions.postedit({
+            data: this.state.data, 
+            courseid: this.props.courseid, 
+            coursetitle: this.props.coursetitle,
+        })
     }
 
     doNothing() {

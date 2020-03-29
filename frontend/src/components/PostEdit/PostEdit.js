@@ -10,6 +10,8 @@ import { Header, Button } from 'react-native-elements';
 export default class PostEdit extends Component{
     static propTypes = {
         data: PropTypes.object.isRequired,
+        courseid: PropTypes.string.isRequired,
+        coursetitle: PropTypes.string.isRequired,
     }
 
     constructor(props) {
@@ -82,7 +84,10 @@ export default class PostEdit extends Component{
         deletePost(this.props.data._id)
             .then((response) => {
                 if (response == 'Post deleted') {
-                    Actions.postlist()
+                    Actions.postlist({
+                        courseid: this.props.courseid, 
+                        coursetitle: this.props.coursetitle,
+                    })
                 } else {
                     alert(response)
                 }
@@ -131,7 +136,8 @@ export default class PostEdit extends Component{
         editPost(this.props.data._id, body)
         .then((response) => {
             if (response.startsWith('{')) {
-                Actions.postview({postid: this.props.data._id})
+                Actions.pop()
+                //Actions.postview({postid: this.props.data._id})
             } else {
                 alert(response)
             }

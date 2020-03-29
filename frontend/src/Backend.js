@@ -26,7 +26,7 @@ export function getPosts() {
 
 export function getPost(postid) {
     let token = global.token
-    return fetch(url + "/post/?id=" + postid, {
+    return fetch(url + "/post/" + postid, {
         method: 'GET',
         headers: {
             Accept: 'application/json',

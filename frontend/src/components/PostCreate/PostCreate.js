@@ -7,6 +7,11 @@ import { Actions } from 'react-native-router-flux';
 import { Header, Button } from 'react-native-elements';
 
 export default class PostCreate extends Component{
+    static propTypes = {
+        courseid: PropTypes.string.isRequired,
+        coursetitle: PropTypes.string.isRequired,
+    }
+
     constructor(props) {
         super(props)
         this.state = { 
@@ -113,7 +118,10 @@ export default class PostCreate extends Component{
         createPost(courseid, body)
         .then((response) => {
             if (response.startsWith('{"post":')) {
-                Actions.postlist()
+                Actions.postlist({
+                    courseid: this.props.courseid, 
+                    coursetitle: this.props.coursetitle,
+                })
             } else {
                 alert(response)
             }
