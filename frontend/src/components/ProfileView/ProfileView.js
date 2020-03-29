@@ -13,7 +13,9 @@ export default class ProfileView extends Component {
     }
 
     refresh() {
-        const url = "https://secure-depths-39233.herokuapp.com/api/user/profile/5e59a13b9fe0ce4f88066fa1"
+        
+        const url = "https://secure-depths-39233.herokuapp.com/api/user/profile/" + global.userID
+        console.log(url)
         const token = global.token
         const body = {
             major: "",
