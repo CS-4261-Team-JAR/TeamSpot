@@ -75,7 +75,7 @@ export default class PostList extends Component {
         return (
             <View>
                 <Header
-                    leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
+                    leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.viewcourses}}
                     centerComponent={{ text: this.props.coursetitle, style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 // centerContainerStyle={{: 'yellow'}}

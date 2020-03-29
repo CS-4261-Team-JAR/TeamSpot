@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Text, Image} from 'react-native';
 import {KeyboardAvoidingView, Alert} from 'react-native'
 import {createPost} from '../../Backend.js'
+import PropTypes from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Actions } from 'react-native-router-flux';
 import { Header, Button } from 'react-native-elements';
