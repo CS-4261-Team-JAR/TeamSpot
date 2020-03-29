@@ -35,7 +35,7 @@ export default class Post extends Component{
     refresh() {
         getPost(this.props.postid)
             .then(json => {
-                this.setState({ loading: false, data: json })
+                this.setState({ loading: false, data: json[0] })
             })
     }
 
@@ -81,7 +81,7 @@ export default class Post extends Component{
             );
         } else {
 
-            const data = this.state.data[0]
+            const data = this.state.data
             const myPost = global.userID == data.author._id
 
             //const { title, description, currentNumber, desiredNumber } = this.props;

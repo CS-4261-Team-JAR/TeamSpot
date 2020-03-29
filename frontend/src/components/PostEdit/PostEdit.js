@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Text, Image} from 'react-native';
 import {KeyboardAvoidingView, Alert} from 'react-native'
 import PropTypes from 'prop-types';
-import {editPost} from '../../Backend.js'
+import {editPost, deletePost} from '../../Backend.js'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Actions } from 'react-native-router-flux';
 import { Header, Button } from 'react-native-elements';
@@ -14,7 +14,7 @@ export default class PostEdit extends Component{
 
     constructor(props) {
         super(props)
-        let data = this.props.data[0]
+        let data = this.props.data
         var tags = data.tags[0] ? data.tags[0] : ""
         for (var i = 1; i < data.tags.length; i++) {
             tags += ", " + data.tags
@@ -79,11 +79,17 @@ export default class PostEdit extends Component{
     }
 
     delete() {
-
+        deletePost(this.props.data._id)
+            .then((response) => {
+                if (response == 'Post deleted') {
+                    Actions.postlist()
+                } else {
+                    alert(response)
+                }
+            })
     }
 
     submit() {
-        const url = "https://blooming-harbor-28361.herokuapp.com/posts"
         var tags = this.state.tags.split(',')
         tags.forEach(function(part, index, theArray) {
             theArray[index] = part.trim();
@@ -122,10 +128,10 @@ export default class PostEdit extends Component{
             return
         }
 
-        editPost(this.props.data[0]._id, body)
+        editPost(this.props.data._id, body)
         .then((response) => {
             if (response.startsWith('{')) {
-                Actions.postview({postid: this.props.data[0]._id})
+                Actions.postview({postid: this.props.data._id})
             } else {
                 alert(response)
             }

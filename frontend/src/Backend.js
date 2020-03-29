@@ -80,6 +80,23 @@ export function editPost(postid, post) {
         .then((response) => response.text())
 }
 
+export function deletePost(postid) {
+    let token = global.token
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        body: '',
+        redirect: 'follow'
+    };
+
+    return fetch(url + "/post/?id=" + postid, requestOptions)
+        .then((response) => response.text())
+}
+
 export function addToDiscussion(postid, message) {
     let token = global.token
     var myHeaders = new Headers();
