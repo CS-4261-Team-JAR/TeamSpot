@@ -7,11 +7,6 @@ const {
 
 // Get Profile
 router.get('/', verify, async (req, res) => {
-	const {
-		error
-	} = profileValidation(req.body);
-	if (error) return res.status(400).send(error.details[0].message);
-
 	const profileExist = await Profile.findOne({
 		user: req.user._id
 	}, '-_id -__v').populate('user', 'name');
