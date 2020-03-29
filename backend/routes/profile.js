@@ -19,7 +19,7 @@ router.get('/', verify, async (req, res) => {
 router.get('/:id', verify, async (req, res) => {
 	const profileExist = await Profile.findOne({
 		user: req.params.id
-	}, '-_id -__v').populate('user', 'name');
+	}, '-_id -__v').populate('user', 'name email')
 	if (!profileExist) return res.status(400).send('Profile not found');
 
 	res.send(profileExist);
