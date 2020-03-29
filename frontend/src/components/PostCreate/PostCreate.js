@@ -8,10 +8,6 @@ import { Actions } from 'react-native-router-flux';
 import { Header, Button } from 'react-native-elements';
 
 export default class PostCreate extends Component{
-    static propTypes = {
-        courseid: PropTypes.string.isRequired,
-        coursetitle: PropTypes.string.isRequired,
-    }
 
     constructor(props) {
         super(props)
@@ -84,11 +80,9 @@ export default class PostCreate extends Component{
         } else {
             token = this.props.token
         }*/
-        var courseid
-        if (!this.props.courseid) {
+        var courseid = global.courseid
+        if (!courseid) {
             courseid = "5e59a15a9fe0ce4f88066fa2"
-        } else {
-            courseid = this.props.courseid
         }
 
         const result = this.checkSubmission(body)
@@ -119,10 +113,7 @@ export default class PostCreate extends Component{
         createPost(courseid, body)
         .then((response) => {
             if (response.startsWith('{"post":')) {
-                Actions.postlist({
-                    courseid: this.props.courseid, 
-                    coursetitle: this.props.coursetitle,
-                })
+                Actions.postlist()
             } else {
                 alert(response)
             }

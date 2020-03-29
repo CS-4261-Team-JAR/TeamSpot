@@ -11,17 +11,19 @@ export default class PostBriefView extends Component{
 
     render(){
         const {data} = this.props
-        const title = data.title
+        const myPost = global.userID == data.author._id
+        const title = myPost ? "✎ " + data.title : data.title
         const description = data.description.slice(0, 142) + ' ...'
         const desiredNumber = data.status ? data.status.total : data.total//5
         const currentNumber = data.status ? data.status.remaining : data.members.length//2
         const tags = data.tags//2
         var circleColor = this.getCircleColor(currentNumber, desiredNumber)
-        const myPost = global.userID == data.author._id
         return(
             // <View style = {styles.container}>
             <TouchableOpacity key={data.key} onPress={function(){
-                Actions.postview({postid: data._id})
+                Actions.postview({
+                    postid: data._id,
+                })
             }}>
                 <View style={myPost ? styles.myContainer : styles.container}>
                     <View style={styles.topLine}>
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
         borderBottomColor: "#BCE0FD",
         borderBottomWidth: 1,
         marginTop: 5,
-        backgroundColor: '#e6fff2',
+        //backgroundColor: '#e6fff2',
     },
     topLine: {
         flexDirection: 'row',

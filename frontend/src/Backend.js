@@ -26,7 +26,7 @@ export function getPosts() {
 
 export function getPost(postid) {
     let token = global.token
-    return fetch(url + "/post/" + postid, {
+    return fetch(url + "/post/?id=" + postid, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -93,7 +93,7 @@ export function deletePost(postid) {
         redirect: 'follow'
     };
 
-    return fetch(url + "/post/?id=" + postid, requestOptions)
+    return fetch(url + "/post/" + postid, requestOptions)
         .then((response) => response.text())
 }
 

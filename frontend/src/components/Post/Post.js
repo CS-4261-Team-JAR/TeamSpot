@@ -60,8 +60,6 @@ export default class Post extends Component{
     edit() {
         Actions.postedit({
             data: this.state.data, 
-            courseid: this.props.courseid, 
-            coursetitle: this.props.coursetitle,
         })
     }
 
@@ -74,7 +72,7 @@ export default class Post extends Component{
             return(
                 <View>
                     <Header
-                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.pop}}
+                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: () => Actions.postlist()}}
                         centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                         backgroundColor="#2980b9"
                     // centerContainerStyle={{: 'yellow'}}
@@ -107,7 +105,7 @@ export default class Post extends Component{
             return(
                 <View>
                     <Header
-                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.postlist}}
+                        leftComponent={{ icon: "arrow-back", color: "#fff", onPress: () => Actions.postlist()}}
                         centerComponent={{ text: "CS 4261", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                         rightComponent={myPost ? { icon: "edit", color: "#fff", onPress: this.edit} : {}}
                         backgroundColor="#2980b9"

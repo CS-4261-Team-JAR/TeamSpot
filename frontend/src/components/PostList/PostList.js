@@ -11,10 +11,6 @@ import { Actions } from 'react-native-router-flux';
 import LoginForm from '../Login/LoginForm';
 
 export default class PostList extends Component {
-    static propTypes = {
-        courseid: PropTypes.string.isRequired,
-        coursetitle: PropTypes.string.isRequired,
-    }
 
     constructor(props) {
         super(props)
@@ -39,11 +35,9 @@ export default class PostList extends Component {
         } else {
             token = this.props.token
         }*/
-        var courseid
-        if (!this.props.courseid) {
+        var courseid = global.courseid
+        if (!courseid) {
             courseid = "5e59a15a9fe0ce4f88066fa2"
-        } else {
-            courseid = this.props.courseid
         }
 
         //getPosts()
@@ -76,7 +70,7 @@ export default class PostList extends Component {
             <View>
                 <Header
                     leftComponent={{ icon: "arrow-back", color: "#fff", onPress: Actions.viewcourses}}
-                    centerComponent={{ text: this.props.coursetitle, style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+                    centerComponent={{ text: global.coursetitle, style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     backgroundColor="#2980b9"
                 // centerContainerStyle={{: 'yellow'}}
                 // rightComponent={{ icon: 'home', color: '#fff' }}
@@ -92,10 +86,7 @@ export default class PostList extends Component {
                 </ScrollView>
                 <TouchableOpacity
                     style={styles.addIcon} 
-                    onPress={() => Actions.postcreate({
-                        courseid: this.props.courseid,
-                        coursetitle: this.props.coursetitle,
-                    })}>
+                    onPress={() => Actions.postcreate()}>
                     <Icon name="md-add" size={30} color="#fff" />
                 </TouchableOpacity>
             </View>
