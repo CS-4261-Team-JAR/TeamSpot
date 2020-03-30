@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {getProfile} from '../../Backend.js'
 import { StyleSheet, View, Image, SafeAreaView, ScrollView, Text } from 'react-native';
 import { Divider } from 'react-native-elements';
 import {RefreshControl} from 'react-native';
 
 export default class ProfileView extends Component {
+    static propTypes = {
+        userid: PropTypes.string.isRequired,
+    }
+
     constructor(props) {
         super(props)
         this.state = {loading: true, data: null}
+
+        this.refresh = this.refresh.bind(this)
     }
     componentDidMount() {
         this.refresh()
@@ -14,17 +22,9 @@ export default class ProfileView extends Component {
 
     refresh() {
         
-        const url = "https://secure-depths-39233.herokuapp.com/api/user/profile/" + global.userID
+        /*const url = "https://secure-depths-39233.herokuapp.com/api/user/profile/" + this.props.userid
         console.log(url)
         const token = global.token
-        const body = {
-            major: "",
-            year: 0,
-            about_me: "",
-            tech_skill: "",
-            soft_skill: "",
-            class_taken: ""
-        }
 
         fetch(url, { method: 'get', headers: new Headers({
             'Authorization': token, 
@@ -35,7 +35,9 @@ export default class ProfileView extends Component {
             info = data
             return data
             // console.log(data.classTaken)
-        }).then(json => this.setState({loading: false, data: json}));
+        }).then(json => this.setState({loading: false, data: json}));*/
+        getProfile("5e59a13b9fe0ce4f88066fa1")//this.props.userid)
+            .then(json => this.setState({loading: false, data: json}));
     }
 
     _onRefresh = () => {

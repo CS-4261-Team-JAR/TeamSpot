@@ -2,6 +2,22 @@
 
 const url = "https://secure-depths-39233.herokuapp.com/api"
 
+export function getProfile(userid) {
+    let token = global.token
+    return fetch(url + "/user/profile/" + userid, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: token,
+        },
+    }).then((response) => {
+        //alert(JSON.stringify(response))
+        alert(userid)
+        return response.json()
+    }) 
+}
+
 export function getAllPosts(courseid) {
     let token = global.token
     return fetch(url + "/post/?course=" + courseid, {

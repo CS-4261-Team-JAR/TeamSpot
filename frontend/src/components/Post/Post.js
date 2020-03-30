@@ -44,10 +44,6 @@ export default class Post extends Component{
         this.setState({loading: true, });
         this.refresh()
     }
-
-    profileview() {
-		Actions.profileview()
-    }
     
     requestJoin() {
         
@@ -140,8 +136,8 @@ export default class Post extends Component{
                             <Text style={styles.lastEdit}>Last Edit: {lastEdit.getMonth()}/{lastEdit.getDate()}/{lastEdit.getFullYear()} {lastEdit.getHours()}:{lastEdit.getMinutes()}</Text>
                             <View style={styles.leaderPart}>
                                 {/* <Text style={styles.leaderText}>{leader}</Text>  */}
-                                <TouchableOpacity onPress={() => this.profileview({
-                                    id: data.author._id
+                                <TouchableOpacity onPress={() => Actions.profileview({
+                                    userid: data.author._id
                                 })}>
                                     <Text style={styles.leaderText}>{leader}</Text> 
                                 </TouchableOpacity>
