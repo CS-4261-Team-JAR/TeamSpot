@@ -24,8 +24,7 @@ const userSchema = new mongoose.Schema({
 		ref: 'Course'
 	}],
 	notifications: [{
-		type: String,
-		default: Date.now
+		type: String
 	}],
 	createdDate: {
 		type: Date,
