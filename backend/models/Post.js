@@ -48,6 +48,10 @@ const PostSchema = mongoose.Schema({
 	discussion: [{
 		type: MessageSchema
 	}],
+	requests: [{
+		type: mongoose.Types.ObjectId,
+		ref: 'User',
+	}],
 	lastModified: {
 		type: Date,
 		default: Date.now

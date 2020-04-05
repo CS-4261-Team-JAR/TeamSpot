@@ -11,6 +11,8 @@ const authRoute = require('./routes/auth');
 const postsRoute = require('./routes/posts');
 const coursesRoute = require('./routes/courses');
 const profileRoute = require('./routes/profile');
+const requestRoute = require('./routes/request');
+const notificationRoute = require('./routes/notification');
 
 // Import environment variable
 dotenv.config();
@@ -32,6 +34,8 @@ app.use('/api/user', authRoute);
 app.use('/api/user/profile', profileRoute);
 app.use('/api/course', coursesRoute);
 app.use('/api/post', postsRoute);
+app.use('/api/request', requestRoute);
+app.use('/api/notification', notificationRoute);
 
 // Routes
 app.get('/', (req, res) => {

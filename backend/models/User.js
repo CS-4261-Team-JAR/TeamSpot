@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
 		type: mongoose.Types.ObjectId,
 		ref: 'Course'
 	}],
+	notifications: [{
+		type: String,
+		default: Date.now
+	}],
 	createdDate: {
 		type: Date,
 		default: Date.now
