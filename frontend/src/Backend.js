@@ -13,7 +13,7 @@ export function getProfile(userid) {
         },
     }).then((response) => {
         //alert(JSON.stringify(response))
-        alert(userid)
+        //alert(userid)
         return response.json()
     }) 
 }
