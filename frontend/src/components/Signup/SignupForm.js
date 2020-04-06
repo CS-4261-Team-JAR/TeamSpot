@@ -7,10 +7,6 @@ export default class Signup extends Component {
         Actions.login()
     }
 
-    profileedit1() {
-        Actions.profileedit1()
-    }
-
     constructor(props) {
         super(props)
         this.state = {
@@ -20,7 +16,16 @@ export default class Signup extends Component {
             password: "",
             cpassword: "",
         }
+        this.gather = this.gather.bind(this)
         this.submit = this.submit.bind(this)
+    }
+
+    gather() {
+        global.name = this.state.fname + " " + this.state.lname
+        console.log("signupForm:", global.name)
+        global.email = this.state.email
+        global.password = this.state.password
+        this.profileedit1()
     }
 
     submit() {
@@ -46,7 +51,12 @@ export default class Signup extends Component {
         }).then(text => {
             console.log(text)
         })
+        this.gather()
+    }
 
+    profileedit1() {
+        // Actions.gather()
+        Actions.profileedit1()
     }
 
     render() {
