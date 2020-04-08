@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {StyleSheet, View, ScrollView, TouchableOpacity, Text, Image, Alert} from 'react-native';
 import {RefreshControl} from 'react-native';
 import { Header, Button } from 'react-native-elements';
-import {getPost} from '../../Backend.js'
+import {getPost, createJoinRequest} from '../../Backend.js'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Discussion from './Discussion';
 import JoinRequests from './JoinRequests';
@@ -27,6 +27,7 @@ export default class Post extends Component{
         this.state = { loading: true, data: null }
 
         this.edit = this.edit.bind(this)
+        this.requestJoin = this.requestJoin.bind(this)
     }
 
     componentDidMount() {
@@ -36,6 +37,7 @@ export default class Post extends Component{
     refresh() {
         getPost(this.props.postid)
             .then(json => {
+                //alert(JSON.stringify(json))
                 this.setState({ loading: false, data: json[0] })
             })
     }
@@ -46,7 +48,14 @@ export default class Post extends Component{
     }
     
     requestJoin() {
-        
+        createJoinRequest("this.props.postid")
+            .then(ok => {
+                if (ok) {
+                    alert("Request sent")
+                } else {
+                    alert("Issue with request")
+                }
+            })
     }
 
     _scrollToInput (reactNode) {
@@ -82,6 +91,7 @@ export default class Post extends Component{
 
             const data = this.state.data
             const myPost = global.userID == data.author._id
+            const requestSent = !myPost && data.requests.includes(global.userID)
 
             //const { title, description, currentNumber, desiredNumber } = this.props;
             const title = data.title//"Post Title"
@@ -148,7 +158,10 @@ export default class Post extends Component{
                         {myPost ? 
                             <JoinRequests data={requests}/>
                             : 
-                            <Button buttonStyle={styles.button} title="Request to Join" onPress={this.requestJoin}/>}
+                            (requestSent ?
+                                <Text>Join request sent</Text>
+                                :
+                                <Button buttonStyle={styles.button} title="Request to Join" onPress={this.requestJoin}/>)}
                     </View>
 
                     <Discussion data={data}/>

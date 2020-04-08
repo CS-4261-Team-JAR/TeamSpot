@@ -50,7 +50,6 @@ export function getPost(postid) {
             Authorization: token,
         },
     }).then((response) => {
-        //alert(JSON.stringify(response))
         //alert(postid)
         return response.json()
     }) 
@@ -133,4 +132,69 @@ export function addToDiscussion(postid, message) {
 
     return fetch(url + "/post/discussion", requestOptions)
         .then((response) => response.json())
+}
+
+export function createJoinRequest(postid) {
+    let token = global.token
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        postId: postid,
+    })
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(url + "/request/join", requestOptions)
+        .then((response) => response.ok)
+}
+
+export function approveJoinRequest(postid, requestor) {
+    let token = global.token
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        postId: postid,
+        requestor: requestor
+    })
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(url + "/request/accept", requestOptions)
+        .then((response) => response.ok)
+}
+
+export function rejectJoinRequest(postid, requestor) {
+    let token = global.token
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        postId: postid,
+        requestor: requestor
+    })
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(url + "/request/reject", requestOptions)
+        .then((response) => response.ok)
 }

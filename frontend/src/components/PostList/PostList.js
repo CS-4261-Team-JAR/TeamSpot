@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import {RefreshControl} from 'react-native';
 import PropTypes from 'prop-types';
 import {getPosts, getAllPosts} from '../../Backend.js'
 import PostBriefView from './PostBriefView';
 import Icon from "react-native-vector-icons/Ionicons";
-import { Header } from 'react-native-elements';
+import { Header, SearchBar } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 // import LoginForm from '../Login/LoginForm.js';
 import LoginForm from '../Login/LoginForm';
@@ -14,9 +14,10 @@ export default class PostList extends Component {
 
     constructor(props) {
         super(props)
-        this.state = { loading: true, data: null }
+        this.state = { loading: true, data: null, sortedData: null, searchText: "" }
 
-        //alert(JSON.stringify(this.token))
+        this.updateSearch = this.updateSearch.bind(this)
+        this.sortData = this.sortData.bind(this)
     }
 
     componentDidMount() {
@@ -24,17 +25,7 @@ export default class PostList extends Component {
     }
 
     refresh() {
-        /*const url = "https://blooming-harbor-28361.herokuapp.com/posts"
-        fetch(url)
-        .then((response) => response.json())*/
-
-        // var userID = global.userID
         let token = global.userID
-        /*if (!this.props.token) {
-            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTU5YTEzYjlmZTBjZTRmODgwNjZmYTEiLCJpYXQiOjE1ODI5MzIyOTl9.-gMZBOmiD6l9orb2QoeoPqS6zhU8Cs-yvc2xTh-f3fI"
-        } else {
-            token = this.props.token
-        }*/
         var courseid = global.courseid
         if (!courseid) {
             courseid = "5e59a15a9fe0ce4f88066fa2"
@@ -42,7 +33,34 @@ export default class PostList extends Component {
 
         //getPosts()
         getAllPosts(courseid)
-            .then(json => this.setState({ loading: false, data: json }))
+            .then(json => this.setState({ loading: false, data: json, sortedData: this.sortData(this.state.searchText, json) }))
+    }
+
+    sortData(searchText, data) {
+        if (searchText == "") {
+            return data
+        }
+
+        var sortedData = []
+
+        for (const datum of data) {
+            const title = datum.title
+            //const description = datum.description
+            const tags = datum.tags
+
+            var match = title.includes(searchText)
+            for (const tag of tags) {
+                if (tag.includes(searchText)) {
+                    match = true
+                }
+            }
+
+            if (match) {
+                sortedData.push(datum)
+            }
+        }
+
+        return sortedData
     }
 
     renderList = data => {
@@ -60,8 +78,12 @@ export default class PostList extends Component {
         this.refresh()
     }
 
+    updateSearch(search) {
+        this.setState({searchText: search, sortedData: this.sortData(search, this.state.data)})
+    }
+
     render() {
-        const { loading, data } = this.state
+        const { loading, sortedData } = this.state
 
         // console.log("PostList:", global.userID)
         // console.log("PostList:", LoginForm.state.email)
@@ -82,7 +104,11 @@ export default class PostList extends Component {
                         onRefresh={this._onRefresh}
                     />
                 }>
-                    {loading ? <Text style={styles.loadingText}>Loading</Text> : this.renderList(data)}
+                    {/*<TextInput style={styles.searchBar}/>*/}
+                    <SearchBar value={this.state.searchText} onChangeText={this.updateSearch}
+                        placeholder="Search" lightTheme={true} containerStyle={styles.searchContainer}
+                        inputContainerStyle={styles.searchInputContainer} inputStyle={styles.searchInput}/>
+                    {loading ? <Text style={styles.loadingText}>Loading</Text> : this.renderList(sortedData)}
                 </ScrollView>
                 <TouchableOpacity
                     style={styles.addIcon} 
@@ -100,6 +126,24 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         //justifyContent: 'flex-start',
         height: '88%'
+    },
+    searchContainer: {
+        backgroundColor: 'white',
+        borderColor: 'white',
+    },
+    searchInputContainer: {
+        backgroundColor: 'white',
+        //borderColor: 'white',
+    },
+    searchInput: {
+
+    },
+    searchBar: {
+        borderColor: '#BCE0FD',
+        borderWidth: 1,
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 15,
     },
     addIcon: {
         borderWidth: 1,
