@@ -12,7 +12,7 @@ router.get('/', verify, async (req, res) => {
 	}, '-_id -__v').populate('user', 'name');
 	if (!profileExist) return res.status(400).send({'error': 'Profile not found'});
 
-	res.send(profileExist);
+	res.send({'profile': profileExist});
 });
 
 // Get Profile
@@ -22,7 +22,7 @@ router.get('/:id', verify, async (req, res) => {
 	}, '-_id -__v').populate('user', 'name email')
 	if (!profileExist) return res.status(400).send({'error': 'Profile not found'});
 
-	res.send(profileExist);
+	res.send({'profile': profileExist});
 });
 
 // Create profile
@@ -54,9 +54,9 @@ router.post('/', verify, async (req, res) => {
 
 	try {
 		await profile.save()
-		res.send('Profile created');
+		res.send({'message': 'Profile created'});
 	} catch (err) {
-		res.status(400).send(err);
+		res.status(400).send({'error': err});
 	};
 });
 
@@ -83,9 +83,9 @@ router.put('/', verify, async (req, res) => {
 
 	try {
 		await profile.save()
-		res.send(profile);
+		res.send({'profile': profile});
 	} catch (err) {
-		res.status(400).send(err);
+		res.status(400).send({'error': err});
 	};
 });
 
