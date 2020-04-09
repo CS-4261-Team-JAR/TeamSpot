@@ -48,7 +48,7 @@ export default class ViewCourses extends Component {
         return (  
             <View>
                 <Header
-                    leftComponent={{ icon: "menu", color: "#fff", onPress: Actions.profileview}}
+                    leftComponent={{ icon: "menu", color: "#fff", onPress: Actions.profileedit1}}
                     centerComponent={{ text: "COURSES", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
                     rightComponent={{ icon: "add", color: "#fff", onPress: Actions.addcourse}}
                     backgroundColor="#2980b9"

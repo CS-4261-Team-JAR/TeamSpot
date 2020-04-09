@@ -17,7 +17,7 @@ export default class Signup extends Component {
             cpassword: "",
         }
         this.gather = this.gather.bind(this)
-        this.initProfile = this.initProfile.bind(this)
+        // this.initProfile = this.initProfile.bind(this)
         this.submit = this.submit.bind(this)
     }
 
@@ -29,51 +29,55 @@ export default class Signup extends Component {
         this.profileedit1()
     }
 
-    initProfile() {
-        console.log("global.token:", global.token)
-        const url = "https://secure-depths-39233.herokuapp.com/api/user/profile" 
-        const body = {
-            major: "CS",
-            standing: "Freshman",
-            intro: "Cool",
-            skills: {
-                technical: ["Java", "Python"],
-                soft: ["public speaking", "problem solver"]
-            },
-            classTaken: ["CS1332", "CS4400"],
-            linkedin: "https://www.linkedin.com"
-            // major: "", 
-            // standing: "", 
-            // intro: "", 
-            // skills: { 
-            //     technical: ["skill1", "skill2"], 
-            //     soft: ["skill1", "skill2"] }, 
-            // classTaken: ["class1", "class2"], 
-            // linkedin: "", 
-            // github: ""
-        }
+    // initProfile() {
+    //     console.log("global.token:", global.token)
+    //     const url = "https://secure-depths-39233.herokuapp.com/api/user/profile" 
+    //     const body = {
+    //         major: "CS",
+    //         standing: "Freshman",
+    //         intro: "Cool",
+    //         skills: {
+    //             technical: ["Java", "Python"],
+    //             soft: ["public speaking", "problem solver"]
+    //         },
+    //         classTaken: ["CS1332", "CS4400"],
+    //         linkedin: "https://www.linkedin.com"
+    //         // major: "", 
+    //         // standing: "", 
+    //         // intro: "", 
+    //         // skills: { 
+    //         //     technical: ["skill1", "skill2"], 
+    //         //     soft: ["skill1", "skill2"] }, 
+    //         // classTaken: ["class1", "class2"], 
+    //         // linkedin: "", 
+    //         // github: ""
+    //     }
 
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': global.token, 
-                },
-			body: JSON.stringify(body),
-        }).then((response) => {
-            console.log(response.status)
-            if (response.status == 200) {
-                global.name = this.state.fname + " " + this.state.lname
-                console.log("signupForm:", global.name)
-                global.email = this.state.email
-                global.password = this.state.password
-                Actions.login()
-            }
-
-            return response.json()
-        })
-    }
+    //     fetch(url, {
+    //         method: 'POST',
+    //         headers: {
+    //             Accept: 'application/json',
+    //             'Content-Type': 'application/json',
+    //             'Authorization': global.token, 
+    //             },
+	// 		body: JSON.stringify(body),
+    //     }).then((response) => {
+    //         // console.log(response.status)
+    //         // console.log("profile api")
+    //         // if (response.status == 200) {
+    //         //     global.name = this.state.fname + " " + this.state.lname
+    //         //     console.log("signupForm:", global.name)
+    //         //     global.email = this.state.email
+    //         //     global.password = this.state.password
+    //         //     Actions.login()
+    //         // }
+    //         // console.log('checkpoint')
+    //         console.log("submit_response",response)
+    //         return response.json()
+    //     }).then((data) => {
+    //         console.log(data)
+    //     })
+    // }
 
     submit() {
         const url = "https://secure-depths-39233.herokuapp.com/api/user/register"
@@ -91,17 +95,21 @@ export default class Signup extends Component {
                 },
 			body: JSON.stringify(body),
         }).then((response) => {
-            if (response.status == 200) {
-                // Actions.profileedit1()
-            }
-            console.log('signupform:', response)
+            // console.log("register api")
+            // console.log("response.statue:", response.status)
+            // if (response.status == 200) {
+            //     // Actions.profileedit1()
+            // }
+            // console.log('signupform_submit:', response)
             return response.json()
         }).then((json) => {
+            console.log(json)
             // console.log("json.token:",json.token)
 			global.token = json.token
 			global.userID = json.id
         })
-        this.initProfile()
+        Actions.login()
+        // this.initProfile()
         // this.gather()
     }
 

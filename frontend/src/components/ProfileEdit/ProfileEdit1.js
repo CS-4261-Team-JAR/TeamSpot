@@ -17,10 +17,14 @@ export default class ProfileEdit extends Component {
     }
 
     gather() {
-        console.log("profileEdit1",global.name)
+        console.log("profileEdit1:",global.token)
+        // console.log("profileEdit1:",global.year)
+        // console.log("profileEdit1:",global.aboutMe)
         global.major = this.state.major
         global.year = this.state.year
         global.aboutMe = this.state.aboutMe
+        console.log("profileEdit1:",global.year)
+        console.log("profileEdit1:",global.aboutMe)
         this.profileedit2()
     }
 
