@@ -10,7 +10,7 @@ router.get('/', verify, async (req, res) => {
 	const profileExist = await Profile.findOne({
 		user: req.user._id
 	}, '-_id -__v').populate('user', 'name');
-	if (!profileExist) return res.status(400).send('Profile not found');
+	if (!profileExist) return res.status(400).send({'error': 'Profile not found'});
 
 	res.send(profileExist);
 });
@@ -20,7 +20,7 @@ router.get('/:id', verify, async (req, res) => {
 	const profileExist = await Profile.findOne({
 		user: req.params.id
 	}, '-_id -__v').populate('user', 'name email')
-	if (!profileExist) return res.status(400).send('Profile not found');
+	if (!profileExist) return res.status(400).send({'error': 'Profile not found'});
 
 	res.send(profileExist);
 });
@@ -35,7 +35,7 @@ router.post('/', verify, async (req, res) => {
 	const profileExist = await Profile.findOne({
 		user: req.user._id
 	});
-	if (profileExist) return res.status(400).send('Profile already exists');
+	if (profileExist) return res.status(400).send({'error': 'Profile already exists'});
 
 	const profile = new Profile({
 		user: req.user._id,
