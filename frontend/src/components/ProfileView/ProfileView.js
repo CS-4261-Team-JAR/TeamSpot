@@ -22,7 +22,7 @@ export default class ProfileView extends Component {
 
     refresh() {
         
-        /*const url = "https://secure-depths-39233.herokuapp.com/api/user/profile/" + this.props.userid
+        const url = "https://secure-depths-39233.herokuapp.com/api/user/profile/" + global.userID
         console.log(url)
         const token = global.token
 
@@ -35,9 +35,9 @@ export default class ProfileView extends Component {
             info = data
             return data
             // console.log(data.classTaken)
-        }).then(json => this.setState({loading: false, data: json}));*/
-        getProfile("5e59a13b9fe0ce4f88066fa1")//this.props.userid)
-            .then(json => this.setState({loading: false, data: json}));
+        }).then(json => this.setState({loading: false, data: json}));
+        // getProfile("5e59a13b9fe0ce4f88066fa1")//this.props.userid)
+        //     .then(json => this.setState({loading: false, data: json}));
     }
 
     _onRefresh = () => {

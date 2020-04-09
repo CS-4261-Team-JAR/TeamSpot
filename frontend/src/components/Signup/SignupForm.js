@@ -17,6 +17,7 @@ export default class Signup extends Component {
             cpassword: "",
         }
         this.gather = this.gather.bind(this)
+        this.initProfile = this.initProfile.bind(this)
         this.submit = this.submit.bind(this)
     }
 
@@ -26,6 +27,52 @@ export default class Signup extends Component {
         global.email = this.state.email
         global.password = this.state.password
         this.profileedit1()
+    }
+
+    initProfile() {
+        console.log("global.token:", global.token)
+        const url = "https://secure-depths-39233.herokuapp.com/api/user/profile" 
+        const body = {
+            major: "CS",
+            standing: "Freshman",
+            intro: "Cool",
+            skills: {
+                technical: ["Java", "Python"],
+                soft: ["public speaking", "problem solver"]
+            },
+            classTaken: ["CS1332", "CS4400"],
+            linkedin: "https://www.linkedin.com"
+            // major: "", 
+            // standing: "", 
+            // intro: "", 
+            // skills: { 
+            //     technical: ["skill1", "skill2"], 
+            //     soft: ["skill1", "skill2"] }, 
+            // classTaken: ["class1", "class2"], 
+            // linkedin: "", 
+            // github: ""
+        }
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': global.token, 
+                },
+			body: JSON.stringify(body),
+        }).then((response) => {
+            console.log(response.status)
+            if (response.status == 200) {
+                global.name = this.state.fname + " " + this.state.lname
+                console.log("signupForm:", global.name)
+                global.email = this.state.email
+                global.password = this.state.password
+                Actions.login()
+            }
+
+            return response.json()
+        })
     }
 
     submit() {
@@ -45,13 +92,17 @@ export default class Signup extends Component {
 			body: JSON.stringify(body),
         }).then((response) => {
             if (response.status == 200) {
-                Actions.profileedit1()
+                // Actions.profileedit1()
             }
-            return response.text()
-        }).then(text => {
-            console.log(text)
+            console.log('signupform:', response)
+            return response.json()
+        }).then((json) => {
+            // console.log("json.token:",json.token)
+			global.token = json.token
+			global.userID = json.id
         })
-        this.gather()
+        this.initProfile()
+        // this.gather()
     }
 
     profileedit1() {
@@ -118,7 +169,7 @@ export default class Signup extends Component {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.login}>
+                <TouchableOpacity onPress={this.submit}>
                     <Text
                         style={styles.signupText}>
                         Already have a new account? Login
