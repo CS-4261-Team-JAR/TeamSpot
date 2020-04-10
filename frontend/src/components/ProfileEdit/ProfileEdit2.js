@@ -27,23 +27,23 @@ export default class ProfileEdit2 extends Component {
         var Class = []
         var Tskill = []
         var Sskill = [] 
-        Class += this.state.class.split(',');
-        Tskill += this.state.Tskill.split(',');
-        Sskill += this.state.Sskill.split(',');
+        Class = this.state.class.split(',');
+        Tskill = this.state.Tskill.split(',');
+        Sskill = this.state.Sskill.split(',');
         const url = "https://secure-depths-39233.herokuapp.com/api/user/profile"
         const body = {
             major: global.major,
             standing: global.year,
             intro: global.aboutMe,
             skills: {
-                technical: Tskill,
-                soft: Sskill
+                technical: [],
+                soft: []
             },
-            classTaken: Class,
+            classTaken: [],
             linkedin: "https://www.linkedin.com"
         }
 
-        console.log('JSON:', JSON.stringify(body))
+        // console.log('JSON:', JSON.stringify(body))
         fetch(url, {
             method: 'POST',
             headers: {
@@ -53,8 +53,8 @@ export default class ProfileEdit2 extends Component {
                 },
 			body: JSON.stringify(body),
         }).then((response) => {
-            console.log(response.text())
-            console.log(response.status)
+            // console.log(response)
+            // console.log(response.status)
             // console.log("profile api")
             // if (response.status == 200) {
             //     global.name = this.state.fname + " " + this.state.lname
@@ -63,12 +63,13 @@ export default class ProfileEdit2 extends Component {
             //     global.password = this.state.password
             //     Actions.login()
             // }
-            console.log('checkpoint')
+            // console.log('checkpoint')
             // console.log(response)
             return response.json()
         }).then((data) => {
-            console.log(data)
+            // console.log(data)
         })
+        Actions.viewcourses()
     }
 
     submit() {
