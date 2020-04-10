@@ -4,11 +4,14 @@ import { Header } from 'react-native-elements';
 import { Menu, MenuProvider, MenuOptions, MenuOption, MenuTrigger} from "react-native-popup-menu";
 import { ListItem } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import {Select} from 'react-native-dropdown';
+// import { Dropdown } from 'semantic-ui-react'
 
 export default class AddCourse extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            canada: "",
             year: "",
             semester: "",
             course: ""
@@ -17,6 +20,19 @@ export default class AddCourse extends Component {
         YellowBox.ignoreWarnings([
          'Warning: isMounted(...) is deprecated', 'Module RCTImageLoader'
        ]);
+    }
+
+    _getOptionList() {
+        return this.refs['OPTIONLIST'];
+    }
+
+    _canada(province) {
+
+
+        this.setState({
+          ...this.state,
+          canada: province
+        });
     }
 
     submit() {
@@ -112,7 +128,25 @@ export default class AddCourse extends Component {
 
                         <Text></Text>
 
-                        <Menu style={{backgroundColor: '#d4ebd0'}} onSelect={value => alert(`You Clicked : ${value}`)}>
+                        <Select width={250} ref="SELECT1" optionListRef={this._getOptionList.bind(this)}
+                            defaultValue="Select a Province in Canada ..."
+                            onSelect={this._canada.bind(this)}>
+                            <Option>Alberta</Option>
+                            <Option>British Columbia</Option>
+                            <Option>Manitoba</Option>
+                            <Option>New Brunswick</Option>
+                            <Option>Newfoundland and Labrador</Option>
+                            <Option>Northwest Territories</Option>
+                            <Option>Nova Scotia</Option>
+                            <Option>Nunavut</Option>
+                            <Option>Ontario</Option>
+                            <Option>Prince Edward Island</Option>
+                            <Option>Quebec</Option>
+                            <Option>Saskatchewan</Option>
+                            <Option>Yukon</Option>
+                        </Select>
+
+                        {/* <Menu style={{backgroundColor: '#d4ebd0'}} onSelect={value => alert(`You Clicked : ${value}`)}>
                             <MenuTrigger  >
                                 <Text style={styles.headerText}>COURSE</Text>
                             </MenuTrigger  >
@@ -154,9 +188,9 @@ export default class AddCourse extends Component {
                                 </MenuOption>
 
                             </MenuOptions>
-                        </Menu>
+                        </Menu> */}
                     </MenuProvider>
-
+                    
                 </View>
 
                 <View style={styles.bottomContainer}>
@@ -172,6 +206,7 @@ export default class AddCourse extends Component {
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
