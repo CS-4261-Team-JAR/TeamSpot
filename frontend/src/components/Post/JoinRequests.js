@@ -81,7 +81,7 @@ export default class JoinRequests extends Component{
             <View>
                 {requests.map((item, i) => {
                     return (
-                        <Request source='default' name={item.name} id={item._id} postid={this.props.postid} refresh={this.props.refresh}/>
+                        <Request source='default' name={item.name} id={item.id} postid={this.props.postid} refresh={this.props.refresh}/>
                     )
                 })}
             </View>
@@ -164,9 +164,10 @@ class Request extends Component {
         approveJoinRequest(this.props.postid, this.props.id)
             .then((ok) => {
                 if (ok) {
+                    alert(this.props.name + " was successfully added to team!")
                     this.props.refresh()
                 } else {
-                    alert("Issue approving request")
+                    //alert(this.props.name + " was successfully added to team!")
                 }
             })
     }

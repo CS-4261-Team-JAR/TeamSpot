@@ -174,7 +174,10 @@ export function approveJoinRequest(postid, requestor) {
     };
 
     return fetch(url + "/request/accept", requestOptions)
-        .then((response) => response.ok)
+        .then((response) => {
+            //alert(JSON.stringify(response))
+            return response.ok
+        })
 }
 
 export function rejectJoinRequest(postid, requestor) {
