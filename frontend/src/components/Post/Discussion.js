@@ -20,11 +20,14 @@ export default class Discussion extends Component{
     }
 
     getName(user) {
+        if (!global.nameMap) {
+            global.nameMap = {}
+        }
         if (user.name) {
-            nameMap[user._id] = user.name
+            global.nameMap[user._id] = user.name
             return user.name
-        } else if (nameMap[user]) {
-            return nameMap[user]
+        } else if (global.nameMap[user]) {
+            return global.nameMap[user]
         } else {
             return user
         }
@@ -88,8 +91,6 @@ export default class Discussion extends Component{
         );
     }
 }
-
-var nameMap = {}
 
 class IncomingMessage extends Component {
     static propTypes = {
