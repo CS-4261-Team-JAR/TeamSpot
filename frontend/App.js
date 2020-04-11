@@ -12,7 +12,6 @@ import ViewCourses from './src/components/Course/ViewCourses';
 
 import PostBriefView from './src/components/PostList/PostBriefView';
 import ProfileView from './src/components/ProfileView/ProfileView';
-// import test from './src/components/Login/test';
 import Routes from './src/Routes';
 
 
@@ -36,7 +35,6 @@ export default function App() {
     // <PostList/>
     // <ProfileView/>
     // <ViewCourses/>
-    // <test/>
     <Routes />
     // <ProfileEdit1/>
     // <ProfileEdit2/>
