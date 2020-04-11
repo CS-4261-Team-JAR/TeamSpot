@@ -48,7 +48,7 @@ export default class Post extends Component{
     }
     
     requestJoin() {
-        createJoinRequest("this.props.postid")
+        createJoinRequest(this.props.postid)
             .then(ok => {
                 if (ok) {
                     alert("Request sent")
