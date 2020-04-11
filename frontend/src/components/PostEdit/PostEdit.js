@@ -16,6 +16,7 @@ export default class PostEdit extends Component{
     constructor(props) {
         super(props)
         let data = this.props.data
+        //alert(JSON.stringify(data))
         var tags = data.tags[0] ? data.tags[0] : ""
         for (var i = 1; i < data.tags.length; i++) {
             tags += ", " + data.tags

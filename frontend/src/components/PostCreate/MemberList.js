@@ -31,8 +31,9 @@ export default class MemberList extends Component{
         this.loadMembers = this.loadMembers.bind(this)
         this.getMemberInfo = this.getMemberInfo.bind(this)
 
-        if (props.value) {
-            this.loadMembers(props.value)
+        //alert(JSON.stringify(this.props.value))
+        if (this.props.value) {
+            this.loadMembers(this.props.value)
         }
     }
 
@@ -55,11 +56,18 @@ export default class MemberList extends Component{
     }
 
     getMemberInfo(identification) {
+        //alert(identification)
         if (identification.includes("@")) {
             // It's an email
             return {
                 email: identification,
                 name: "",
+                id: "",
+            }
+        } else if (identification.includes(" ")) {
+            return {
+                email: "",
+                name: identification,
                 id: "",
             }
         } else {
