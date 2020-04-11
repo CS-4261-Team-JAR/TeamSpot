@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Text, Image, TouchableOpacity} from 'react-native';
 import {KeyboardAvoidingView, Alert} from 'react-native'
+import {getProfile} from '../../Backend.js'
 import PropTypes from 'prop-types';
 import Icon from "react-native-vector-icons/Ionicons";
 
 export default class MemberList extends Component{
     static propTypes = {
-        requests: PropTypes.object.isRequired,
+        //requests: PropTypes.object.isRequired,
         onUpdate: PropTypes.func.isRequired,
     }
 
@@ -23,18 +24,75 @@ export default class MemberList extends Component{
             ],
             newMember: "",
         }
-
+        
         this.deleteMember = this.deleteMember.bind(this)
         this.addMember = this.addMember.bind(this)
         this.getMemberList = this.getMemberList.bind(this)
+        this.loadMembers = this.loadMembers.bind(this)
+        this.getMemberInfo = this.getMemberInfo.bind(this)
+
+        if (props.value) {
+            this.loadMembers(props.value)
+        }
+    }
+
+    loadMembers(members) {
+        members.shift()
+        for (let name of members) {
+            let result = this.getMemberInfo(name)
+            //alert(JSON.stringify(result))
+            if (result.then) {
+                //alert(name)
+                result.then((member) => {
+                    this.state.members.push(member)
+                    this.setState({members: this.state.members})
+                })
+            } else {
+                this.state.members.push(result)
+                this.setState({members: this.state.members})
+            }
+        }
+    }
+
+    getMemberInfo(identification) {
+        if (identification.includes("@")) {
+            // It's an email
+            return {
+                email: identification,
+                name: "",
+                id: "",
+            }
+        } else {
+            // It's a user-id
+            return getProfile(identification)
+                .then((profile) => {
+                    //alert(JSON.stringify(profile))
+                    if (!profile || profile.error) {
+                        return {
+                            email: "",
+                            name: this.getName(identification),
+                            id: identification,
+                        }
+                    } else {
+                        return {
+                            email: profile.user.email,
+                            name: profile.user.name,
+                            id: identification,
+                        }
+                    }
+                })
+        }
     }
 
     getName(user) {
+        if (!global.nameMap) {
+            global.nameMap = {}
+        }
         if (user.name) {
-            nameMap[user._id] = user.name
+            global.nameMap[user._id] = user.name
             return user.name
-        } else if (nameMap[user]) {
-            return nameMap[user]
+        } else if (global.nameMap[user]) {
+            return global.nameMap[user]
         } else {
             return user
         }
@@ -94,6 +152,7 @@ export default class MemberList extends Component{
     }
 
     renderRequests = requests => {
+        //alert(JSON.stringify(requests))
         return (
             <View>
                 {requests.map((item, i) => {

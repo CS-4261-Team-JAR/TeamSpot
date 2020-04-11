@@ -191,12 +191,15 @@ export default class PostEdit extends Component{
 
                     <Text style={styles.inputLabel}>Desired Group Size</Text>
                     <TextInput style={styles.titleInput}
+                        value={"" + this.state.desiredNumber}
                         onChangeText={(text) => this.state.desiredNumber = text}/>
 
                     <Text style={styles.inputLabel}>Current Members</Text>
-                    <MemberList onUpdate={(members) => {
-                        this.state.currentMembers = members
-                    }}/>
+                    <MemberList 
+                        value={this.state.currentMembers}
+                        onUpdate={(members) => {
+                            this.state.currentMembers = members
+                        }}/>
                     
                     <View style={styles.buttonRow}>
                         <Button buttonStyle={styles.button} title="Cancel" type="outline" onPress={Actions.pop}/>

@@ -1,24 +1,76 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Text, Image, TouchableOpacity} from 'react-native';
 import {KeyboardAvoidingView, Alert} from 'react-native'
+import {getProfile, approveJoinRequest, rejectJoinRequest} from '../../Backend.js'
 import PropTypes from 'prop-types';
 import Icon from "react-native-vector-icons/Ionicons";
 
 export default class JoinRequests extends Component{
     static propTypes = {
+        postid: PropTypes.string.isRequired,
         requests: PropTypes.object.isRequired,
+        refresh: PropTypes.func.isRequired,
     }
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            requesters: [
+            ],
+        }
+
+        this.loadRequesters = this.loadRequesters.bind(this)
+        this.getRequesterInfo = this.getRequesterInfo.bind(this)
+
+        this.loadRequesters(props.data)
+    }
+
+    loadRequesters(members) {
+        for (let id of members) {
+            let result = this.getRequesterInfo(id)
+            //alert(JSON.stringify(result))
+            if (result.then) {
+                //alert(name)
+                result.then((member) => {
+                    this.state.requesters.push(member)
+                    this.setState({requesters: this.state.requesters})
+                })
+            } else {
+                this.state.requesters.push(result)
+                this.setState({requesters: this.state.requesters})
+            }
+        }
+    }
+
+    getRequesterInfo(identification) {
+        // It's a user-id
+        return getProfile(identification)
+            .then((profile) => {
+                //alert(JSON.stringify(profile))
+                if (!profile || profile.error) {
+                    return {
+                        name: this.getName(identification),
+                        id: identification,
+                    }
+                } else {
+                    return {
+                        name: profile.user.name,
+                        id: identification,
+                    }
+                }
+            })
     }
 
     getName(user) {
+        if (!global.nameMap) {
+            global.nameMap = {}
+        }
         if (user.name) {
-            nameMap[user._id] = user.name
+            global.nameMap[user._id] = user.name
             return user.name
-        } else if (nameMap[user]) {
-            return nameMap[user]
+        } else if (global.nameMap[user]) {
+            return global.nameMap[user]
         } else {
             return user
         }
@@ -29,7 +81,7 @@ export default class JoinRequests extends Component{
             <View>
                 {requests.map((item, i) => {
                     return (
-                        <Request source='default' name={item.name} id={item._id}/>
+                        <Request source='default' name={item.name} id={item._id} postid={this.props.postid} refresh={this.props.refresh}/>
                     )
                 })}
             </View>
@@ -41,7 +93,7 @@ export default class JoinRequests extends Component{
             // <View style = {styles.container}>
             <View style={styles.container}>
                 <Text style={styles.titleText}>Join Requests:</Text>
-                {this.renderRequests(this.props.data)}
+                {this.renderRequests(this.state.requesters)}
             </View>
         );
     }
@@ -54,6 +106,8 @@ class Request extends Component {
         source: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
+        postid: PropTypes.string.isRequired,
+        refresh: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -81,7 +135,14 @@ class Request extends Component {
     }
 
     decline() {
-
+        rejectJoinRequest(this.props.postid, this.props.id)
+        .then((ok) => {
+            if (ok) {
+                this.props.refresh()
+            } else {
+                alert("Issue rejecting request")
+            }
+        })
     }
 
     consider_accept() {
@@ -100,7 +161,14 @@ class Request extends Component {
     }
 
     accept() {
-
+        approveJoinRequest(this.props.postid, this.props.id)
+            .then((ok) => {
+                if (ok) {
+                    this.props.refresh()
+                } else {
+                    alert("Issue approving request")
+                }
+            })
     }
 
     render(){

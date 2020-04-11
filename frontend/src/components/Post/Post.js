@@ -93,6 +93,8 @@ export default class Post extends Component{
             const myPost = global.userID == data.author._id
             const requestSent = !myPost && data.requests.includes(global.userID)
 
+            //alert(data.requests.length)
+
             //const { title, description, currentNumber, desiredNumber } = this.props;
             const title = data.title//"Post Title"
             const description = data.description//"This is the project description. It can be multiple lines long. It will probably be much longer than the one in the breif description on the post list page."
@@ -102,6 +104,7 @@ export default class Post extends Component{
             const leader = data.author.name//'John Doe'
             const tags = data.tags//2
             const leaderProfileLocation = '../../images/defaultProfile.png'
+            const joinRequests = data.requests
             var leaderProfile
             if (leaderProfileLocation.startsWith('http')) {
                 leaderProfile = <Image source={{uri: leaderProfileLocation}} style={styles.profileImage}/>
@@ -156,7 +159,7 @@ export default class Post extends Component{
                             </View>
                         </View>
                         {myPost ? 
-                            <JoinRequests data={requests}/>
+                            <JoinRequests postid={this.props.postid} data={joinRequests} refresh={this.refresh}/>
                             : 
                             (requestSent ?
                                 <Text>Join request sent</Text>
